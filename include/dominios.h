@@ -135,6 +135,13 @@ class Disponibilidade {
     inline std::string getDisp();
 };
 
+// Decidir com o Ariel como implementar (ints, str ou enum?)
+/*class ClasseDeEvento {
+ private:
+
+ public:
+};*/
+
 class FaixaEtaria {
  private:
     std::string fxEtaria;
@@ -156,7 +163,9 @@ class CPF {
     CPF();
     explicit CPF(std::string cpf);
     void setCPF(std::string cpf);
-    inline std::string getCPF();
+    inline std::string getCPF() {
+        return this->cpf;
+    }
 };
 
 class Senha {
