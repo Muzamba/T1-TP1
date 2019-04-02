@@ -157,14 +157,14 @@ class FaixaEtaria {
 class CPF {
  private:
     std::string cpf;
-    bool validar();
+    bool validar(std::string cpf);
 
  public:
     CPF();
     explicit CPF(std::string cpf);
     void setCPF(std::string cpf);
-    inline std::string getCPF() {
-        return this->cpf;
+    std::string getCPF() {
+        return cpf;
     }
 };
 
