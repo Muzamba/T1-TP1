@@ -7,9 +7,12 @@
 
 TEST_CASE("Classe CPF") {
     std::string digitos("05289706151");
-    CPF cpf(digitos);
+    std::string fake_digitos("32145809876");
 
+    CPF cpf(digitos);
     REQUIRE(cpf.getCPF() == digitos);
+
+    CPF fake_cpf(fake_digitos);
 }
 
 

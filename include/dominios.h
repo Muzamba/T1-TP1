@@ -164,7 +164,7 @@ class CPF {
     explicit CPF(std::string cpf);
     void setCPF(std::string cpf);
     std::string getCPF() {
-        return cpf;
+        return this->cpf;
     }
 };
 

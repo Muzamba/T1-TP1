@@ -8,7 +8,7 @@ DEP_FLAGS = -MT $@ -MMD -MP -MF $(DEP_PATH)/$*.d
 
 DIRECTIVES = -std=c++11 -Wall -Wextra -c -I $(HEADER_PATH)
 
-LIBS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
+LIBS = -lm
 
 HEADER_PATH = include
 SRC_PATH = src
@@ -19,7 +19,7 @@ CPP_FILES = $(wildcard $(SRC_PATH)/*.cpp)
 OBJ_FILES = $(addprefix $(BIN_PATH)/,$(notdir $(CPP_FILES:.cpp=.o)))
 DEP_FILES = $(wildcard $(DEP_PATH)/*.d)
 
-EXEC = GAME
+EXEC = teste
 
 ifeq ($(OS),Windows_NT)
 

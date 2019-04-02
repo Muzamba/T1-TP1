@@ -31,12 +31,14 @@
 /**************** Classe CPF ****************/
 
 CPF::CPF(std::string cpf) {
-    cpf.assign(cpf);
+    if (validar(cpf)) {
+        this->cpf.assign(cpf);
+    }
 }
 
 void CPF::setCPF(std::string cpf) {
     try {
-        if (validar(cpf) == false) {
+        if (!validar(cpf)) {
             throw "CPF invalido";
         } else {
             this->cpf.assign(cpf);
@@ -64,17 +66,17 @@ bool CPF::validar(std::string cpf) {
     soma = 0;
 
     for (int i = 0; i < 10; i++) {
-        soma += (cpf[i] - '0') * (10 - i);
+        soma += (cpf[i] - '0') * (11 - i);
     }
     soma %= 11;
 
     if (soma < 2)  {
-        digito1 = 0;
+        digito2 = 0;
     } else {
-        digito1 = 11 - soma;
+        digito2 = 11 - soma;
     }
 
-    if (digito1 == cpf[9] && digito2 == cpf[10]) {
+    if (digito1 == (cpf[9] - '0') && digito2 == (cpf[10]) - '0') {
         return true;
     } else {
         return false;
