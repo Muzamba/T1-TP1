@@ -2,7 +2,25 @@
 #include <iostream>
 #include "../include/dominios.h"
 
+/**************** Classe Super ****************/
+void Super::setConteudo(std::string conteudo) {
+    validar(conteudo);
+    this->conteudo = conteudo;
+}
 /**************** Classe CodigoDeEvento ****************/
+void CodigoDeEvento::validar(std::string codigo) {
+    bool valid = true;
+    for (auto &c : codigo) {
+        if ((c - '0') < 0) {
+            valid = false;
+        }
+    }
+    if (codigo.size() != 3) {
+        throw std::invalid_argument("Código de Evento deve ter 3 caracteres");
+    } else if (valid == false) {
+        throw std::invalid_argument("Código de Evento possui dígitos negativos");
+    }
+}
 
 /**************** Classe CodigoDeApresentacao ****************/
 
@@ -30,25 +48,7 @@
 
 /**************** Classe CPF ****************/
 
-CPF::CPF(std::string cpf) {
-    if (validar(cpf)) {
-        this->cpf.assign(cpf);
-    }
-}
-
-void CPF::setCPF(std::string cpf) {
-    try {
-        if (!validar(cpf)) {
-            throw "CPF invalido";
-        } else {
-            this->cpf.assign(cpf);
-        }
-    } catch (const char* error) {
-        std::cout << "ERRO! Causado por: " << error << std::endl;
-    }
-}
-
-bool CPF::validar(std::string cpf) {
+void CPF::validar(std::string cpf) {
     int digito1, digito2;
     int soma = 0;
 
@@ -76,10 +76,8 @@ bool CPF::validar(std::string cpf) {
         digito2 = 11 - soma;
     }
 
-    if (digito1 == (cpf[9] - '0') && digito2 == (cpf[10]) - '0') {
-        return true;
-    } else {
-        return false;
+    if (digito1 != (cpf[9] - '0') || digito2 != (cpf[10]) - '0') {
+        throw std::invalid_argument("CPF invalido");
     }
 }
 

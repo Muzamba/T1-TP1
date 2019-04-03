@@ -2,137 +2,72 @@
 #ifndef INCLUDE_DOMINIOS_H_
 #define INCLUDE_DOMINIOS_H_
 #include <string>
+#include <stdexcept>
 
-class CodigoDeEvento {
- private:
-    std::string codigo;
-    bool validar();
-
+class Super {
+ protected:
+    std::string conteudo;
+    virtual void validar(std::string) = 0;
  public:
-    CodigoDeEvento();
-    explicit CodigoDeEvento(int codigo);
-    void setCodigo(std::string codigo);
-    inline std::string getCodigo();
+    void setConteudo(std::string conteudo);
+    std::string getConteudo() {
+        return conteudo;
+    }
 };
 
-class CodigoDeApresentacao {
+class CodigoDeEvento : public Super {
  private:
-    std::string codigo;
-    bool validar();
-
- public:
-    CodigoDeApresentacao();
-    explicit CodigoDeApresentacao(int codigo);
-    void setCodigo(std::string codigo);
-    inline std::string getCodigo();
+    void validar(std::string) override;
 };
 
-class CodigoDeIngresso {
+class CodigoDeApresentacao : public Super {
  private:
-    std::string codigo;
-    bool validar();
-
- public:
-    CodigoDeIngresso();
-    explicit CodigoDeIngresso(int codigo);
-    void setCodigo(std::string codigo);
-    inline std::string getCodigo();
+    void validar(std::string) override;
 };
 
-class NomeDeEvento {
+class CodigoDeIngresso : public Super {
  private:
-    std::string nome;
-    bool validar();
-
- public:
-    NomeDeEvento();
-    explicit NomeDeEvento(std::string nome);
-    void setNome(std::string nome);
-    inline std::string getNome();
+    void validar(std::string) override;
 };
 
-class Data {
+class NomeDeEvento : public Super {
  private:
-    std::string data;
-    bool validar();
-
- public:
-    Data();
-    explicit Data(std::string data);
-    void setData(std::string data);
-    inline std::string getData();
+    void validar(std::string) override;
 };
 
-class Horario {
+class Data : public Super {
  private:
-    std::string hora;
-    bool validar();
-
- public:
-    Horario();
-    explicit Horario(std::string hora);
-    void setHora(std::string hora);
-    inline std::string getHora();
+    void validar(std::string) override;
 };
 
-class Preco {
+class Horario : public Super {
  private:
-    float preco;
-    bool validar();
-
- public:
-    Preco();
-    explicit Preco(float preco);
-    void setPreco(float preco);
-    inline float getPreco();
+    void validar(std::string) override;
 };
 
-class NumeroDeSala {
+class Preco : public Super {
  private:
-    std::string numSala;
-    bool validar();
-
- public:
-    NumeroDeSala();
-    explicit NumeroDeSala(std::string numSala);
-    void setNumSala(std::string numSala);
-    inline std::string getNumSala();
+    void validar(std::string) override;
 };
 
-class Cidade {
+class NumeroDeSala : public Super {
  private:
-    std::string cidade;
-    bool validar();
-
- public:
-    Cidade();
-    explicit Cidade(std::string cidade);
-    void setCidade(std::string cidade);
-    inline std::string getCidade();
+    void validar(std::string) override;
 };
 
-class Estado {
+class Cidade : public Super {
  private:
-    std::string estado;
-    bool validar();
-
- public:
-    Estado();
-    explicit Estado(std::string estado);
-    void setEstado(std::string estado);
-    inline std::string getEstado();
+    void validar(std::string) override;
 };
 
-class Disponibilidade {
+class Estado : public Super {
  private:
-    std::string disp;
-    bool validar();
+    void validar(std::string) override;
+};
 
- public:
-    Disponibilidade();
-    explicit Disponibilidade(std::string disp);
-    void setDisp(std::string disp);
-    inline std::string getDisp();
+class Disponibilidade : public Super {
+ private:
+    void validar(std::string) override;
 };
 
 // Decidir com o Ariel como implementar (ints, str ou enum?)
@@ -142,78 +77,36 @@ class Disponibilidade {
  public:
 };*/
 
-class FaixaEtaria {
+class FaixaEtaria : public Super {
  private:
-    std::string fxEtaria;
-    bool validar();
-
- public:
-    FaixaEtaria();
-    explicit FaixaEtaria(std::string fxEtaria);
-    void setFxEtaria(std::string fxEtaria);
-    inline std::string getFxEtaria();
+    void validar(std::string) override;
 };
 
-class CPF {
+class CPF : public Super {
  private:
-    std::string cpf;
-    bool validar(std::string cpf);
-
- public:
-    CPF();
-    explicit CPF(std::string cpf);
-    void setCPF(std::string cpf);
-    std::string getCPF() {
-        return this->cpf;
-    }
+    void validar(std::string) override;
 };
 
-class Senha {
+class Senha : public Super {
  private:
-    std::string senha;
-    bool validar();
 
  public:
-    Senha();
-    explicit Senha(std::string senha);
-    void setSenha(std::string senha);
-    inline std::string getSenha();
+    void validar(std::string) override;
 };
 
-class NumCartaoCredito {
+class NumCartaoCredito : public Super {
  private:
-    std::string numCart;
-    bool validar();
-
- public:
-    NumCartaoCredito();
-    explicit NumCartaoCredito(std::string numCart);
-    void setNumCart(std::string numCart);
-    inline std::string getNumCart();
+    void validar(std::string) override;
 };
 
-class CVV {
+class CVV : public Super {
  private:
-    std::string cvv;
-    bool validar();
-
- public:
-    CVV();
-    explicit CVV(std::string cvv);
-    void setCVV(std::string cvv);
-    inline std::string getCVV();
+    void validar(std::string) override;
 };
 
-class DataDeValidade {
+class DataDeValidade : public Super {
  private:
-    std::string dataVal;
-    bool validar();
-
- public:
-    DataDeValidade();
-    explicit DataDeValidade(std::string dataVal);
-    void setDataVal(std::string dataVal);
-    inline std::string getDataVal();
+    void validar(std::string) override;
 };
 
 
