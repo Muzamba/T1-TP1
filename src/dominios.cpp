@@ -10,21 +10,62 @@ void Super::setConteudo(std::string conteudo) {
 /**************** Classe CodigoDeEvento ****************/
 void CodigoDeEvento::validar(std::string codigo) {
     bool valid = true;
-    for (auto &c : codigo) {
+    for (char &c : codigo) {
         if ((c - '0') < 0) {
             valid = false;
         }
     }
-    if (codigo.size() != 3) {
-        throw std::invalid_argument("Código de Evento deve ter 3 caracteres");
-    } else if (valid == false) {
-        throw std::invalid_argument("Código de Evento possui dígitos negativos");
+    if (codigo.size() != 3 && valid == false) {
+        throw std::invalid_argument(
+        "Código de Evento deve ter apenas 3 caracteres não negativos");
+    } else if (valid == false) {  // Condição nunca será alcançada, pois str
+        throw std::invalid_argument(  // negativa possui tamanho max_size + 1
+        "Código de Evento não deve possuir dígitos negativos");
+    } else if (codigo.size() != 3) {
+        throw  std::invalid_argument(
+        "Código de Evento deve ter apenas 3 caracteres");
     }
 }
 
 /**************** Classe CodigoDeApresentacao ****************/
+void CodigoDeApresentacao::validar(std::string codigo) {
+    bool valid = true;
+    for (char &c : codigo) {
+        if ((c - '0') < 0) {
+            valid = false;
+        }
+    }
+    if (codigo.size() != 4 && valid == false) {
+        throw std::invalid_argument(
+        "Código de Apresentação deve ter apenas 3 caracteres não negativos");
+    } else if (valid == false) {  // Condição nunca será alcançada, pois str
+        throw std::invalid_argument(  // negativa possui tamanho max_size + 1
+        "Código de Apresentação não deve possuir dígitos negativos");
+    } else if (codigo.size() != 4) {
+        throw  std::invalid_argument(
+        "Código de Apresentação deve ter apenas 4 caracteres");
+    }
+}
 
 /**************** Classe CodigoDeIngresso ****************/
+void CodigoDeIngresso::validar(std::string codigo) {
+    bool valid = true;
+    for (char &c : codigo) {
+        if ((c - '0') < 0) {
+            valid = false;
+        }
+    }
+    if (codigo.size() != 5 && valid == false) {
+        throw std::invalid_argument(
+        "Código de Ingresso deve ter apenas 5 caracteres não negativos");
+    } else if (valid == false) {  // Condição nunca será alcançada, pois str
+        throw std::invalid_argument(  // negativa possui tamanho max_size + 1
+        "Código de Ingresso não deve possuir dígitos negativos");
+    } else if (codigo.size() != 5) {
+        throw  std::invalid_argument(
+        "Código de Ingresso deve ter apenas 5 caracteres");
+    }
+}
 
 /**************** Classe NomeDeEvento ****************/
 
@@ -51,33 +92,37 @@ void CodigoDeEvento::validar(std::string codigo) {
 void CPF::validar(std::string cpf) {
     int digito1, digito2;
     int soma = 0;
-
-    for (int i = 0; i < 9; i++) {
-        soma += (cpf[i] - '0') * (10 - i);
-    }
-    soma %= 11;
-
-    if (soma < 2)  {
-        digito1 = 0;
+    if (cpf.size() != 11) {
+        throw std::invalid_argument(
+        "CPF possui um número diferente de caracteres do que o permitido");
     } else {
-        digito1 = 11 - soma;
-    }
+        for (int i = 0; i < 9; i++) {
+            soma += (cpf[i] - '0') * (10 - i);
+        }
+        soma %= 11;
 
-    soma = 0;
+        if (soma < 2)  {
+            digito1 = 0;
+        } else {
+            digito1 = 11 - soma;
+        }
 
-    for (int i = 0; i < 10; i++) {
-        soma += (cpf[i] - '0') * (11 - i);
-    }
-    soma %= 11;
+        soma = 0;
 
-    if (soma < 2)  {
-        digito2 = 0;
-    } else {
-        digito2 = 11 - soma;
-    }
+        for (int i = 0; i < 10; i++) {
+            soma += (cpf[i] - '0') * (11 - i);
+        }
+        soma %= 11;
 
-    if (digito1 != (cpf[9] - '0') || digito2 != (cpf[10]) - '0') {
-        throw std::invalid_argument("CPF invalido");
+        if (soma < 2)  {
+            digito2 = 0;
+        } else {
+            digito2 = 11 - soma;
+        }
+
+        if (digito1 != (cpf[9] - '0') || digito2 != (cpf[10]) - '0') {
+            throw std::invalid_argument("Dígito verificador do CPF inválido");
+        }
     }
 }
 
