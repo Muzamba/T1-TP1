@@ -3,6 +3,7 @@
 #define INCLUDE_DOMINIOS_H_
 #include <string>
 #include <stdexcept>
+#include <cctype>
 
 class Super {
  protected:

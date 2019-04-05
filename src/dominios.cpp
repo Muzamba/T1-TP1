@@ -11,8 +11,9 @@ void Super::setConteudo(std::string conteudo) {
 void CodigoDeEvento::validar(std::string codigo) {
     bool valid = true;
     for (char &c : codigo) {
-        if ((c - '0') < 0) {
+        if (!isdigit(c)) {
             valid = false;
+            break;
         }
     }
     if (codigo.size() != 3 && valid == false) {
@@ -31,8 +32,9 @@ void CodigoDeEvento::validar(std::string codigo) {
 void CodigoDeApresentacao::validar(std::string codigo) {
     bool valid = true;
     for (char &c : codigo) {
-        if ((c - '0') < 0) {
+        if (!isdigit(c)) {
             valid = false;
+            break;
         }
     }
     if (codigo.size() != 4 && valid == false) {
@@ -51,8 +53,9 @@ void CodigoDeApresentacao::validar(std::string codigo) {
 void CodigoDeIngresso::validar(std::string codigo) {
     bool valid = true;
     for (char &c : codigo) {
-        if ((c - '0') < 0) {
+        if (!isdigit(c)) {
             valid = false;
+            break;
         }
     }
     if (codigo.size() != 5 && valid == false) {
@@ -68,6 +71,27 @@ void CodigoDeIngresso::validar(std::string codigo) {
 }
 
 /**************** Classe NomeDeEvento ****************/
+
+void NomeDeEvento::validar(std::string nome) {
+    bool check = false;
+    unsigned char cont = 0;
+    for(char &c : nome) {
+        if (isalnum(c)) {  
+            cont = 0;
+            check = true;
+        } else if(isspace) {
+            cont++;
+            if (cont == 2) {
+                throw std::invalid_argument("Nome de Evento não pode ter dois espaços seguidos");
+            }
+        } else {
+            throw std::invalid_argument("Somente caracteres alphanumericos");
+        }
+    }
+    if (!check) {
+        throw std::invalid_argument("Deve Conter pelo menos um caracter alphanumerico");
+    }
+}
 
 /**************** Classe Data ****************/
 
