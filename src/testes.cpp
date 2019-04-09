@@ -357,3 +357,79 @@ TEST_CASE("Classe Disponibilidade") {
         }
     }
 }
+
+TEST_CASE("Classe FaixaEtaria") {
+    SECTION("Tudo certo por aqui") {
+        std::string faixa_valido1("L");
+        std::string faixa_valido2("10");
+        std::string faixa_valido3("12");
+        std::string faixa_valido4("14");
+        std::string faixa_valido5("16");
+        std::string faixa_valido6("18");
+        FaixaEtaria valido;
+
+        try {
+            valido.setConteudo(faixa_valido1);
+            REQUIRE(!valido.getConteudo().compare(faixa_valido1));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(faixa_valido2);
+            REQUIRE(!valido.getConteudo().compare(faixa_valido2));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(faixa_valido3);
+            REQUIRE(!valido.getConteudo().compare(faixa_valido3));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(faixa_valido4);
+            REQUIRE(!valido.getConteudo().compare(faixa_valido4));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(faixa_valido5);
+            REQUIRE(!valido.getConteudo().compare(faixa_valido5));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(faixa_valido6);
+            REQUIRE(!valido.getConteudo().compare(faixa_valido6));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string faixa_invalido1("M");
+        std::string faixa_invalido2("13");
+        FaixaEtaria invalido;
+
+        try {
+            invalido.setConteudo(faixa_invalido1);
+             REQUIRE(!invalido.getConteudo().compare(faixa_invalido1));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(faixa_invalido2);
+             REQUIRE(!invalido.getConteudo().compare(faixa_invalido2));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!invalido.getConteudo().size());
+        }
+    }
+}
