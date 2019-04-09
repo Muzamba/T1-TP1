@@ -323,3 +323,37 @@ TEST_CASE("Classe NumeroDeSala") {
         }
     }
 }
+
+TEST_CASE("Classe Disponibilidade") {
+    SECTION("Tudo certo por aqui") {
+        std::string numero_valido("176");
+        Disponibilidade valido;
+        try {
+            valido.setConteudo(numero_valido);
+            REQUIRE(!valido.getConteudo().compare(numero_valido));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!valido.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string numero_invalido1("-340");
+        std::string numero_invalido2("549");
+        Disponibilidade invalido;
+        try {
+            invalido.setConteudo(numero_invalido1);
+            REQUIRE(!invalido.getConteudo().compare(numero_invalido1));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(numero_invalido2);
+            REQUIRE(!invalido.getConteudo().compare(numero_invalido2));
+        } catch (const std::invalid_argument& erro) {
+            // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!invalido.getConteudo().size());
+        }
+    }
+}
