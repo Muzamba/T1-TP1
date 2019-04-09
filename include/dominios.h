@@ -90,8 +90,6 @@ class CPF : public Super {
 
 class Senha : public Super {
  private:
-
- public:
     void validar(std::string) override;
 };
 

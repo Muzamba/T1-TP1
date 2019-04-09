@@ -6,7 +6,7 @@ RUN = ./
 
 DEP_FLAGS = -MT $@ -MMD -MP -MF $(DEP_PATH)/$*.d
 
-DIRECTIVES = -std=c++11 -Wall -Wextra -c -I $(HEADER_PATH)
+DIRECTIVES = -std=c++11 -Wall -Wextra -c -I $(HEADER_PATH) -g
 
 LIBS = -lm
 
@@ -32,7 +32,7 @@ SDL_PATH = C:\SDL2\SDL2-2.0.5\x86_64-w64-mingw32
 
 DIRECTIVES += -I $(SDL_PATH)\include\SDL2
 
-LIBS = -L $(SDL_PATH)\lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
+LIBS = -lm
 
 EXEC := $(EXEC).exe
 
@@ -40,7 +40,6 @@ else
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Darwin)
-LIBS = -lm -framework SDL2 -framework SDL2_image -framework SDL2_mixer -framework SDL2_ttf
 endif
 endif
 

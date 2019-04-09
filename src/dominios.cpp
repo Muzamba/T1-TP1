@@ -75,21 +75,30 @@ void CodigoDeIngresso::validar(std::string codigo) {
 void NomeDeEvento::validar(std::string nome) {
     bool check = false;
     unsigned char cont = 0;
-    for(char &c : nome) {
-        if (isalnum(c)) {  
-            cont = 0;
-            check = true;
-        } else if(isspace) {
-            cont++;
-            if (cont == 2) {
-                throw std::invalid_argument("Nome de Evento não pode ter dois espaços seguidos");
+    if (nome.size() != 20) {
+        throw std::invalid_argument(
+        "Nome de Evento deve ter exatamente 20 caracteres");
+    } else {
+        for (char &c : nome) {
+            if (isalpha(c)) {
+                cont = 0;
+                check = true;
+            } else if (isdigit(c)) {
+                cont = 0;
+            } else if (isspace(c)) {
+                cont++;
+                if (cont == 2) {
+                    throw std::invalid_argument(
+                        "Nome de Evento não pode ter dois espaços seguidos");
+                }
+            } else {
+                throw std::invalid_argument("Somente caracteres alfanumericos");
             }
-        } else {
-            throw std::invalid_argument("Somente caracteres alphanumericos");
         }
-    }
-    if (!check) {
-        throw std::invalid_argument("Deve Conter pelo menos um caracter alphanumerico");
+        if (!check) {
+            throw std::invalid_argument(
+                "Deve Conter pelo menos um caractere alfanumerico");
+        }
     }
 }
 
@@ -100,16 +109,41 @@ void NomeDeEvento::validar(std::string nome) {
 /**************** Classe Preco ****************/
 
 /**************** Classe NumeroDeSala ****************/
+void NumeroDeSala::validar(std::string numSala) {
+    int numero;
+    numero = std::stoi(numSala);
+    if (1 > numero || numero > 10) {
+        throw std::invalid_argument(
+            "Número deve pertencer ao intervalo [1, 10]");
+    }
+}
 
 /**************** Classe Cidade ****************/
 
 /**************** Classe Estado ****************/
 
 /**************** Classe Disponibilidade ****************/
+void Disponibilidade::validar(std::string disp) {
+    int numero;
+    numero = std::stoi(disp);
+    if (0 > numero || numero > 250) {
+        throw std::invalid_argument(
+            "Número deve pertencer ao intervalo [0, 250]");
+    }
+}
 
 /**************** Classe ClasseDeEvento ****************/
 
 /**************** Classe FaixaEtaria ****************/
+void FaixaEtaria::validar(std::string fxEtaria) {
+    if (!fxEtaria.compare("L") || !fxEtaria.compare("10")
+    || !fxEtaria.compare("12") || !fxEtaria.compare("14")
+    || !fxEtaria.compare("16") || !fxEtaria.compare("18")) {
+    } else {
+        throw std::invalid_argument(
+            "Faixa etária só pode ser L, 10, 12, 14, 16 e 18");
+    }
+}
 
 /**************** Classe CPF ****************/
 
