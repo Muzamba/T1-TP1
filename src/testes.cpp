@@ -494,3 +494,43 @@ TEST_CASE("Classe Horario") {
         }
     }
 }
+
+TEST_CASE("Classe Preco") {
+    SECTION("Tudo certo por aqui") {
+        std::string preco_valido1("120.00");
+        std::string preco_valido2("760.97");
+        Preco valido;
+
+        try {
+            valido.setConteudo(preco_valido1);
+            REQUIRE(!valido.getConteudo().compare(preco_valido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(preco_valido2);
+            REQUIRE(!valido.getConteudo().compare(preco_valido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+    }
+
+    SECTION("Problematicos") {
+        std::string preco_invalido1("-120.00");
+        std::string preco_invalido2("10000.08");
+        Preco invalido;
+
+        try {
+            invalido.setConteudo(preco_invalido1);
+            REQUIRE(!invalido.getConteudo().compare(preco_invalido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(preco_invalido2);
+            REQUIRE(!invalido.getConteudo().compare(preco_invalido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+    }
+}
