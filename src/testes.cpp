@@ -208,21 +208,21 @@ TEST_CASE("Classe NomeDeEvento") {
      * Nome de Evento Válido => String de 20 caracteres alfanuméricos,
      * sem espaços em sequência e com no mínimo uma letra */
 
-    std::string nome_valido1("ShowTopdoJackJohnson");
-    std::string nome_valido2("Show do 2DoorCinClub");
+    std::string nome_valido1("Show do Jack Johnson");
+    std::string nome_valido2("Show do TDCC");
     std::string nome_valido3("Show do fFooFighters");
     std::string nome_valido4("123456789e9876543219");
 
     std::string nome_invalido1("Sem ideias  por aqui");
     std::string nome_invalido2("01234567891011121314");
-    std::string nome_invalido3("uma menorzinha");
+    std::string nome_invalido3("This should fail  1234");
     std::string nome_invalido4("UMA MAIORZONA PRA TESTAR");
 
     NomeDeEvento valido;
     NomeDeEvento invalido;
 
-    //std::cout << "\n------ Testes da classe NomeDeEvento ------\n"
-    //<< std::endl;
+    // std::cout << "\n------ Testes da classe NomeDeEvento ------\n"
+    // << std::endl;
 
     SECTION("Tudo certo por aqui") {
         try {
@@ -429,6 +429,67 @@ TEST_CASE("Classe FaixaEtaria") {
              REQUIRE(!invalido.getConteudo().compare(faixa_invalido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
+            REQUIRE(!invalido.getConteudo().size());
+        }
+    }
+}
+
+TEST_CASE("Classe Horario") {
+    SECTION("Tudo certo por aqui") {
+        std::string horario_valido1("19:00");
+        std::string horario_valido2("07:15");
+        std::string horario_valido3("10:30");
+        std::string horario_valido4("14:45");
+        Horario valido;
+
+        try {
+            valido.setConteudo(horario_valido1);
+            REQUIRE(!valido.getConteudo().compare(horario_valido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(horario_valido2);
+            REQUIRE(!valido.getConteudo().compare(horario_valido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(horario_valido3);
+            REQUIRE(!valido.getConteudo().compare(horario_valido3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(horario_valido4);
+            REQUIRE(!valido.getConteudo().compare(horario_valido4));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string horario_invalido1("06:00");
+        std::string horario_invalido2("08:28");
+        std::string horario_invalido3("23:30");
+        Horario invalido;
+
+        try {
+            invalido.setConteudo(horario_invalido1);
+            REQUIRE(!invalido.getConteudo().compare(horario_invalido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(horario_invalido2);
+            REQUIRE(!invalido.getConteudo().compare(horario_invalido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(horario_invalido2);
+            REQUIRE(!invalido.getConteudo().compare(horario_invalido2));
+        } catch (const std::invalid_argument& erro) {
             REQUIRE(!invalido.getConteudo().size());
         }
     }

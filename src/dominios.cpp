@@ -75,9 +75,9 @@ void CodigoDeIngresso::validar(std::string codigo) {
 void NomeDeEvento::validar(std::string nome) {
     bool check = false;
     unsigned char cont = 0;
-    if (nome.size() != 20) {
+    if (nome.size() > 20) {
         throw std::invalid_argument(
-        "Nome de Evento deve ter exatamente 20 caracteres");
+        "Nome de Evento deve ter no máximo 20 caracteres");
     } else {
         for (char &c : nome) {
             if (isalpha(c)) {
@@ -105,6 +105,25 @@ void NomeDeEvento::validar(std::string nome) {
 /**************** Classe Data ****************/
 
 /**************** Classe Horario ****************/
+void Horario::validar(std::string horario) {
+    if (horario.size() != 5) {
+        throw std::invalid_argument(
+            "O horário deve seguir o formato HH:MM");
+    } else {
+        int hora, minuto;
+        hora = std::stoi(horario.substr(0, 2));
+        minuto = std::stoi(horario.substr(3, 2));
+
+        if (hora < 7 || hora > 22) {
+            throw std::invalid_argument(
+                "A hora deve estar no intervalo [7,22]");
+        } else if (minuto != 0 || minuto != 15 ||
+                 minuto != 30 || minuto != 45) {
+                     throw std::invalid_argument(
+                 "O minuto só pode estar contido no conjunto {0, 15, 30, 45}");
+        }
+    }
+}
 
 /**************** Classe Preco ****************/
 
@@ -119,6 +138,7 @@ void NumeroDeSala::validar(std::string numSala) {
 }
 
 /**************** Classe Cidade ****************/
+
 
 /**************** Classe Estado ****************/
 
@@ -187,6 +207,9 @@ void CPF::validar(std::string cpf) {
 /**************** Classe Senha ****************/
 
 /**************** Classe NumCartaoCredito ****************/
+void NumCartaoCredito::validar(std::string) {
+    
+}
 
 /**************** Classe CVV ****************/
 
