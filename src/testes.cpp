@@ -12,7 +12,7 @@ TEST_CASE("Classe CPF") {
     CPF valido;
     CPF invalido;
 
-   // std::cout << "\n------ Testes da classe CPF ------\n" << std::endl;
+    // std::cout << "\n------ Testes da classe CPF ------\n" << std::endl;
 
     SECTION("Tudo certo por aqui") {
         try {
@@ -55,7 +55,7 @@ TEST_CASE("Classe CodigoDeEvento") {
     CodigoDeEvento valido;
     CodigoDeEvento invalido;
 
-   // std::cout << "\n------ Testes da classe CodigoDeEvento ------\n"
+    // std::cout << "\n------ Testes da classe CodigoDeEvento ------\n"
     //<< std::endl;
 
     SECTION("Tudo certo por aqui") {
@@ -551,8 +551,6 @@ TEST_CASE("Classe Data") {
             valida.setConteudo(data_valida2);
             REQUIRE(!valida.getConteudo().compare(data_valida2));
         } catch (const std::invalid_argument& erro) {
-            std::cout << valida.getConteudo() << std::endl;
-            std::cout << erro.what() << std::endl;
             REQUIRE(!valida.getConteudo().size());
         }
     }
@@ -564,6 +562,128 @@ TEST_CASE("Classe Data") {
         std::string data_invalida4("29/02/01");
         std::string data_invalida5("5/4/49");
         Data invalida;
+
+        try {
+            invalida.setConteudo(data_invalida1);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida2);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida3);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida4);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida4));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida5);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida5));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+    }
+}
+
+TEST_CASE("Classe CVV") {
+    SECTION("Tudo certo por aqui") {
+        std::string cvv_valido1("897");
+        std::string cvv_valido2("000");
+        std::string cvv_valido3("999");
+        CVV valido;
+
+        try {
+            valido.setConteudo(cvv_valido1);
+            REQUIRE(!valido.getConteudo().compare(cvv_valido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(cvv_valido2);
+            REQUIRE(!valido.getConteudo().compare(cvv_valido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(cvv_valido3);
+            REQUIRE(!valido.getConteudo().compare(cvv_valido3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valido.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string cvv_invalido1("1234");
+        std::string cvv_invalido2("24");
+        std::string cvv_invalido3("-778");
+        CVV invalido;
+
+        try {
+            invalido.setConteudo(cvv_invalido1);
+            REQUIRE(!invalido.getConteudo().compare(cvv_invalido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(cvv_invalido2);
+            REQUIRE(!invalido.getConteudo().compare(cvv_invalido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+        try {
+            invalido.setConteudo(cvv_invalido3);
+            REQUIRE(!invalido.getConteudo().compare(cvv_invalido3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().size());
+        }
+    }
+}
+
+TEST_CASE("Classe DataDeValidade") {
+    SECTION("Tudo certo por aqui") {
+        std::string data_valida1("01/01");
+        std::string data_valida2("02/20");
+        std::string data_valida3("12/99");
+        DataDeValidade valida;
+
+        try {
+            valida.setConteudo(data_valida1);
+            REQUIRE(!valida.getConteudo().compare(data_valida1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valida.getConteudo().size());
+        }
+        try {
+            valida.setConteudo(data_valida2);
+            REQUIRE(!valida.getConteudo().compare(data_valida2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valida.getConteudo().size());
+        }
+        try {
+            valida.setConteudo(data_valida3);
+            REQUIRE(!valida.getConteudo().compare(data_valida3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valida.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string data_invalida1("00/00");
+        std::string data_invalida2("5/4");
+        std::string data_invalida3("02/9");
+        std::string data_invalida4("3/05");
+        std::string data_invalida5("34/49");
+        DataDeValidade invalida;
 
         try {
             invalida.setConteudo(data_invalida1);

@@ -242,5 +242,37 @@ void NumCartaoCredito::validar(std::string) {
 }
 
 /**************** Classe CVV ****************/
+void CVV::validar(std::string cvv) {
+    bool valid = true;
+    for (char &c : cvv) {
+        if (!isdigit(c)) {
+            valid = false;
+            break;
+        }
+    }
+    if (cvv.size() != 3 && valid == false) {
+        throw std::invalid_argument(
+        "CVV deve ter apenas 3 caracteres não negativos");
+    } else if (valid == false) {  // Condição nunca será alcançada, pois str
+        throw std::invalid_argument(  // negativa possui tamanho max_size + 1
+        "CVV não deve possuir dígitos negativos");
+    } else if (cvv.size() != 3) {
+        throw  std::invalid_argument(
+        "CVV deve ter apenas 3 caracteres");
+    }
+}
 
 /**************** Classe DataDeValidade ****************/
+void DataDeValidade::validar(std::string data) {
+    if (data.size() != 5) {
+        throw std::invalid_argument("A data deve seguir o formato MM/AA");
+    } else {
+        int mes, ano;
+        mes = std::stoi(data.substr(0, 2));
+        ano = std::stoi(data.substr(3, 2));
+
+        if ((mes > 12 || mes < 1) || (ano < 0 || ano > 99)) {
+            throw std::invalid_argument("Data invalida");
+        }
+    }
+}
