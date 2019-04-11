@@ -103,6 +103,28 @@ void NomeDeEvento::validar(std::string nome) {
 }
 
 /**************** Classe Data ****************/
+void Data::validar(std::string data) {
+    if (data.size() != 8) {
+        throw std::invalid_argument("A data deve seguir o formato DD/MM/AA");
+    } else {
+        int dia, mes, ano;
+        int duracaoMes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        dia = std::stoi(data.substr(0, 2));
+        mes = std::stoi(data.substr(3, 2));
+        ano = std::stoi(data.substr(6, 2));
+
+        if ((dia > 31 || dia < 1) || (mes > 12 || mes < 1)) {
+            throw std::invalid_argument("Data invalida");
+        }
+        if (!(ano%4) && mes == 2) {
+            duracaoMes[1]++;
+        }
+        if (dia > duracaoMes[mes-1]) {
+            throw std::invalid_argument(
+                "Número de dias maior do que o permitido");
+        }
+    }
+}
 
 /**************** Classe Horario ****************/
 void Horario::validar(std::string horario) {

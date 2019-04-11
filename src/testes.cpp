@@ -534,3 +534,66 @@ TEST_CASE("Classe Preco") {
         }
     }
 }
+
+TEST_CASE("Classe Data") {
+    SECTION("Tudo certo por aqui") {
+        std::string data_valida1("22/01/01");
+        std::string data_valida2("29/02/20");
+        Data valida;
+
+        try {
+            valida.setConteudo(data_valida1);
+            REQUIRE(!valida.getConteudo().compare(data_valida1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!valida.getConteudo().size());
+        }
+        try {
+            valida.setConteudo(data_valida2);
+            REQUIRE(!valida.getConteudo().compare(data_valida2));
+        } catch (const std::invalid_argument& erro) {
+            std::cout << valida.getConteudo() << std::endl;
+            std::cout << erro.what() << std::endl;
+            REQUIRE(!valida.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string data_invalida1("88/01/98");
+        std::string data_invalida2("21/32/03");
+        std::string data_invalida3("00/01/98");
+        std::string data_invalida4("29/02/01");
+        std::string data_invalida5("5/4/49");
+        Data invalida;
+
+        try {
+            invalida.setConteudo(data_invalida1);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida2);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida3);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida4);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida4));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+        try {
+            invalida.setConteudo(data_invalida5);
+            REQUIRE(!invalida.getConteudo().compare(data_invalida5));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalida.getConteudo().size());
+        }
+    }
+}

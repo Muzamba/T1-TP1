@@ -39,6 +39,7 @@ class NomeDeEvento : public Super {
 class Data : public Super {
  private:
     void validar(std::string) override;
+    bool bissexto(int);
 };
 
 class Horario : public Super {
