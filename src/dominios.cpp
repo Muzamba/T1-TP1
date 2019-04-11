@@ -171,6 +171,22 @@ void NumeroDeSala::validar(std::string numSala) {
 
 
 /**************** Classe Estado ****************/
+void Estado::validar(std::string est) {
+    if (est.size() != 2) {
+        throw std::invalid_argument("Tamanho inválido");
+    } else if (!est.compare("AC") || !est.compare("AL") || !est.compare("AP") ||
+               !est.compare("AM") || !est.compare("BA") || !est.compare("CE") ||
+               !est.compare("DF") || !est.compare("ES") || !est.compare("GO") ||
+               !est.compare("MA") || !est.compare("MT") || !est.compare("MG") ||
+               !est.compare("PA") || !est.compare("PB") || !est.compare("PR") ||
+               !est.compare("PE") || !est.compare("PI") || !est.compare("RJ") ||
+               !est.compare("RN") || !est.compare("RS") || !est.compare("RO") ||
+               !est.compare("RR") || !est.compare("SC") || !est.compare("SP") ||
+               !est.compare("SP") || !est.compare("SE") || !est.compare("TO")) {
+            } else {
+                throw std::invalid_argument("Estado Inválido");
+            }
+}
 
 /**************** Classe Disponibilidade ****************/
 void Disponibilidade::validar(std::string disp) {

@@ -20,14 +20,14 @@ TEST_CASE("Classe CPF") {
             REQUIRE(!valido.getConteudo().compare(cpf_valido));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
     SECTION("Problemáticos") {
         try {
             invalido.setConteudo(cpf_invalido1);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(cpf_invalido1));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -35,7 +35,7 @@ TEST_CASE("Classe CPF") {
 
         try {
             invalido.setConteudo(cpf_invalido2);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(cpf_invalido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -64,14 +64,14 @@ TEST_CASE("Classe CodigoDeEvento") {
             REQUIRE(!valido.getConteudo().compare(codigo_valido));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
     SECTION("Problemáticos") {
         try {
             invalido.setConteudo(codigo_invalido1);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido1));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -79,7 +79,7 @@ TEST_CASE("Classe CodigoDeEvento") {
 
         try {
             invalido.setConteudo(codigo_invalido2);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -87,7 +87,7 @@ TEST_CASE("Classe CodigoDeEvento") {
 
         try {
             invalido.setConteudo(codigo_invalido3);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido3));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -118,14 +118,14 @@ TEST_CASE("Classe CodigoDeApresentacao") {
             REQUIRE(!valido.getConteudo().compare(codigo_valido));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
     SECTION("Problemáticos") {
         try {
             invalido.setConteudo(codigo_invalido1);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido1));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -133,7 +133,7 @@ TEST_CASE("Classe CodigoDeApresentacao") {
 
         try {
             invalido.setConteudo(codigo_invalido2);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -141,7 +141,7 @@ TEST_CASE("Classe CodigoDeApresentacao") {
 
         try {
             invalido.setConteudo(codigo_invalido3);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido3));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -172,14 +172,14 @@ TEST_CASE("Classe CodigoDeIngresso") {
             REQUIRE(!valido.getConteudo().compare(codigo_valido));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
     SECTION("Problemáticos") {
         try {
             invalido.setConteudo(codigo_invalido1);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido1));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -187,7 +187,7 @@ TEST_CASE("Classe CodigoDeIngresso") {
 
         try {
             invalido.setConteudo(codigo_invalido2);
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(codigo_invalido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
             REQUIRE(!invalido.getConteudo().size());
@@ -230,28 +230,28 @@ TEST_CASE("Classe NomeDeEvento") {
             REQUIRE(!valido.getConteudo().compare(nome_valido1));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(nome_valido2);
             REQUIRE(!valido.getConteudo().compare(nome_valido2));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(nome_valido3);
             REQUIRE(!valido.getConteudo().compare(nome_valido3));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(nome_valido4);
             REQUIRE(!valido.getConteudo().compare(nome_valido4));
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -299,7 +299,7 @@ TEST_CASE("Classe NumeroDeSala") {
             REQUIRE(!valido.getConteudo().compare(numero_valido));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -333,7 +333,7 @@ TEST_CASE("Classe Disponibilidade") {
             REQUIRE(!valido.getConteudo().compare(numero_valido));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -373,42 +373,42 @@ TEST_CASE("Classe FaixaEtaria") {
             REQUIRE(!valido.getConteudo().compare(faixa_valido1));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(faixa_valido2);
             REQUIRE(!valido.getConteudo().compare(faixa_valido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(faixa_valido3);
             REQUIRE(!valido.getConteudo().compare(faixa_valido3));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(faixa_valido4);
             REQUIRE(!valido.getConteudo().compare(faixa_valido4));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(faixa_valido5);
             REQUIRE(!valido.getConteudo().compare(faixa_valido5));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(faixa_valido6);
             REQUIRE(!valido.getConteudo().compare(faixa_valido6));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -446,25 +446,26 @@ TEST_CASE("Classe Horario") {
             valido.setConteudo(horario_valido1);
             REQUIRE(!valido.getConteudo().compare(horario_valido1));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().compare(horario_valido1));
         }
         try {
             valido.setConteudo(horario_valido2);
             REQUIRE(!valido.getConteudo().compare(horario_valido2));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            std::cout <<  "HERE" << std::endl;
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(horario_valido3);
             REQUIRE(!valido.getConteudo().compare(horario_valido3));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(horario_valido4);
             REQUIRE(!valido.getConteudo().compare(horario_valido4));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -505,13 +506,13 @@ TEST_CASE("Classe Preco") {
             valido.setConteudo(preco_valido1);
             REQUIRE(!valido.getConteudo().compare(preco_valido1));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(preco_valido2);
             REQUIRE(!valido.getConteudo().compare(preco_valido2));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -607,19 +608,19 @@ TEST_CASE("Classe CVV") {
             valido.setConteudo(cvv_valido1);
             REQUIRE(!valido.getConteudo().compare(cvv_valido1));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(cvv_valido2);
             REQUIRE(!valido.getConteudo().compare(cvv_valido2));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
         try {
             valido.setConteudo(cvv_valido3);
             REQUIRE(!valido.getConteudo().compare(cvv_valido3));
         } catch (const std::invalid_argument& erro) {
-            REQUIRE(!valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().size());
         }
     }
 
@@ -717,3 +718,58 @@ TEST_CASE("Classe DataDeValidade") {
         }
     }
 }
+
+TEST_CASE("Classe Estado") {
+    SECTION("Tudo certo por aqui") {
+        std::string estado_valido1("BA");
+        std::string estado_valido2("MA");
+        std::string estado_valido3("DF");
+        Estado valido;
+
+        try {
+            valido.setConteudo(estado_valido1);
+            REQUIRE(!valido.getConteudo().compare(estado_valido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(estado_valido2);
+            REQUIRE(!valido.getConteudo().compare(estado_valido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(valido.getConteudo().size());
+        }
+        try {
+            valido.setConteudo(estado_valido3);
+            REQUIRE(!valido.getConteudo().compare(estado_valido3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(valido.getConteudo().size());
+        }
+    }
+
+    SECTION("Problemáticos") {
+        std::string estado_invalido1("GG");
+        std::string estado_invalido2("3");
+        std::string estado_invalido3("EFG");
+        Estado invalido;
+
+        try {
+            invalido.setConteudo(estado_invalido1);
+            REQUIRE(invalido.getConteudo().compare(estado_invalido1));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().compare(estado_invalido1));
+        }
+        try {
+            invalido.setConteudo(estado_invalido2);
+            REQUIRE(invalido.getConteudo().compare(estado_invalido2));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().compare(estado_invalido2));
+        }
+        try {
+            invalido.setConteudo(estado_invalido3);
+            REQUIRE(invalido.getConteudo().compare(estado_invalido3));
+        } catch (const std::invalid_argument& erro) {
+            REQUIRE(!invalido.getConteudo().compare(estado_invalido3));
+        }
+    }
+}
+

@@ -72,12 +72,10 @@ class Disponibilidade : public Super {
     void validar(std::string) override;
 };
 
-// Decidir com o Ariel como implementar (ints, str ou enum?)
-/*class ClasseDeEvento {
+class ClasseDeEvento : public Super{
  private:
-
- public:
-};*/
+    void validar(std::string) override;
+};
 
 class FaixaEtaria : public Super {
  private:
