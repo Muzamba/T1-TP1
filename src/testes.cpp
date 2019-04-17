@@ -4,7 +4,46 @@
 #include <string>
 #include "catch.hpp"
 #include "dominios.h"
+#define VALIDO 0
 
+//--------------------------------Teste-CPF------------------------------------
+TEST_CASE("Classe CPF") {
+    std::string val;
+    CPF uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "05289706151";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "12345678910";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "123039230940";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+/*
 TEST_CASE("Classe CPF") {
     std::string cpf_valido("05289706151");
     std::string cpf_invalido1("12345678910");
@@ -17,20 +56,20 @@ TEST_CASE("Classe CPF") {
     SECTION("Tudo certo por aqui") {
         try {
             valido.setConteudo(cpf_valido);
-            REQUIRE(!valido.getConteudo().compare(cpf_valido));
+            REQUIRE(valido.getConteudo().compare(cpf_valido) == VALIDO);
         } catch (std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(valido.getConteudo().size());
+            REQUIRE(valido.getConteudo().compare(cpf_valido) == VALIDO);
         }
     }
 
     SECTION("Problemáticos") {
         try {
             invalido.setConteudo(cpf_invalido1);
-            REQUIRE(invalido.getConteudo().compare(cpf_invalido1));
+            REQUIRE(invalido.getConteudo().compare(cpf_invalido1) != VALIDO);
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(invalido.getConteudo().compare(cpf_invalido1) != VALIDO);
         }
 
         try {
@@ -38,15 +77,62 @@ TEST_CASE("Classe CPF") {
             REQUIRE(invalido.getConteudo().compare(cpf_invalido2));
         } catch (const std::invalid_argument& erro) {
             // std::cout << "ERRO! Motivo -> " << erro.what() << std::endl;
-            REQUIRE(!invalido.getConteudo().size());
+            REQUIRE(!invalido.getConteudo().compare(cpf_invalido2));
         }
     }
 }
+*/ 
 
+//------------------------Teste-Codigo-de-Evento-------------------------------o
+/**
+ * Código de Evento válido => Inteiro positivo de apenas 3 dígitos
+ */
 TEST_CASE("Classe CodigoDeEvento") {
-    /**
-     * Código de Evento válido => Inteiro positivo de apenas 3 dígitos
-     */
+    std::string val;
+    CodigoDeEvento uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "978";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "-4530";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "-495";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "78934";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+/*
+TEST_CASE("Classe CodigoDeEvento") {
     std::string codigo_valido("978");
     std::string codigo_invalido1("-4530");
     std::string codigo_invalido2("-495");
@@ -94,12 +180,65 @@ TEST_CASE("Classe CodigoDeEvento") {
         }
     }
 }
+*/
+
+
+
+
+
+
+/**
+ * Código de Apresentação válido => Inteiro positivo de apenas
+ * 4 dígitos 
+ */
+TEST_CASE("Classe CodigoDeApresentacao") {
+    std::string val;
+    CodigoDeApresentacao uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "9783";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "-4530";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "-495092";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "78";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+/*
 
 TEST_CASE("Classe CodigoDeApresentacao") {
-    /**
-     * Código de Apresentação válido => Inteiro positivo de apenas
-     * 4 dígitos 
-     */
 
     std::string codigo_valido("9783");
     std::string codigo_invalido1("-4530");
@@ -148,12 +287,61 @@ TEST_CASE("Classe CodigoDeApresentacao") {
         }
     }
 }
+*/
+
+
+/**
+ * Código de Ingresso válido => Inteiro positivo de apenas
+ * 5 dígitos
+ */
+TEST_CASE("Classe CodigoDeIngresso") {
+    std::string val;
+    CodigoDeIngresso uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "97832";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "-4530";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "-495092";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "7898";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+/*
 
 TEST_CASE("Classe CodigoDeIngresso") {
-    /**
-     * Código de Ingresso válido => Inteiro positivo de apenas
-     * 5 dígitos
-     */
 
     std::string codigo_valido("97832");
     std::string codigo_invalido1("-4530");
@@ -202,11 +390,95 @@ TEST_CASE("Classe CodigoDeIngresso") {
         }
     }
 }
+*/
 
+/**
+ * Nome de Evento Válido => String de 20 caracteres alfanuméricos,
+ * sem espaços em sequência e com no mínimo uma letra 
+ * */
 TEST_CASE("Classe NomeDeEvento") {
-    /**
-     * Nome de Evento Válido => String de 20 caracteres alfanuméricos,
-     * sem espaços em sequência e com no mínimo uma letra */
+    std::string val;
+    NomeDeEvento uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "Show do Jack Johnson";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "Show do TDCC";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "Show do fFooFighters";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("4") {
+            val = "123456789e9876543219";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "Sem ideias  por aqui";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "01234567891011121314";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "This should fail  1234";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("4") {
+            val = "UMA MAIORZONA PRA TESTAR";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+/*
+TEST_CASE("Classe NomeDeEvento") {
 
     std::string nome_valido1("Show do Jack Johnson");
     std::string nome_valido2("Show do TDCC");
@@ -289,7 +561,46 @@ TEST_CASE("Classe NomeDeEvento") {
         }
     }
 }
+*/
 
+TEST_CASE("Classe NumeroDeSala") {
+    std::string val;
+    NumeroDeSala uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "5";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "-4";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "14";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+
+/*
 TEST_CASE("Classe NumeroDeSala") {
     SECTION("Tudo certo por aqui") {
         std::string numero_valido("5");
@@ -323,6 +634,8 @@ TEST_CASE("Classe NumeroDeSala") {
         }
     }
 }
+*/
+
 
 TEST_CASE("Classe Disponibilidade") {
     SECTION("Tudo certo por aqui") {
@@ -452,7 +765,6 @@ TEST_CASE("Classe Horario") {
             valido.setConteudo(horario_valido2);
             REQUIRE(!valido.getConteudo().compare(horario_valido2));
         } catch (const std::invalid_argument& erro) {
-            std::cout <<  "HERE" << std::endl;
             REQUIRE(valido.getConteudo().size());
         }
         try {
@@ -773,3 +1085,218 @@ TEST_CASE("Classe Estado") {
     }
 }
 
+//-------------------------Teste Cidade-----------------------------
+TEST_CASE("Classe Cidade") {
+    std::string val;
+    Cidade uniTest;
+    SECTION("Tudo certo por aqui") {
+        SECTION("1") {
+            val = "Valinhos";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "Muzambinho.";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "Jambo do norte";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("4") {
+            val = "Constantinopla.";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Problemáticos") {
+        SECTION("1") {
+            val = "abacate  legal";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "jorger&.";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "aaaaaaaaaaaaaaaaaaaaa";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("4") {
+            val = "123456789101112";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+//---------------------Teste Senha-------------------------
+
+TEST_CASE("Classe Senha") {
+    std::string val;
+    Senha uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "AbC123";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "P0popo";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "5432Io";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+        SECTION("4") {
+            val = "JAC4Bo";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "semma1";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "SEMM1N";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("3") {
+            val = "SemDig";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("4") {
+            val = "#charE";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("5") {
+            val = "AAAAAAAaaaaaaa4444444";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("6") {
+            val = "Aa4";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+
+
+
+
+//-----------------------Model-----------------------------
+/*
+TEST_CASE("Classe x") {
+    std::string val;
+    x uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Exessao") {
+        SECTION("1") {
+            val = "";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
+*/

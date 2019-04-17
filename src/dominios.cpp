@@ -169,6 +169,41 @@ void NumeroDeSala::validar(std::string numSala) {
 
 /**************** Classe Cidade ****************/
 
+void Cidade::validar(std::string cidade) {
+    int cont = 0;
+    bool check = false;
+    char temp = '#';
+    if (cidade.size() > 15) {
+        throw std::invalid_argument(
+        "Nome de Cidade deve ter no máximo 15 caracteres");
+    } else {
+        for (char &c : cidade) {
+            if (isalpha(c)) {
+                cont = 0;
+                check = true;
+            } else if (isspace(c)) {
+                cont++;
+                if (cont == 2) {
+                    throw std::invalid_argument(
+                        "Nome de Evento não pode ter dois espaços seguidos");
+                }
+            } else if(c == '.') {
+                cont = 0;
+                if(!isalpha(temp)) {
+                    throw std::invalid_argument(
+                        "Ponto não é precedido por letra."
+                    );
+                }
+            } else {
+                throw std::invalid_argument(
+                    "Somente caracteres alfabéticos e ponto");
+            }
+            temp = c;
+        }
+    }
+}
+
+
 
 /**************** Classe Estado ****************/
 void Estado::validar(std::string est) {
@@ -251,6 +286,41 @@ void CPF::validar(std::string cpf) {
 }
 
 /**************** Classe Senha ****************/
+
+void Senha::validar(std::string senha) {
+    bool validarMai = false;
+    bool validarMin = false;
+    bool validarDig = false;
+
+    if(senha.size() != 6) {
+        throw std::invalid_argument("Tamanho da senha invalido");
+    }
+    for(auto& c : senha) {
+        if(!isalnum(c)) {
+            throw std::invalid_argument("Somente caracteres alfanumericos");
+        } else {
+            if(isupper(c)) {
+                validarMai = true;
+            } else if(islower(c)) {
+                validarMin = true;
+            } else if(isdigit(c)) {
+                validarDig = true;
+            }
+        }
+        for(auto& d : senha) {
+            if(c == d) {
+                throw std::invalid_argument("Nao pode ter caracteres repetidos");
+            }
+        }
+    }
+    if(!validarMai) {
+        throw std::invalid_argument("Sem letra maiuscula");
+    } else if (!validarMin) {
+        throw std::invalid_argument("Sem letra minuscula");
+    } else if (!validarDig) {
+        throw std::invalid_argument("Sem digito");
+    }
+}
 
 /**************** Classe NumCartaoCredito ****************/
 void NumCartaoCredito::validar(std::string) {
