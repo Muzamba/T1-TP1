@@ -1,6 +1,7 @@
 *.o
 *.d
 teste
-.*
+.idea
+.vscode
 *.json
 
