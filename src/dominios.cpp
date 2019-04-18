@@ -139,10 +139,11 @@ void Horario::validar(std::string horario) {
         if (hora < 7 || hora > 22) {
             throw std::invalid_argument(
                 "A hora deve estar no intervalo [7,22]");
-        } else if (minuto != 0 || minuto != 15 ||
-                 minuto != 30 || minuto != 45) {
+        } else if ((minuto % 15) != 0) {
                      throw std::invalid_argument(
                  "O minuto só pode estar contido no conjunto {0, 15, 30, 45}");
+        } else if (minuto > 60) {
+            throw std::invalid_argument("O minuto não pode ser maior que 60");
         }
     }
 }
@@ -187,12 +188,11 @@ void Cidade::validar(std::string cidade) {
                     throw std::invalid_argument(
                         "Nome de Evento não pode ter dois espaços seguidos");
                 }
-            } else if(c == '.') {
+            } else if (c == '.') {
                 cont = 0;
-                if(!isalpha(temp)) {
+                if (!isalpha(temp)) {
                     throw std::invalid_argument(
-                        "Ponto não é precedido por letra."
-                    );
+                        "Ponto não é precedido por letra.");
                 }
             } else {
                 throw std::invalid_argument(
@@ -292,28 +292,34 @@ void Senha::validar(std::string senha) {
     bool validarMin = false;
     bool validarDig = false;
 
-    if(senha.size() != 6) {
+    if (senha.size() != 6) {
         throw std::invalid_argument("Tamanho da senha invalido");
     }
-    for(auto& c : senha) {
-        if(!isalnum(c)) {
+    for (auto& c : senha) {
+        if (!isalnum(c)) {
             throw std::invalid_argument("Somente caracteres alfanumericos");
         } else {
-            if(isupper(c)) {
+            if (isupper(c)) {
                 validarMai = true;
-            } else if(islower(c)) {
+            } else if (islower(c)) {
                 validarMin = true;
-            } else if(isdigit(c)) {
+            } else if (isdigit(c)) {
                 validarDig = true;
             }
         }
-        for(auto& d : senha) {
-            if(c == d) {
-                throw std::invalid_argument("Nao pode ter caracteres repetidos");
+        for (auto& d : senha) {
+            bool itself = false;
+            if (c == d) {
+                if (itself) {
+                    throw std::invalid_argument(
+                        "Nao pode ter caracteres repetidos");
+                } else {
+                    itself = true;
+                }
             }
         }
     }
-    if(!validarMai) {
+    if (!validarMai) {
         throw std::invalid_argument("Sem letra maiuscula");
     } else if (!validarMin) {
         throw std::invalid_argument("Sem letra minuscula");
