@@ -1,11 +1,15 @@
+#ifndef INCLUDE_ENTIDADES_H
+#define INCLUDE_ENTIDADES_H
+
 #include "dominios.h"
+
 
 class Usuario {
 public:
-    void SetCPF();
+    void SetCPF(CPF cpf);
     CPF GetCPF();
 
-    void SetSenha();
+    void SetSenha(Senha senha);
     Senha GetSenha();
 
 private:
@@ -21,7 +25,7 @@ public:
     void SetNomeDeEvento(NomeDeEvento nome);
     NomeDeEvento GetNomeDeEvento();
     
-    void SetCidade();
+    void SetCidade(Cidade cidade);
     Cidade GetCidade();
 
     void SetEstado(Estado estado);
@@ -97,3 +101,6 @@ private:
     CVV codigo;
     DataDeValidade dataDeValidade;
 };
+
+
+#endif    //  INCLUDE_ENTIDADES_H
