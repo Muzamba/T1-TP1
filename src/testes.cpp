@@ -4,10 +4,11 @@
 #include <string>
 #include "catch.hpp"
 #include "dominios.h"
+#include "entidades.h"
 #define VALIDO 0
 
 // --------------------------------Teste-CPF------------------------------------
-TEST_CASE("Classe CPF") {
+TEST_CASE("Dominio CPF") {
     std::string val;
     CPF uniTest;
     SECTION("Certo") {
@@ -47,7 +48,7 @@ TEST_CASE("Classe CPF") {
 /**
  * Código de Evento válido => Inteiro positivo de apenas 3 dígitos
  */
-TEST_CASE("Classe CodigoDeEvento") {
+TEST_CASE("Dominio CodigoDeEvento") {
     std::string val;
     CodigoDeEvento uniTest;
     SECTION("Certo") {
@@ -96,7 +97,7 @@ TEST_CASE("Classe CodigoDeEvento") {
  * Código de Apresentação válido => Inteiro positivo de apenas
  * 4 dígitos 
  */
-TEST_CASE("Classe CodigoDeApresentacao") {
+TEST_CASE("Dominio CodigoDeApresentacao") {
     std::string val;
     CodigoDeApresentacao uniTest;
     SECTION("Certo") {
@@ -145,7 +146,7 @@ TEST_CASE("Classe CodigoDeApresentacao") {
  * Código de Ingresso válido => Inteiro positivo de apenas
  * 5 dígitos
  */
-TEST_CASE("Classe CodigoDeIngresso") {
+TEST_CASE("Dominio CodigoDeIngresso") {
     std::string val;
     CodigoDeIngresso uniTest;
     SECTION("Certo") {
@@ -194,7 +195,7 @@ TEST_CASE("Classe CodigoDeIngresso") {
  * Nome de Evento Válido => String de 20 caracteres alfanuméricos,
  * sem espaços em sequência e com no mínimo uma letra 
  * */
-TEST_CASE("Classe NomeDeEvento") {
+TEST_CASE("Dominio NomeDeEvento") {
     std::string val;
     NomeDeEvento uniTest;
     SECTION("Certo") {
@@ -275,7 +276,7 @@ TEST_CASE("Classe NomeDeEvento") {
     }
 }
 
-TEST_CASE("Classe NumeroDeSala") {
+TEST_CASE("Dominio NumeroDeSala") {
     std::string val;
     NumeroDeSala uniTest;
     SECTION("Certo") {
@@ -311,7 +312,7 @@ TEST_CASE("Classe NumeroDeSala") {
     }
 }
 
-TEST_CASE("Classe Disponibilidade") {
+TEST_CASE("Dominio Disponibilidade") {
     std::string val;
     Disponibilidade uniTest;
     SECTION("Certo") {
@@ -347,7 +348,7 @@ TEST_CASE("Classe Disponibilidade") {
     }
 }
 
-TEST_CASE("Classe FaixaEtaria") {
+TEST_CASE("Dominio FaixaEtaria") {
     std::string val;
     FaixaEtaria uniTest;
     SECTION("Certo") {
@@ -428,7 +429,7 @@ TEST_CASE("Classe FaixaEtaria") {
     }
 }
 
-TEST_CASE("Classe Horario") {
+TEST_CASE("Dominio Horario") {
     std::string val;
     Horario uniTest;
     SECTION("Certo") {
@@ -500,7 +501,7 @@ TEST_CASE("Classe Horario") {
     }
 }
 
-TEST_CASE("Classe Preco") {
+TEST_CASE("Dominio Preco") {
     std::string val;
     Preco uniTest;
     SECTION("Certo") {
@@ -545,7 +546,7 @@ TEST_CASE("Classe Preco") {
     }
 }
 
-TEST_CASE("Classe Data") {
+TEST_CASE("Dominio Data") {
     std::string val;
     Data uniTest;
     SECTION("Certo") {
@@ -617,7 +618,7 @@ TEST_CASE("Classe Data") {
     }
 }
 
-TEST_CASE("Classe CVV") {
+TEST_CASE("Dominio CVV") {
     std::string val;
     CVV uniTest;
     SECTION("Certo") {
@@ -680,7 +681,7 @@ TEST_CASE("Classe CVV") {
     }
 }
 
-TEST_CASE("Classe DataDeValidade") {
+TEST_CASE("Dominio DataDeValidade") {
     std::string val;
     DataDeValidade uniTest;
     SECTION("Certo") {
@@ -761,7 +762,7 @@ TEST_CASE("Classe DataDeValidade") {
     }
 }
 
-TEST_CASE("Classe Estado") {
+TEST_CASE("Dominio Estado") {
     std::string val;
     Estado uniTest;
     SECTION("Certo") {
@@ -825,10 +826,10 @@ TEST_CASE("Classe Estado") {
 }
 
 // -------------------------Teste Cidade-----------------------------
-TEST_CASE("Classe Cidade") {
+TEST_CASE("Dominio Cidade") {
     std::string val;
     Cidade uniTest;
-    SECTION("Tudo certo por aqui") {
+    SECTION("Certo") {
         SECTION("1") {
             val = "Valinhos";
             try {
@@ -866,7 +867,7 @@ TEST_CASE("Classe Cidade") {
             }
         }
     }
-    SECTION("Problemáticos") {
+    SECTION("Excessão") {
         SECTION("1") {
             val = "abacate  legal";
             try {
@@ -908,7 +909,7 @@ TEST_CASE("Classe Cidade") {
 
 // ---------------------Teste Senha-------------------------
 
-TEST_CASE("Classe Senha") {
+TEST_CASE("Dominio Senha") {
     std::string val;
     Senha uniTest;
     SECTION("Certo") {
@@ -1009,7 +1010,7 @@ TEST_CASE("Classe Senha") {
 
 // -----------------------ClasseDeEvento-----------------------------
 
-TEST_CASE("Classe ClasseDeEvento") {
+TEST_CASE("Dominio ClasseDeEvento") {
     std::string val;
     ClasseDeEvento uniTest;
     SECTION("Certo") {
@@ -1050,7 +1051,7 @@ TEST_CASE("Classe ClasseDeEvento") {
 
 
 // -----------------------CartaoDeCredito-----------------------------
-TEST_CASE("Classe NumCartaoCredito") {
+TEST_CASE("Dominio NumCartaoCredito") {
     std::string val;
     NumCartaoCredito uniTest;
     SECTION("Certo") {
@@ -1086,7 +1087,8 @@ TEST_CASE("Classe NumCartaoCredito") {
     }
 }
 
-// -----------------------Model-----------------------------
+
+// -----------------------ModelDominio-----------------------------
 /*
 TEST_CASE("Classe x") {
     std::string val;
@@ -1115,3 +1117,264 @@ TEST_CASE("Classe x") {
     }
 }
 */
+//---------------------------------------------------------------
+
+
+
+//-------------------------------------------------------------Entidades
+
+//---------------------------Usuario-----------------------------
+
+TEST_CASE("Entidade Usuario") {
+    Usuario entidade;
+    SECTION("Atributo CPF") {
+        std::string val("10279735073");
+        
+        CPF temp;
+        temp.setConteudo(val);
+
+        entidade.SetCPF(temp);
+
+        REQUIRE(entidade.GetCPF().getConteudo().compare(val) == VALIDO);
+
+    }
+
+    SECTION("Atributo Senha") {
+        std::string val("AbC123");
+        
+        Senha temp;
+        temp.setConteudo(val);
+
+        entidade.SetSenha(temp);
+
+        REQUIRE(entidade.GetSenha().getConteudo().compare(val) == VALIDO);
+
+    }
+}
+
+
+//---------------------------------Evento--------------------------------------
+
+TEST_CASE("Entidade Evento") {
+    Evento entidade;
+    SECTION("Atributo CodigoDeEvento") {
+        std::string val("123");
+        
+        CodigoDeEvento temp;
+        temp.setConteudo(val);
+
+        entidade.SetCodigoDeEvento(temp);
+
+        REQUIRE(entidade.GetCodigoDeEvento().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo NomeDeEvento") {
+        std::string val("Show do Jack Johnson");
+        
+        NomeDeEvento temp;
+        temp.setConteudo(val);
+
+        entidade.SetNomeDeEvento(temp);
+
+        REQUIRE(entidade.GetNomeDeEvento().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo Cidade") {
+        std::string val("Valinhos");
+        
+        Cidade temp;
+        temp.setConteudo(val);
+
+        entidade.SetCidade(temp);
+
+        REQUIRE(entidade.GetCidade().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo Estado") {
+        std::string val("DF");
+        
+        Estado temp;
+        temp.setConteudo(val);
+
+        entidade.SetEstado(temp);
+
+        REQUIRE(entidade.GetEstado().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo ClasseDeEvento") {
+        std::string val("2");
+        
+        ClasseDeEvento temp;
+        temp.setConteudo(val);
+
+        entidade.SetClasseDeEvento(temp);
+
+        REQUIRE(entidade.GetClasseDeEvento().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo FaixaEtaria") {
+        std::string val("L");
+        
+        FaixaEtaria temp;
+        temp.setConteudo(val);
+
+        entidade.SetFaixaEtaria(temp);
+
+        REQUIRE(entidade.GetFaixaEtaria().getConteudo().compare(val) == VALIDO);
+
+    }
+}
+
+
+
+//-------------------------------Apresentacao----------------------------------
+
+TEST_CASE("Entidade Apresentacao") {
+    Apresentacao entidade;
+    SECTION("Atributo CodigoDeApresentacao") {
+        std::string val("9783");
+        
+        CodigoDeApresentacao temp;
+        temp.setConteudo(val);
+
+        entidade.SetCodigoDeApresentacao(temp);
+
+        REQUIRE(entidade.GetCodigoDeApresentacao().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo Data") {
+        std::string val("22/01/01");
+        
+        Data temp;
+        temp.setConteudo(val);
+
+        entidade.SetData(temp);
+
+        REQUIRE(entidade.GetData().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo Horario") {
+        std::string val("19:00");
+        
+        Horario temp;
+        temp.setConteudo(val);
+
+        entidade.SetHorario(temp);
+
+        REQUIRE(entidade.GetHorario().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo Preco") {
+        std::string val("120.00");
+        
+        Preco temp;
+        temp.setConteudo(val);
+
+        entidade.SetPreco(temp);
+
+        REQUIRE(entidade.GetPreco().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo NumeroDeSala") {
+        std::string val("5");
+        
+        NumeroDeSala temp;
+        temp.setConteudo(val);
+
+        entidade.SetNumeroDeSala(temp);
+
+        REQUIRE(entidade.GetNumeroDeSala().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo Disponibilidade") {
+        std::string val("176");
+        
+        Disponibilidade temp;
+        temp.setConteudo(val);
+
+        entidade.SetDisponibilidade(temp);
+
+        REQUIRE(entidade.GetDisponibilidade().getConteudo().compare(val) == VALIDO);
+
+    }
+}
+
+
+
+
+//----------------------------Ingresso-------------------------
+
+
+TEST_CASE("Entidade Ingresso") {
+    Ingresso entidade;
+    SECTION("Atributo CodigoDeIngresso") {
+        std::string val("97832");
+        
+        CodigoDeIngresso temp;
+        temp.setConteudo(val);
+
+        entidade.SetCodigoDeIngresso(temp);
+
+        REQUIRE(entidade.GetCodigoDeIngresso().getConteudo().compare(val) == VALIDO);
+
+    }
+}
+
+
+
+TEST_CASE("Entidade CartaoDeCredito") {
+    CartaoDeCredito entidade;
+    SECTION("Atributo NumCartaoCredito") {
+        std::string val("5307272897032722");
+        
+        NumCartaoCredito temp;
+        temp.setConteudo(val);
+
+        entidade.SetNumCartaoCredito(temp);
+
+        REQUIRE(entidade.GetNumCartaoCredito().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo CVV") {
+        std::string val("897");
+        
+        CVV temp;
+        temp.setConteudo(val);
+
+        entidade.SetCVV(temp);
+
+        REQUIRE(entidade.GetCVV().getConteudo().compare(val) == VALIDO);
+
+    }
+    SECTION("Atributo DataDeValidade") {
+        std::string val("01/01");
+        
+        DataDeValidade temp;
+        temp.setConteudo(val);
+
+        entidade.SetDataDeValidade(temp);
+
+        REQUIRE(entidade.GetDataDeValidade().getConteudo().compare(val) == VALIDO);
+
+    }
+}
+
+
+//--------------------ModelEntidade------------------------------
+/*
+TEST_CASE("Entidade X") {
+    X entidade;
+    SECTION("Atributo Y") {
+        std::string val("");
+        
+        Y temp;
+        temp.setConteudo(val);
+
+        entidade.SetY(temp);
+
+        REQUIRE(entidade.GetY().getConteudo().compare(val) == VALIDO);
+
+    }
+}
+*/
+
