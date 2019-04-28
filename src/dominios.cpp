@@ -233,7 +233,25 @@ void Disponibilidade::validar(std::string disp) {
     }
 }
 
-/**************** Classe ClasseDeEvento ****************/
+/**************** Classe ClasseDeEvento ****************///----------------------------------------
+
+void ClasseDeEvento::validar(std::string classe) {
+
+    if (classe.size() != 1){
+        throw std::invalid_argument("Deve possuir tamanho 1");
+    }
+
+    if (!isdigit(classe[0])) {
+        throw std::invalid_argument("Somente numeros");
+    }
+    int temp = stoi(classe);
+
+    if (temp > 4 || temp < 1) {
+        throw std::invalid_argument("O numero deve estar no intervalo [1,4]");
+    }
+
+    classe = temp;
+}
 
 /**************** Classe FaixaEtaria ****************/
 void FaixaEtaria::validar(std::string fxEtaria) {
@@ -329,8 +347,82 @@ void Senha::validar(std::string senha) {
 }
 
 /**************** Classe NumCartaoCredito ****************/
-void NumCartaoCredito::validar(std::string) {
-    
+void NumCartaoCredito::validar(std::string numero) {
+    if (numero.size() != 16) {
+        throw std::invalid_argument("Tamanho invalido");
+    }
+    for(auto c : numero) {
+        if(!isdigit(c)) {
+            throw std::invalid_argument("Somente numeros");
+        }
+    }
+
+    int nSum       = 0;
+    int nDigits    = numero.size();
+    int nParity    = (nDigits-1) % 2;
+    char cDigit[2] = "\0";
+    for (int i = nDigits; i > 0 ; i--) {
+      cDigit[0]  = numero[i-1];
+      int nDigit = atoi(cDigit);
+
+      if (nParity == i % 2)
+        nDigit = nDigit * 2;
+
+      nSum += nDigit/10;
+      nSum += nDigit%10;
+    }
+    if (!(0 == nSum % 10)) {
+        throw std::invalid_argument("Numero Invalido");
+
+    };
+
+    /*
+    if (numero.size() != 16) {
+        printf("aaaaaaaaaaa\n");
+        throw std::invalid_argument("Tamanho invalido");
+    }
+    for(auto c : numero) {
+        if(!isdigit(c)) {
+            printf("bbbbbbbbbbbb\n");
+            throw std::invalid_argument("Somente numeros");
+        }
+    }
+    int temp;
+    int somatorio = 0;
+    bool check = true;
+    for(auto c = numero.begin();c != numero.end();c++) {
+        if (check) {
+            if((*c) == numero[15]) {
+                break;
+            }
+            temp = (*c) - '0';
+
+            somatorio += temp;
+
+            check = false;
+        } else {
+            if(*c == numero[15]) {
+                break;
+            }
+            temp = (*c) - '0';
+            temp *= temp;
+            if(temp > 9) {
+                temp = temp - 9;
+            }
+            somatorio += temp;
+            check = true;
+        }
+    }
+    char c = numero[15];
+    int n = c - '0';
+
+    int comparador = (somatorio * 9) % 10;
+
+    if(comparador != n) {
+        printf("cccccccccccc\n");
+        throw std::invalid_argument("Numero invalido");
+    }
+    */
 }
 
 /**************** Classe CVV ****************/

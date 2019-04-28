@@ -72,9 +72,17 @@ class Disponibilidade : public Super {
     void validar(std::string) override;
 };
 
+enum Classes {
+    TEATRO = 1,
+    ESPORTE = 2,
+    SHOW_NACIONAL = 3,
+    SHOW_INTERNACIONAL = 4
+};
+
 class ClasseDeEvento : public Super{
  private:
     void validar(std::string) override;
+    Classes classe;
 };
 
 class FaixaEtaria : public Super {

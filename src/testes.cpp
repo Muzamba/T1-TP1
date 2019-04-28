@@ -1007,8 +1007,84 @@ TEST_CASE("Classe Senha") {
     }
 }
 
+// -----------------------ClasseDeEvento-----------------------------
+
+TEST_CASE("Classe ClasseDeEvento") {
+    std::string val;
+    ClasseDeEvento uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "2";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Excessão") {
+        SECTION("1") {
+            val = "r";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "43";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
 
 
+
+
+
+// -----------------------CartaoDeCredito-----------------------------
+TEST_CASE("Classe NumCartaoCredito") {
+    std::string val;
+    NumCartaoCredito uniTest;
+    SECTION("Certo") {
+        SECTION("1") {
+            val = "5307272897032722";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) == VALIDO);
+            }
+        }
+    }
+    SECTION("Excessão") {
+        SECTION("1") {
+            val = "1234567891011129";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("2") {
+            val = "a";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+    }
+}
 
 // -----------------------Model-----------------------------
 /*
