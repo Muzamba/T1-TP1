@@ -18,11 +18,13 @@
 
 
 /**
+ * @class Super
+ * 
  * @brief Classe abstrata o qual todos os dominios herdam.
  */
 class Super {
  protected:
-    std::string conteudo;
+    std::string conteudo; /** <tipo padrão para todas as classes filhas */
     virtual void validar(std::string) = 0;
  public:
  /**
@@ -46,6 +48,8 @@ class Super {
 };
 
 /**
+ * @class CodigoDeEvento
+ * 
  * @brief Codigo destinado a indentificar eventos distintos.
  * 
  * @details A validação desse codigo apenas valida o tamanho de 3 digitos e se
@@ -58,6 +62,8 @@ class CodigoDeEvento : public Super {
 };
 
 /**
+ * @class CodigoDeApresentacao
+ * 
  * @brief Codigo destinado a indentificar Apresentações distintas.
  * 
  * @details A validação desse codigo apenas valida o tamanho de 4 digitos e se
@@ -69,6 +75,8 @@ class CodigoDeApresentacao : public Super {
 };
 
 /**
+ * @class CodigoDeIngresso 
+ * 
  * @brief Codigo destinado a indentificar Ingressos distintos.
  * 
  * @details A validação desse codigo apenas valida o tamanho de 5 digitos e se
@@ -80,6 +88,8 @@ class CodigoDeIngresso : public Super {
 };
 
 /**
+ * @class NomeDeEvento
+ * 
  * @brief Nomeia um evento.
  * 
  * @details A validação desse nome apenas valida o tamanho de até 20 caracteres e se
@@ -91,27 +101,69 @@ class NomeDeEvento : public Super {
     void validar(std::string) override;
 };
 
+/**
+ * @class Data
+ * 
+ * @brief Armazena a data de um evento ou aprensentação
+ * 
+ * @details A validação verifica se a data inserida é válida, checando o número de dias
+ * de cada mês e considerando anos bissextos
+ * 
+ */
 class Data : public Super {
  private:
     void validar(std::string) override;
-    bool bissexto(int);
 };
 
+/**
+ * @class Horario
+ * 
+ * @brief Armazena o horário de um evento ou apresentação
+ * 
+ * @details A validação consiste em verificar se o horário inserido está no formato desejado
+ * HH:MM e se este está no intervalo permitido
+ * 
+ */
 class Horario : public Super {
  private:
     void validar(std::string) override;
 };
 
+/**
+ * @class Preco
+ * 
+ * @brief Classe que armazena o preço de uma apresentação
+ * 
+ * @details A validação consiste em converter uma std::string em um float e checar se está no 
+ * intervalo permitido
+ * 
+ */
 class Preco : public Super {
  private:
     void validar(std::string) override;
 };
 
+/**
+ * @class NumeroDeSala
+ * 
+ * @brief Armazena o número da sala de uma apresentação
+ * 
+ * @details A validação apenas checa se p número está no intervalo permitido 
+ * 
+ */
 class NumeroDeSala : public Super {
  private:
     void validar(std::string) override;
 };
 
+/**
+ * @class Cidade
+ * 
+ * @brief Armazena a cidade de um evento ou apresentação
+ * 
+ * @details Verifica o formato do nome inserido
+ * 
+ */
 class Cidade : public Super {
  private:
     void validar(std::string) override;
