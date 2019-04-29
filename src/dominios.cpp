@@ -249,8 +249,6 @@ void ClasseDeEvento::validar(std::string classe) {
     if (temp > 4 || temp < 1) {
         throw std::invalid_argument("O numero deve estar no intervalo [1,4]");
     }
-
-    classe = temp;
 }
 
 /**************** Classe FaixaEtaria ****************/
