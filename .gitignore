@@ -4,4 +4,7 @@ teste
 .idea
 .vscode
 *.json
+Doxygen/html/*
+Doxygen/latex/*
+
 

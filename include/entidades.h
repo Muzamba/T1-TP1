@@ -1,3 +1,13 @@
+/**
+ * @file entidades.h
+ * @author Ariel e João Pedro
+ * @brief Biblioteca simples de Entidaes
+ * @version 0.1
+ * @date 2019-04-29
+ * 
+ * @copyright Copyright (c) 2019
+ * 
+ */
 #ifndef INCLUDE_ENTIDADES_H
 #define INCLUDE_ENTIDADES_H
 
