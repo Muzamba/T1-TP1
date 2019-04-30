@@ -168,7 +168,7 @@ class Evento {
 };
 
 /**
- * @class Apresentação
+ * @class Apresentacao
  * 
  * @brief Classe que armazena dados de uma Apresentação
  * 
