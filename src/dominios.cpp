@@ -154,7 +154,7 @@ void Preco::validar(std::string preco) {
     price = std::atof(preco.c_str());
     if (price < 0.0  || price > 1000.00) {
         throw std::invalid_argument(
-            "O preço deve estar no intervalo [0.00, 1000.00");
+            "O preço deve estar no intervalo [0.00, 1000.00]");
     }
 }
 
