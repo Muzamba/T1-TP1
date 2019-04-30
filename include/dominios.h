@@ -464,7 +464,7 @@ class Senha : public Super {
  * 
  * @brief Armazena o numero de cartão de crédito de um Usuario.
  * 
- * @details Verifica se o numero é valido de acordo com o Algoritmo de Luhn.
+ * @details Verifica se o numero é valido de acordo com o Algoritmo de <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn</a>.
  * 
  * @see Super
  */
@@ -474,7 +474,7 @@ class NumCartaoCredito : public Super {
      * @brief Validação de NumCartaoCredito
      * 
      * Verifica se a string de entrada representa um número de cartão de crédito
-     * usando o Algoritmo de Luhn (https://en.wikipedia.org/wiki/Luhn_algorithm)
+     * usando o Algoritmo de <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn</a>.
      * 
      * @param String a ser validada como NumCartaoCredito
      * 
