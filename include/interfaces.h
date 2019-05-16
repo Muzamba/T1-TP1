@@ -16,6 +16,7 @@
 #include <typeinfo>
 #include <vector>
 #include <memory>
+#include <unordered_map>
 
 #include "./dominios.h"
 #include "./entidades.h"
@@ -27,30 +28,122 @@ class Super_int {
                 std::vector<std::unique_ptr<Super_dom>>(),
               std::vector<std::unique_ptr<Super_ent>> entidades =
                 std::vector<std::unique_ptr<Super_ent>>()) = 0;
+ protected:
+    std::unordered_map<std::string,int> map;
 };
 
 // ------------- Interfaces de Apresentação ----------------------
 
-class IAA : public Super_int {};
+class MAA : public Super_int {
+ public:
+  static MAA& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MAA();
+};
 
-class IAU : public Super_int {};
+class MAU : public Super_int {
+ public:
+  static MAU& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MAU();
+};
 
-class IAE : public Super_int {};
+class MAE : public Super_int {
+ public:
+  static MAE& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MAE();
+};
 
-class IAV : public Super_int {};
+class MAV : public Super_int {
+ public:
+  static MAV& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MAV();
+};
 
 // ------------- Interfaces de Serviço ----------------------
 
-class ISA : public Super_int {};
+class MSA : public Super_int {
+ public:
+  static MSA& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MSA();
+};
 
-class ISU : public Super_int {};
+class MSU : public Super_int {
+ public:
+  static MSU& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MSU();
+};
 
-class ISE : public Super_int {};
+class MSE : public Super_int {
+ public:
+  static MSE& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MSE();
+};
 
-class ISV : public Super_int {};
+class MSV : public Super_int {
+ public:
+  static MSV& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  MSV();
+};
 
 // -------------- ERROR ---------------------------------------
 
-class ERROR : public Super_int {};
+class ERROR : public Super_int {
+ public:
+  static ERROR& Get();
+  void acao(std::string comando,
+              std::vector<std::unique_ptr<Super_dom>> dominios =
+                std::vector<std::unique_ptr<Super_dom>>(),
+              std::vector<std::unique_ptr<Super_ent>> entidades =
+                std::vector<std::unique_ptr<Super_ent>>()) override;
+ private:
+  ERROR();
+};
 
 #endif  // INCLUDE_INTERFACES_H_
