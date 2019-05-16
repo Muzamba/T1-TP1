@@ -18,11 +18,11 @@
 
 
 /**
- * @class Super
+ * @class Super_dom
  * 
  * @brief Classe abstrata o qual todos os dominios herdam.
  */
-class Super {
+class Super_dom {
  protected:
     std::string conteudo; /**< tipo padrão para todas as classes filhas */
     /**
@@ -69,9 +69,9 @@ class Super {
  * @details A validação desse codigo apenas valida o tamanho de 3 digitos e se
  * são numero positivos. 
  * 
- * @see Super
+ * @see Super_dom
  */
-class CodigoDeEvento : public Super {
+class CodigoDeEvento : public Super_dom {
  private:
     /**
      * @brief Validação do CódigodeEvento
@@ -95,9 +95,9 @@ class CodigoDeEvento : public Super {
  * @details A validação desse codigo apenas valida o tamanho de 4 digitos e se
  * são numero positivos.
  * 
- * @see Super
+ * @see Super_dom
  */
-class CodigoDeApresentacao : public Super {
+class CodigoDeApresentacao : public Super_dom {
  private:
     /**
      * @brief Validação do CódigodeApresentação
@@ -121,9 +121,9 @@ class CodigoDeApresentacao : public Super {
  * @details A validação desse codigo apenas valida o tamanho de 5 digitos e se
  * são numero positivos.
  * 
- * @see Super
+ * @see Super_dom
  */
-class CodigoDeIngresso : public Super {
+class CodigoDeIngresso : public Super_dom {
  private:
     /**
      * @brief Validação do CódigodeIngresso
@@ -147,9 +147,9 @@ class CodigoDeIngresso : public Super {
  * @details A validação desse nome apenas valida o tamanho de até 20 caracteres e se
  * possui ao menos uma letra.(Espaços seguidos tambem não são válidos)
  * 
- * @see Super
+ * @see Super_dom
  */
-class NomeDeEvento : public Super {
+class NomeDeEvento : public Super_dom {
  private:
     /**
      * @brief Validação do NomedeEvento
@@ -173,9 +173,9 @@ class NomeDeEvento : public Super {
  * @details A validação verifica se a data inserida é válida, checando o número de dias
  * de cada mês e considerando anos bissextos
  * 
- * @see Super
+ * @see Super_dom
  */
-class Data : public Super {
+class Data : public Super_dom {
  private:
     /**
      * @brief Validação da Data
@@ -200,9 +200,9 @@ class Data : public Super {
  * @details A validação consiste em verificar se o horário inserido está no formato desejado
  * HH:MM e se este está no intervalo permitido
  * 
- * @see Super
+ * @see Super_dom
  */
-class Horario : public Super {
+class Horario : public Super_dom {
  private:
     /**
      * @brief Validação do Horario
@@ -227,10 +227,10 @@ class Horario : public Super {
  * @details A validação consiste em converter uma std::string em um double e checar se está no 
  * intervalo permitido
  * 
- * @see Super
+ * @see Super_dom
  * 
  */
-class Preco : public Super {
+class Preco : public Super_dom {
  private:
     /**
      * @brief Validação do Preco
@@ -253,10 +253,10 @@ class Preco : public Super {
  * 
  * @details A validação apenas checa se o número está no intervalo permitido 
  * 
- * @see Super
+ * @see Super_dom
  * 
  */
-class NumeroDeSala : public Super {
+class NumeroDeSala : public Super_dom {
  private:
     /**
      * @brief Validação do NumeroDeSala
@@ -279,10 +279,10 @@ class NumeroDeSala : public Super {
  * 
  * @details Verifica o formato do nome inserido
  * 
- * @see Super
+ * @see Super_dom
  * 
  */
-class Cidade : public Super {
+class Cidade : public Super_dom {
  private:
     /**
      * @brief Validação do Cidade
@@ -306,9 +306,9 @@ class Cidade : public Super {
  * 
  * @details Verifica a validade da informação no formato UF.
  * 
- * @see Super
+ * @see Super_dom
  */
-class Estado : public Super {
+class Estado : public Super_dom {
  private:
     /**
      * @brief Validação do Estado
@@ -331,9 +331,9 @@ class Estado : public Super {
  * 
  * @details Verifica se é um numero positivo que esta no intervalo [0, 250].
  * 
- * @see Super
+ * @see Super_dom
  */
-class Disponibilidade : public Super {
+class Disponibilidade : public Super_dom {
  private:
     /**
      * @brief Validação da Disponibilidade
@@ -360,9 +360,9 @@ class Disponibilidade : public Super {
  * 3 = SHOW NACIONAL<br>
  * 4 = SHOW INTERNACIONAL<br>
  * 
- * @see Super
+ * @see Super_dom
  */
-class ClasseDeEvento : public Super{
+class ClasseDeEvento : public Super_dom{
  private:
     /**
      * @brief Validação da ClasseDeEvento
@@ -389,9 +389,9 @@ class ClasseDeEvento : public Super{
  * 
  * @details Verica se é um desses tipos {L, 10, 12, 14, 16 ,18}.
  * 
- * @see Super 
+ * @see Super_dom 
  */
-class FaixaEtaria : public Super {
+class FaixaEtaria : public Super_dom {
  private:
     /**
      * @brief Validação da FaixaEtaria
@@ -414,9 +414,9 @@ class FaixaEtaria : public Super {
  * 
  * @details Verifica se o cpf e valido antes de colocar dentro.
  * 
- * @see Super
+ * @see Super_dom
  */
-class CPF : public Super {
+class CPF : public Super_dom {
  private:
     /**
      * @brief Validação do CPF
@@ -440,10 +440,10 @@ class CPF : public Super {
  * @details A senha deve conter 6 caracteres nao repetidos que contenha pelo
  * menos 1 letra maiuscula, 1 letra minuscula e 1 digito.
  * 
- * @see Super
+ * @see Super_dom
  * 
  */
-class Senha : public Super {
+class Senha : public Super_dom {
  private:
     /**
      * @brief Validação da Senha
@@ -466,9 +466,9 @@ class Senha : public Super {
  * 
  * @details Verifica se o numero é valido de acordo com o Algoritmo de <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn</a>.
  * 
- * @see Super
+ * @see Super_dom
  */
-class NumCartaoCredito : public Super {
+class NumCartaoCredito : public Super_dom {
  private:
     /**
      * @brief Validação de NumCartaoCredito
@@ -489,10 +489,10 @@ class NumCartaoCredito : public Super {
  * 
  * @details Apenas verifica se possui 3 digitos. 
  * 
- * @see Super
+ * @see Super_dom
  * 
  */
-class CVV : public Super {
+class CVV : public Super_dom {
  private:
     /**
      * @brief Validação de CVV
@@ -514,9 +514,9 @@ class CVV : public Super {
  * 
  * @details Verifica se esta no formato MM/AA.
  * 
- * @see Super
+ * @see Super_dom
  */
-class DataDeValidade : public Super {
+class DataDeValidade : public Super_dom {
  private:
     /**
      * @brief Validação de DataDeValidade

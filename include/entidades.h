@@ -11,8 +11,10 @@
 #ifndef INCLUDE_ENTIDADES_H_
 #define INCLUDE_ENTIDADES_H_
 
-#include "dominios.h"
+#include "./dominios.h"
 
+class Super_ent {
+};
 /**
  * @class Usuario
  * 
@@ -26,7 +28,7 @@
  * @see Senha
  * 
  */
-class Usuario {
+class Usuario : public Super_ent {
  public:
    /**
     * @brief Método set do Cpf
@@ -78,7 +80,7 @@ class Usuario {
  * @see FaixaEtaria
  * 
  */
-class Evento {
+class Evento : public Super_ent {
  public:
     /**
      * @brief Método set do CodigoDeEvento
@@ -184,7 +186,7 @@ class Evento {
  * @see Preco
  * @see Disponibilidade
  */
-class Apresentacao {
+class Apresentacao : public Super_ent {
  public:
     /**
      * @brief Método set da Apresentaco
@@ -284,7 +286,7 @@ class Apresentacao {
  * 
  * @see CodigoDeIngresso
  */
-class Ingresso {
+class Ingresso : public Super_ent {
  public:
     /**
      * @brief Método set do CodigoDeIngresso
@@ -317,7 +319,7 @@ class Ingresso {
  * @see CVV
  * @see DataDeValidade
  */
-class CartaoDeCredito {
+class CartaoDeCredito : public Super_ent {
  public:
     /**
      * @brief Método set do CartaoDeCredito
