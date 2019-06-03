@@ -23,127 +23,83 @@
 
 class Super_int {
  public:
-    virtual void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) = 0;
- protected:
-    std::unordered_map<std::string,int> map;
+    virtual void executar() = 0;
 };
 
 // ------------- Interfaces de Apresentação ----------------------
 
+// Apresentação de Autenticação
 class MAA : public Super_int {
  public:
-  static MAA& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
+    void executar() override;
  private:
-  MAA();
+    MSA* servico;
+    void autenticar();
 };
 
+// Apresentação de Usuário
 class MAU : public Super_int {
  public:
-  static MAU& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
+    void executar() override;
  private:
-  MAU();
+    MSU* servico;
+
 };
 
+// Apresentação de Eventos
 class MAE : public Super_int {
  public:
-  static MAE& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
+    void executar() override;
  private:
-  MAE();
+    MSE* servico;
 };
 
+// Apresentação de Vendas
 class MAV : public Super_int {
  public:
-  static MAV& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
+    void executar() override;
  private:
-  MAV();
+    MSV* servico;
 };
 
 // ------------- Interfaces de Serviço ----------------------
 
+// Serviço de Autenticação
 class MSA : public Super_int {
  public:
-  static MSA& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
+    void executar() override;
+    bool executar(const Usuario &user);
  private:
-  MSA();
+    bool autenticar(CPF cpf, Senha senha);
 };
 
+// Serviço de Usuário
 class MSU : public Super_int {
  public:
-  static MSU& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
+    void executar() override;
+    void executar(const CPF &cpf);
  private:
-  MSU();
+    void get_data(Usuario &user);
 };
 
+// Serviço de Eventos
 class MSE : public Super_int {
  public:
-  static MSE& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
- private:
-  MSE();
+    void executar() override;
 };
 
+// Serviço de Vendas
 class MSV : public Super_int {
  public:
-  static MSV& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
- private:
-  MSV();
+    void executar() override;
 };
 
 // -------------- ERROR ---------------------------------------
 
-class ERROR : public Super_int {
- public:
-  static ERROR& Get();
-  void acao(std::string comando,
-              std::vector<std::unique_ptr<Super_dom>> dominios =
-                std::vector<std::unique_ptr<Super_dom>>(),
-              std::vector<std::unique_ptr<Super_ent>> entidades =
-                std::vector<std::unique_ptr<Super_ent>>()) override;
- private:
-  ERROR();
-};
+// class ERROR : public Super_int {
+//  public:
+//  private:
+//   ERROR();
+// };
 
 #endif  // INCLUDE_INTERFACES_H_
