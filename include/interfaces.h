@@ -13,27 +13,37 @@
 
 #include <string>
 #include <iostream>
-#include <typeinfo>
 #include <vector>
-#include <memory>
-#include <unordered_map>
+
 
 #include "./dominios.h"
 #include "./entidades.h"
 
+class Controller {
+ public:
+    void executar();
+ private:
+    Super_int* maa;
+    Super_int* mau;
+    Super_int* mae;
+    Super_int* mav;
+};
+
 class Super_int {
  public:
     virtual void executar() = 0;
+ protected:
+    Controller* controller;
 };
 
-// ------------- Interfaces de Apresentação ----------------------
+// ------------- Modulos de Apresentação ----------------------
 
 // Apresentação de Autenticação
 class MAA : public Super_int {
  public:
     void executar() override;
  private:
-    MSA* servico;
+    ISA* servico;
     void autenticar();
 };
 
@@ -42,7 +52,7 @@ class MAU : public Super_int {
  public:
     void executar() override;
  private:
-    MSU* servico;
+    ISU* servico;
 
 };
 
@@ -51,7 +61,7 @@ class MAE : public Super_int {
  public:
     void executar() override;
  private:
-    MSE* servico;
+    ISE* servico;
 };
 
 // Apresentação de Vendas
@@ -59,47 +69,77 @@ class MAV : public Super_int {
  public:
     void executar() override;
  private:
-    MSV* servico;
+    ISV* servico;
 };
 
 // ------------- Interfaces de Serviço ----------------------
 
 // Serviço de Autenticação
-class MSA : public Super_int {
+class ISA {
  public:
-    void executar() override;
-    bool executar(const Usuario &user);
+    virtual bool autenticar(const CPF& cpf, const Senha& senha) = 0;
  private:
-    bool autenticar(CPF cpf, Senha senha);
+    Super_int* iaa;
+};
+
+class MSA : public ISA {
+ public:
+    virtual bool autenticar(const CPF& cpf, const Senha& senha) override;
 };
 
 // Serviço de Usuário
-class MSU : public Super_int {
+class ISU {
  public:
-    void executar() override;
-    void executar(const CPF &cpf);
+    virtual bool cadastrar(const Usuario&, const CartaoDeCredito&) = 0;
+    virtual bool descadastrar(const CPF&) = 0;
+    virtual std::vector<Evento> getEventos(const CPF&) = 0;
+    virtual std::vector<Apresentacao> getApresentacoes(const CodigoDeEvento&) = 0;
+    virtual std::vector<Ingresso> getIngressos(const CodigoDeApresentacao&) = 0;
+    virtual bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) = 0;
+    virtual bool alteraEvento(const Evento&) = 0;
+    virtual bool descadastrarEvento(const CodigoDeEvento&) = 0;
  private:
-    void get_data(Usuario &user);
+    Super_int* iau;
+};
+
+class MSU : public ISU {
+ public:
+    virtual bool cadastrar(const Usuario&, const CartaoDeCredito&) override;
+    virtual bool descadastrar(const CPF&) override;
+    virtual std::vector<Evento> getEventos(const CPF&) override;
+    virtual std::vector<Apresentacao> getApresentacoes(const CodigoDeEvento&) override;
+    virtual std::vector<Ingresso> getIngressos(const CodigoDeApresentacao&) override;
+    virtual bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) override;
+    virtual bool alteraEvento(const Evento&) override;
+    virtual bool descadastrarEvento(const CodigoDeEvento&) override;
 };
 
 // Serviço de Eventos
-class MSE : public Super_int {
+class ISE {
  public:
-    void executar() override;
+    virtual std::vector<Evento> buscar(Data inicio, Data fim, Cidade, Estado) = 0;
+ private:
+    Super_int* iae;
+};
+
+class MSE :public ISE {
+ public:
+    virtual std::vector<Evento> buscar(Data inicio, Data fim, Cidade, Estado) override;
 };
 
 // Serviço de Vendas
-class MSV : public Super_int {
+class ISV {
  public:
-    void executar() override;
+    virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) = 0;
+ private:
+    Super_int* iav;
 };
 
-// -------------- ERROR ---------------------------------------
+class MSV :public ISV {
+ public:
+    virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) override;
+};
 
-// class ERROR : public Super_int {
-//  public:
-//  private:
-//   ERROR();
-// };
+
 
 #endif  // INCLUDE_INTERFACES_H_
