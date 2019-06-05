@@ -2,10 +2,12 @@
 #define BUILDER_H
 
 #include "interfaces.h"
+#include "container.h"
 
 class Builder {
  public:
-    static Controller* build(); 
+    static Controller* buildSistema();
+    static DataBase*  buildDB();
 };
 
 
