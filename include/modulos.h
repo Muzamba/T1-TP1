@@ -45,7 +45,7 @@ class MAV : public Super_int {
 // Serviço de Autenticação
 class MSA : public ISA {
  public:
-    virtual bool autenticar(const CPF& cpf, const Senha& senha) override;
+    bool autenticar(const CPF& cpf, const Senha& senha) override;
 };
 
 
@@ -59,16 +59,16 @@ class MSU : public ISU {
 // Serviço de Eventos
 class MSE :public ISE {
  public:
-    virtual std::vector<Evento> buscar(Data inicio, Data fim, Cidade, Estado) override;
-    virtual bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) override;
-    virtual bool alteraEvento(const Evento&) override;
-    virtual bool descadastrarEvento(const CodigoDeEvento&) override;
+    std::vector<Evento> buscar(Data inicio, Data fim, Cidade, Estado) override;
+    bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) override;
+    bool alteraEvento(const Evento&) override;
+    bool descadastrarEvento(const CodigoDeEvento&) override;
 };
 
 // Serviço de Vendas
 class MSV :public ISV {
  public:
-    virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) override;
+    bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) override;
 };
 
 

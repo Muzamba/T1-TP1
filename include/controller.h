@@ -3,11 +3,13 @@
 
 #include "interfaces.h"
 #include "builder.h"
+#include <ncurses.h>
 
 class Controller {
   friend class Builder;
  public:
     void executar();
+    Controller();
  private:
     Super_int* maa;
     Super_int* mau;

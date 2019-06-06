@@ -1,97 +1,27 @@
-#include "interfaces.h"
+#include "modulos.h"
+#include <ncurses.h>
 
-
-// MAA---------------------------------------------------------------
-MAA::MAA() {
-    map["comando"] = 0; //id
-}
-
-void MAA::acao( std::string comando,
-                std::vector<std::unique_ptr<Super_dom>> dominios,
-                std::vector<std::unique_ptr<Super_ent>> entidades) {
-    switch (map[comando]) {
-    case 0:
-        break;
-    
-    default:
-        break;
-    }
-}
-
-MAA& MAA::Get() {
-    static MAA maa = MAA();
-    return maa;
-}
-//-------------------------------------------------------------------
-
-
-// MAU---------------------------------------------------------------
-MAU::MAU() {
-    map["comando"] = 0; //id
-}
-
-void MAU::acao( std::string comando,
-                std::vector<std::unique_ptr<Super_dom>> dominios,
-                std::vector<std::unique_ptr<Super_ent>> entidades) {
-    switch (map[comando]) {
-    case 0:
-        break;
-    
-    default:
-        break;
-    }
+//---------Apresentação---------
+void MAA::executar() {
 
 }
 
-MAU& MAU::Get() {
-    static MAU mau = MAU();
-    return mau;
-}
-//-------------------------------------------------------------------
+void MAA::autenticar() {
 
-// MAE---------------------------------------------------------------
-MAE::MAE() {
-    map["comando"] = 0; //id
 }
 
-void MAE::acao( std::string comando,
-                std::vector<std::unique_ptr<Super_dom>> dominios,
-                std::vector<std::unique_ptr<Super_ent>> entidades) {
-    switch (map[comando]) {
-    case 0:
-        break;
-    
-    default:
-        break;
-    }
+//---------------Usuarios---------------
+void MAU::executar() {
+
 }
 
-MAE& MAE::Get() {
-    static MAE mae = MAE();
-    return mae;
-}
-//-------------------------------------------------------------------
+//---------------Eventos---------------
+void MAE::executar() {
 
-// MAV---------------------------------------------------------------
-MAV::MAV() {
-    map["comando"] = 0; //id
 }
 
-void MAV::acao( std::string comando,
-                std::vector<std::unique_ptr<Super_dom>> dominios,
-                std::vector<std::unique_ptr<Super_ent>> entidades) {
-    switch (map[comando]) {
-    case 0:
-        break;
-    
-    default:
-        break;
-    }
-}
+//---------------Vendas---------------
+void MAV::executar() {
 
-MAV& MAV::Get() {
-    static MAV mav = MAV();
-    return mav;
 }
-//-------------------------------------------------------------------
 
