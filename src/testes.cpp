@@ -1,4 +1,6 @@
 // Copyright Ariel e João Pedro
+#ifdef DEBUG
+
 #define CATCH_CONFIG_MAIN
 #include <iostream>
 #include <string>
@@ -1378,3 +1380,5 @@ TEST_CASE("Entidade X") {
 }
 */
 
+
+#endif  //DEBUG

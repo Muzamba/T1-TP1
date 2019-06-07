@@ -1,21 +1,18 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
+class DataBase;
+class Usuarios;
+class CartoesDeCredito;
+class Eventos;
+class Apresentacoes;
+class Ingressos;
+
 
 #include "entidades.h"
 #include "builder.h"
 #include <unordered_map>
 
-class DataBase {
-friend class Builder;
-public:
 
-private:
-    Usuarios* usuarios; 
-    CartoesDeCredito* cartoes;
-    Eventos* eventos;
-    Apresentacoes* apresentacoes;
-    Ingressos* Ingressos;
-};
 
 
 class Usuarios {
@@ -68,5 +65,16 @@ private:
     std::unordered_map<std::string, Ingresso> ticketTable;
 };
 
+class DataBase {
+friend class Builder;
+public:
+
+private:
+    Usuarios* usuarios; 
+    CartoesDeCredito* cartoes;
+    Eventos* eventos;
+    Apresentacoes* apresentacoes;
+    Ingressos* ingressos;
+};
 
 #endif // CONTAINER_H

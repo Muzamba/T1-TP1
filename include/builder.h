@@ -1,5 +1,6 @@
 #ifndef BUILDER_H
 #define BUILDER_H
+class Builder;
 
 #include "interfaces.h"
 #include "container.h"

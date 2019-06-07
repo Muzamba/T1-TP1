@@ -3,7 +3,7 @@
 #include "../include/dominios.h"
 
 /**************** Classe Super ****************/
-void Super::setConteudo(std::string conteudo) {
+void Super_dom::setConteudo(std::string conteudo) {
     validar(conteudo);
     this->conteudo = conteudo;
 }

@@ -1,15 +1,17 @@
-/**
- * @file interfaces.h
- * @author Ariel e João Pedro
- * @brief Biblioteca simples de Interfaces
- * @version 0.1
- * @date 2019-04-29
- * 
- * @copyright Copyright (c) 2019
- * 
- */
+
 #ifndef INCLUDE_INTERFACES_H_
 #define INCLUDE_INTERFACES_H_
+
+class IAA;
+class IAU;
+class IAE;
+class IAV;
+
+class ISA;
+class ISU;
+class ISE;
+class ISV;
+
 
 #include <string>
 #include <iostream>
@@ -22,12 +24,40 @@
 #include "builder.h"
 
 // -------------------------Interface de Apresentação--------------------------
-class Super_int {
+class IAA {
  friend class Builder;
  public:
     virtual void executar() = 0;
  protected:
     Controller* controller;
+    ISA* servico;
+};
+
+class IAU {
+ friend class Builder;
+ public:
+    virtual void executar() = 0;
+ protected:
+    Controller* controller;
+    ISU* servico;
+};
+
+class IAE {
+ friend class Builder;
+ public:
+    virtual void executar() = 0;
+ protected:
+    Controller* controller;
+    ISE* servico;
+};
+
+class IAV {
+ friend class Builder;
+ public:
+    virtual void executar() = 0;
+ protected:
+    Controller* controller;
+    ISV* servico;
 };
 
 
@@ -38,8 +68,8 @@ class ISA {
  friend class Builder;
  public:
     virtual bool autenticar(const CPF& cpf, const Senha& senha) = 0;
- private:
-    Super_int* iaa;
+ protected:
+    IAA* iaa;
 };
 
 
@@ -49,12 +79,8 @@ class ISU {
  public:
     virtual bool cadastrar(const Usuario&, const CartaoDeCredito&) = 0;
     virtual bool descadastrar(const CPF&) = 0;
-    virtual std::vector<Evento> getEventos(const CPF&) = 0;
-    virtual std::vector<Apresentacao> getApresentacoes(const CodigoDeEvento&) = 0;
-    virtual std::vector<Ingresso> getIngressos(const CodigoDeApresentacao&) = 0;
-    
- private:
-    Super_int* iau;
+ protected:
+    IAU* iau;
 };
 
 
@@ -66,8 +92,8 @@ class ISE {
     virtual bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) = 0;
     virtual bool alteraEvento(const Evento&) = 0;
     virtual bool descadastrarEvento(const CodigoDeEvento&) = 0;
- private:
-    Super_int* iae;
+ protected:
+    IAE* iae;
 };
 
 
@@ -76,8 +102,8 @@ class ISV {
  friend class Builder;
  public:
     virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) = 0;
- private:
-    Super_int* iav;
+ protected:
+    IAV* iav;
 };
 
 

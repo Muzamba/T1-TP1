@@ -1,5 +1,6 @@
 #ifndef CONTROLER_H
 #define CONTROLER_H
+class Controller;
 
 #include "interfaces.h"
 #include "builder.h"
@@ -11,10 +12,10 @@ class Controller {
     void executar();
     Controller();
  private:
-    Super_int* maa;
-    Super_int* mau;
-    Super_int* mae;
-    Super_int* mav;
+    IAA* maa;
+    IAU* mau;
+    IAE* mae;
+    IAV* mav;
 };
 
 

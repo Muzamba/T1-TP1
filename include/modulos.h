@@ -1,5 +1,14 @@
 #ifndef MODULOS_H
 #define MODULOS_H
+class MAA;
+class MAU;
+class MAE;
+class MAV;
+
+class MSA;
+class MSU;
+class MSE;
+class MSV;
 
 #include "interfaces.h"
 
@@ -7,7 +16,8 @@
 // ------------- Modulos de Apresentação ----------------------
 
 // Apresentação de Autenticação
-class MAA : public Super_int {
+class MAA : public IAA {
+friend class Builder;
  public:
     void executar() override;
  private:
@@ -16,7 +26,8 @@ class MAA : public Super_int {
 };
 
 // Apresentação de Usuário
-class MAU : public Super_int {
+class MAU : public IAU {
+friend class Builder;
  public:
     void executar() override;
  private:
@@ -25,7 +36,8 @@ class MAU : public Super_int {
 };
 
 // Apresentação de Eventos
-class MAE : public Super_int {
+class MAE : public IAE {
+friend class Builder;
  public:
     void executar() override;
  private:
@@ -33,11 +45,11 @@ class MAE : public Super_int {
 };
 
 // Apresentação de Vendas
-class MAV : public Super_int {
+class MAV : public IAV {
+friend class Builder;
  public:
     void executar() override;
- private:
-    ISV* servico;
+
 };
 
 

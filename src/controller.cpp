@@ -7,7 +7,9 @@ Controller::Controller() {
 }
 
 void Controller::executar() {
-    
+    while(1){
+        refresh();
+    }
 }
 
 
