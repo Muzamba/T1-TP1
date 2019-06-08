@@ -1,5 +1,6 @@
-#ifndef MODULOS_H
-#define MODULOS_H
+// Copyright
+#ifndef INCLUDE_MODULOS_H_
+#define INCLUDE_MODULOS_H_
 class MAA;
 class MAU;
 class MAE;
@@ -10,7 +11,7 @@ class MSU;
 class MSE;
 class MSV;
 
-#include "interfaces.h"
+#include "./interfaces.h"
 
 
 // ------------- Modulos de Apresentação ----------------------
@@ -53,7 +54,7 @@ friend class Builder;
 };
 
 
-//---------------Modulos de Serviço-------------
+// ---------------Modulos de Serviço-------------
 // Serviço de Autenticação
 class MSA : public ISA {
  public:
@@ -84,4 +85,4 @@ class MSV :public ISV {
 };
 
 
-#endif //MODULO_H
+#endif  // INCLUDE_MODULOS_H_
