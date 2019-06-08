@@ -1,26 +1,27 @@
-#include "modulos.h"
+// Copyright
 #include <ncurses.h>
+#include "./modulos.h"
 
-//---------Apresentação---------
+// ---------Apresentação---------
 void MAA::executar() {
-
+    
 }
 
 void MAA::autenticar() {
 
 }
 
-//---------------Usuarios---------------
+// ---------------Usuarios---------------
 void MAU::executar() {
 
 }
 
-//---------------Eventos---------------
+// ---------------Eventos---------------
 void MAE::executar() {
 
 }
 
-//---------------Vendas---------------
+// ---------------Vendas---------------
 void MAV::executar() {
 
 }

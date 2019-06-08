@@ -1,16 +1,19 @@
-#ifndef CONTROLER_H
-#define CONTROLER_H
+// Copyright
+#ifndef INCLUDE_CONTROLLER_H_
+#define INCLUDE_CONTROLLER_H_
+
 class Controller;
 
-#include "interfaces.h"
-#include "builder.h"
 #include <ncurses.h>
+#include "./interfaces.h"
+#include "./builder.h"
 
 class Controller {
   friend class Builder;
  public:
     void executar();
     Controller();
+    ~Controller();
  private:
     IAA* maa;
     IAU* mau;
@@ -19,5 +22,5 @@ class Controller {
 };
 
 
-#endif //CONTROLER_H
+#endif  // INCLUDE_CONTROLLER_H_
 

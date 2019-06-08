@@ -1,9 +1,11 @@
-#ifndef BUILDER_H
-#define BUILDER_H
+// Copyright
+#ifndef INCLUDE_BUILDER_H_
+#define INCLUDE_BUILDER_H_
 class Builder;
 
-#include "interfaces.h"
-#include "container.h"
+#include "./interfaces.h"
+#include "./container.h"
+// #include "./controller.h"
 
 class Builder {
  public:
@@ -12,4 +14,4 @@ class Builder {
 };
 
 
-#endif //BUILDER_H
+#endif  // INCLUDE_BUILDER_H_
