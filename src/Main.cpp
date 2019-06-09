@@ -8,7 +8,6 @@
 #include "./modulos.h"
 
 int main(int argc, char const *argv[]) {
-
     auto controller = Builder::buildSistema();
 
     controller->executar();

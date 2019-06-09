@@ -12,11 +12,11 @@ Controller::~Controller() {
 }
 void Controller::executar() {
     // Menu principal
-    std::string opcoes[3] = {"Ver Eventos", "Login", "sair"};
+    std::string opcoes[4] = {"Ver Eventos", "Login", "Cadastrar", "sair"};
     int y_max, x_max;
     getmaxyx(stdscr, y_max, x_max);
 
-    WINDOW* win = newwin(6, x_max-12, y_max-40, 5);
+    static WINDOW* win = newwin(6, x_max-12, y_max-25, 5);
     box(win, 0, 0);
     refresh();
     wrefresh(win);
@@ -26,7 +26,7 @@ void Controller::executar() {
     int highlight = 0;
 
     while (true) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             if (i == highlight) {
                 wattron(win, A_REVERSE);
             }
@@ -47,7 +47,7 @@ void Controller::executar() {
             case KEY_DOWN:
                 highlight++;
                 if (highlight == 3) {
-                    highlight = 2;
+                    highlight = 3;
                 }
                 break;
             default:
@@ -57,20 +57,23 @@ void Controller::executar() {
         if (choice == 10) {
             switch (highlight) {
                 case 0:
-                    // maa->executar();
+                    mav->executar();
                     break;
                 case 1:
+                    maa->executar();
                     break;
+                case 2:
+                    mau->executar();
                 default:
                     break;
             }
-            break;
         }
+
+        box(win, 0, 0);
+        clear();
+        refresh();
     }
-    printw("Você escolheu: %s", opcoes[highlight].c_str());
-
-
-    // int c = getch();
+    int c = getch();
 }
 
 

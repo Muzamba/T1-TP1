@@ -1,3 +1,4 @@
+// Copyright
 #ifndef INCLUDE_CONTAINER_H_
 #define INCLUDE_CONTAINER_H_
 class DataBase;
@@ -8,73 +9,74 @@ class Apresentacoes;
 class Ingressos;
 
 
-#include "entidades.h"
-#include "builder.h"
 #include <unordered_map>
+#include <string>
+#include "./entidades.h"
+#include "./builder.h"
 
 
 
 
 class Usuarios {
-public:
+ public:
     Usuario Get(CPF);
     bool Add(Usuario);
     bool Remove(CPF);
 
-private:
+ private:
     std::unordered_map<std::string, Usuario> userTable;
 };
 
 class CartoesDeCredito {
-public:
+ public:
     CartaoDeCredito Get(NumCartaoCredito);
     bool Add(CartaoDeCredito);
     bool Remove(NumCartaoCredito);
 
-private:
+ private:
     std::unordered_map<std::string, CartaoDeCredito> cardTable;
 };
 
 class Eventos {
-public:
+ public:
     Evento Get(CodigoDeEvento);
     bool Add(Evento);
     bool Remove(CodigoDeEvento);
 
-private:
+ private:
     std::unordered_map<std::string, Evento> eventTable;
 };
 
 class Apresentacoes {
-public:
+ public:
     Apresentacao Get(CodigoDeApresentacao);
     bool Add(Apresentacao);
     bool Remove(CodigoDeApresentacao);
 
-private:
+ private:
     std::unordered_map<std::string, Apresentacao> showTable;
 };
 
 class Ingressos {
-public:
+ public:
     Ingresso Get(CodigoDeIngresso);
     bool Add(Ingresso);
     bool Remove(CodigoDeIngresso);
 
-private:
+ private:
     std::unordered_map<std::string, Ingresso> ticketTable;
 };
 
 class DataBase {
 friend class Builder;
-public:
+ public:
 
-private:
-    Usuarios* usuarios; 
+ private:
+    Usuarios* usuarios;
     CartoesDeCredito* cartoes;
     Eventos* eventos;
     Apresentacoes* apresentacoes;
     Ingressos* ingressos;
 };
 
-#endif // CONTAINER_H
+#endif  // INCLUDE_CONTAINER_H_
