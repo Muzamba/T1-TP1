@@ -13,17 +13,29 @@ Controller::~Controller() {
 void Controller::executar() {
     // Menu principal
     std::string opcoes[4] = {"Ver Eventos", "Login", "Cadastrar", "sair"};
+    std::string nome = "Switch Dreams";
     int y_max, x_max;
+    int wy_max, wx_max;
+    
+    
     getmaxyx(stdscr, y_max, x_max);
 
-    static WINDOW* win = newwin(6, x_max-12, y_max-25, 5);
-    box(win, 0, 0);
-    refresh();
-    wrefresh(win);
+    static WINDOW* win = newwin(10, 30, y_max/2 - 5, x_max/2 - 15);
 
+    getmaxyx(win, wy_max, wx_max);
+    
+
+    cbreak();
+    noecho();
+    curs_set(0);
     keypad(win, true);
+
     int choice;
     int highlight = 0;
+
+    box(win, 0, 0);
+    mvwprintw(win, 0, wx_max/2 - nome.size()/2, nome.c_str());
+    wrefresh(win);
 
     while (true) {
         for (int i = 0; i < 4; i++) {
@@ -32,7 +44,7 @@ void Controller::executar() {
             }
             int win_y, win_x;
             getmaxyx(win, win_y, win_x);
-            mvwprintw(win, i+1, win_x/2-5, opcoes[i].c_str());
+            mvwprintw(win, i + 3, win_x / 2 - opcoes[i].size()/2, opcoes[i].c_str());
             wattroff(win, A_REVERSE);
         }
         choice = wgetch(win);
@@ -46,7 +58,7 @@ void Controller::executar() {
                 break;
             case KEY_DOWN:
                 highlight++;
-                if (highlight == 3) {
+                if (highlight == 4) {
                     highlight = 3;
                 }
                 break;
@@ -56,24 +68,25 @@ void Controller::executar() {
 
         if (choice == 10) {
             switch (highlight) {
-                case 0:
+                case 0: // Ver eventos
                     mav->executar();
                     break;
-                case 1:
+                case 1: // Login
                     maa->executar();
+                    box(win, 0, 0);
+                    mvwprintw(win, 0, wx_max/2 - nome.size()/2, nome.c_str());
+                    wrefresh(win);
                     break;
-                case 2:
+                case 2: // Cadastrar
                     mau->executar();
                 default:
                     break;
             }
         }
 
-        box(win, 0, 0);
-        clear();
-        refresh();
+    
     }
-    int c = getch();
+    
 }
 
 
