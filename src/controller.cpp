@@ -16,14 +16,12 @@ void Controller::executar() {
     std::string nome = "Switch Dreams";
     int y_max, x_max;
     int wy_max, wx_max;
-    
-    
+
     getmaxyx(stdscr, y_max, x_max);
 
     static WINDOW* win = newwin(10, 30, y_max/2 - 5, x_max/2 - 15);
 
     getmaxyx(win, wy_max, wx_max);
-    
 
     cbreak();
     noecho();
@@ -68,25 +66,23 @@ void Controller::executar() {
 
         if (choice == 10) {
             switch (highlight) {
-                case 0: // Ver eventos
-                    mav->executar();
+                case 0:  // Ver eventos
+                    mae->executar();
                     break;
-                case 1: // Login
+                case 1:  // Login
                     maa->executar();
                     box(win, 0, 0);
                     mvwprintw(win, 0, wx_max/2 - nome.size()/2, nome.c_str());
                     wrefresh(win);
                     break;
-                case 2: // Cadastrar
+                case 2:  // Cadastrar
                     mau->executar();
                 default:
+                    return;
                     break;
             }
         }
-
-    
     }
-    
 }
 
 

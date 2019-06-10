@@ -5,7 +5,7 @@
 
 // ---------Apresentação---------
 void MAA::executar() {
-    
+
     int y_max, x_max;
     int wy_max, wx_max;
 
@@ -23,7 +23,7 @@ void MAA::executar() {
     auto win_erro = newwin(5, 30, 0, x_max - 30);
 
     // static WINDOW* win = newwin(y_max-5, x_max-12, y_max-40, 5);
-    WINDOW* win = newwin(10, 30, y_max/2 - 5, x_max/2 - 15);
+    WINDOW* win = newwin(12, 30, y_max/2 - 6    , x_max/2 - 15);
     getmaxyx(win, wy_max, wx_max);
 
     box(win, 0, 0);
@@ -36,8 +36,7 @@ void MAA::executar() {
     cpfForm = newwin(3, 13, win->_begy + 2, win->_begx + 15);
     senhaForm = newwin(3, 8, win->_begy + 5, win->_begx + 15);
 
-
-    box(cpfForm,0,0);
+    box(cpfForm, 0, 0);
     wrefresh(cpfForm);
 
     box(senhaForm, 0, 0);
@@ -46,15 +45,47 @@ void MAA::executar() {
     CPF u_cpf;
     Senha u_senha;
 
-    while(true) {
+    while (true) {
         echo();
         curs_set(1);
 
         wmove(cpfForm, 1, 1);
-        wgetstr(cpfForm,cpf);
+        wgetstr(cpfForm, cpf);
 
         wmove(senhaForm, 1, 1);
         wgetstr(senhaForm, senha);
+
+        int highlight = 0;
+        int choice;
+
+        for (int i = 0; i < 2; i++) {
+            if (i == highlight) {
+                wattron(win, A_REVERSE);
+            }
+            int win_y, win_x;
+            getmaxyx(win, win_y, win_x);
+            mvwprintw(win, win_y-2, i+3, ops[i].c_str());
+            wattroff(win, A_REVERSE);
+        }
+
+        choice = wgetch(win);
+
+        switch (choice) {
+            case KEY_LEFT:
+                highlight--;
+                if (highlight == -1) {
+                    highlight = 0;
+                }
+                break;
+            case KEY_RIGHT:
+                highlight++;
+                if (highlight == 2) {
+                    highlight = 1;
+                }
+                break;
+            default:
+                break;
+        }
 
         try {
             u_cpf.setConteudo(cpf);
@@ -63,13 +94,11 @@ void MAA::executar() {
         } catch (...) {
             wmove(win_erro, 1, 0);
             wprintw(win_erro, "Erro no Formato");
-            wrefresh(win_erro); 
+            wrefresh(win_erro);
             continue;
         }
 
-        
-
-        if(servico->autenticar(u_cpf, u_senha)) {
+        if (servico->autenticar(u_cpf, u_senha)) {
             wmove(win_erro, 1, 0);
             wprintw(win_erro, "Login realizado com sucesso");
             wrefresh(win_erro);
@@ -78,7 +107,9 @@ void MAA::executar() {
             wmove(win_erro, 1, 0);
             wprintw(win_erro, "Falha na autenticação");
             wrefresh(win_erro);
-        } 
+        }
+
+
     }
 
     wclear(win);

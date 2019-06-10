@@ -11,6 +11,8 @@ class Builder {
  public:
     static Controller* buildSistema();
     static DataBase*  buildDB();
+    static void destroySistema(Controller*);
+    static void destroyDB(DataBase*);
 };
 
 

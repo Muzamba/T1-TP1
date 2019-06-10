@@ -1,5 +1,6 @@
-#include "builder.h"
-#include "modulos.h"
+// Copyright
+#include "./builder.h"
+#include "./modulos.h"
 
 Controller* Builder::buildSistema() {
     auto controller = new Controller();
@@ -31,6 +32,20 @@ Controller* Builder::buildSistema() {
     return controller;
 }
 
+void Builder::destroySistema(Controller* controller) {
+    // Liberando o espaço alocado durante o build do sistema
+
+    delete controller->maa->servico;
+    delete controller->mae->servico;
+    delete controller->mau->servico;
+    delete controller->mav->servico;
+
+    delete controller->maa;
+    delete controller->mae;
+    delete controller->mau;
+    delete controller->mav;
+}
+
 
 
 DataBase*  Builder::buildDB() {
@@ -43,4 +58,14 @@ DataBase*  Builder::buildDB() {
     db->ingressos = new Ingressos();
 
     return db;
+}
+
+void Builder::destroyDB(DataBase* db) {
+    // Liberando o espaço alocado durante o build do 'banco de dados'
+
+    delete db->usuarios;
+    delete db->eventos;
+    delete db->apresentacoes;
+    delete db->cartoes;
+    delete db->ingressos;
 }
