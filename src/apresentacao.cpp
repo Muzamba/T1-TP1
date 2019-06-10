@@ -108,7 +108,62 @@ void MAU::executar() {
 
 // ---------------Eventos---------------
 void MAE::executar() {
+    clear();
+    refresh();
+    int y_max, x_max;
+    getmaxyx(stdscr, y_max, x_max);
 
+    auto leftWin = newwin(y_max - 2, x_max / 2 - 2, 1, 1);
+    box(leftWin, 0, 0);
+    //wrefresh(leftWin);
+
+    auto rightWin = newwin(y_max - 2, x_max / 2 - 2, 1,  x_max / 2 + 2);
+    box(rightWin, 0, 0);
+    //wrefresh(rightWin);
+
+    auto searchWin = newwin(18, 40, y_max/2 - 9, x_max /2 - 20);
+    box(searchWin, 0, 0);
+
+    std::string eventos = "Eventos";
+    mvwprintw(searchWin, 0, searchWin->_maxx / 2 - eventos.size() / 2, eventos.c_str());
+    
+
+    WINDOW* form[4];
+    std::string labels[4] = {"Data de Inicio", "Data de Termino", "Cidade", "Estado"};
+    
+    
+    for(int i = 0;i < 4;i++) {
+        form[i] = newwin(3, 17,searchWin->_begy + 3 + i * 3, searchWin->_begx + searchWin->_maxx - 19);
+        box(form[i], 0, 0);
+        //wrefresh(form[i]);
+    }
+
+    for(int i = 0;i < 4;i++) {
+        mvwprintw(searchWin, form[i]->_begy - searchWin->_begy + 1, form[i]->_begx - searchWin->_begx - labels[i].size() - 1, labels[i].c_str());
+    }
+    wrefresh(searchWin);
+
+    for(int i = 0; i < 4;i++){
+        wrefresh(form[i]);
+    }
+
+    getch();
+
+
+
+
+
+    wclear(leftWin);
+    wrefresh(leftWin);
+    delwin(leftWin);
+
+    wclear(rightWin);
+    wrefresh(rightWin);
+    delwin(rightWin);
+
+    wclear(searchWin);
+    wrefresh(searchWin);
+    delwin(searchWin);
 }
 
 // ---------------Vendas---------------
