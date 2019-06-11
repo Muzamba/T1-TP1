@@ -45,15 +45,29 @@ void MAA::executar() {
     CPF u_cpf;
     Senha u_senha;
 
+    bool digitou = false;
+    // wmove(cpfForm, 1, 1);
+    // wgetstr(cpfForm, cpf);
+    // wmove(senhaForm, 1, 1);
+    // wgetstr(senhaForm, senha);
     while (true) {
         echo();
         curs_set(1);
 
-        wmove(cpfForm, 1, 1);
-        wgetstr(cpfForm, cpf);
+        int16_t cont = 0;
 
+        wmove(cpfForm, 1, 1);
+        if (!digitou) {
+            wgetstr(cpfForm, cpf);
+            cont++;
+        }
         wmove(senhaForm, 1, 1);
-        wgetstr(senhaForm, senha);
+        if (!digitou) {
+            wgetstr(senhaForm, senha);
+            cont++;
+        }
+
+        if (cont == 2) digitou = true;
 
         int highlight = 0;
         int choice;
@@ -64,7 +78,7 @@ void MAA::executar() {
             }
             int win_y, win_x;
             getmaxyx(win, win_y, win_x);
-            mvwprintw(win, win_y-2, i+3, ops[i].c_str());
+            mvwprintw(win, win_y-2, i*ops[i-1].size()+6, ops[i].c_str());
             wattroff(win, A_REVERSE);
         }
 
@@ -87,29 +101,35 @@ void MAA::executar() {
                 break;
         }
 
-        try {
-            u_cpf.setConteudo(cpf);
+        if (choice == 10) {
+            switch (highlight) {
+                case 0:
+                    try {
+                        u_cpf.setConteudo(cpf);
 
-            u_senha.setConteudo(senha);
-        } catch (...) {
-            wmove(win_erro, 1, 0);
-            wprintw(win_erro, "Erro no Formato");
-            wrefresh(win_erro);
-            continue;
+                        u_senha.setConteudo(senha);
+                    } catch (...) {
+                        wmove(win_erro, 1, 0);
+                        wprintw(win_erro, "Erro no Formato");
+                        wrefresh(win_erro);
+                        continue;
+                    }
+
+                    if (servico->autenticar(u_cpf, u_senha)) {
+                        wmove(win_erro, 1, 0);
+                        wprintw(win_erro, "Login realizado com sucesso");
+                        wrefresh(win_erro);
+                        break;
+                    } else {
+                        wmove(win_erro, 1, 0);
+                        wprintw(win_erro, "Falha na autenticação");
+                        wrefresh(win_erro);
+                    }
+                    break;
+                case 1:
+                    continue;
+            }
         }
-
-        if (servico->autenticar(u_cpf, u_senha)) {
-            wmove(win_erro, 1, 0);
-            wprintw(win_erro, "Login realizado com sucesso");
-            wrefresh(win_erro);
-            break;
-        } else {
-            wmove(win_erro, 1, 0);
-            wprintw(win_erro, "Falha na autenticação");
-            wrefresh(win_erro);
-        }
-
-
     }
 
     wclear(win);
