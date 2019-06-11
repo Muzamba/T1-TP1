@@ -108,6 +108,12 @@ void MAU::executar() {
 
 // ---------------Eventos---------------
 void MAE::executar() {
+    char dataI[20];
+    char dataT[20];
+    char cidade[20];
+    char estado[20];
+
+
     clear();
     refresh();
     int y_max, x_max;
@@ -122,6 +128,7 @@ void MAE::executar() {
     //wrefresh(rightWin);
 
     auto searchWin = newwin(18, 40, y_max/2 - 9, x_max /2 - 20);
+    keypad(searchWin, true);
     box(searchWin, 0, 0);
 
     std::string eventos = "Eventos";
@@ -146,9 +153,64 @@ void MAE::executar() {
     for(int i = 0; i < 4;i++){
         wrefresh(form[i]);
     }
+    echo();
+    curs_set(1);
+    wmove(form[0], 1, 1);
+    wgetstr(form[0], dataI);
+    wmove(form[1], 1, 1);
+    wgetstr(form[1], dataT);
+    wmove(form[2], 1, 1);
+    wgetstr(form[2], cidade);
+    wmove(form[3], 1, 1);
+    wgetstr(form[3], estado);
+    noecho();
+    curs_set(0);
 
-    getch();
+    int highlight = 0;
+    int choice = 0;
+    std::string opcoes[2] = {"Menu", "Buscar"};
+    while (true) {
+        for (int i = 0; i < 2; i++) {
+            if (i == highlight) {
+                wattron(searchWin, A_REVERSE);
+            }
+            
+            mvwprintw(searchWin, searchWin->_maxy - 1, 5 + i * (30 - opcoes[i].size()) , opcoes[i].c_str());
+            wattroff(searchWin, A_REVERSE);
+        }
+        choice = wgetch(searchWin);
 
+        switch (choice) {
+            case KEY_LEFT:
+                highlight--;
+                if (highlight == -1) {
+                    highlight = 0;
+                }
+                break;
+            case KEY_RIGHT:
+                highlight++;
+                if (highlight == 2) {
+                    highlight = 1;
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (choice == 10) {
+            switch (highlight) {
+                case 0: // Menu
+                    
+                    break;
+                case 1: // Buscar
+                   
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+    }
 
 
 
