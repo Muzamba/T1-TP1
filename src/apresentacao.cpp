@@ -5,7 +5,6 @@
 
 // ---------Apresentação---------
 void MAA::executar() {
-
     int y_max, x_max;
     int wy_max, wx_max;
 
@@ -42,10 +41,14 @@ void MAA::executar() {
     box(senhaForm, 0, 0);
     wrefresh(senhaForm);
 
+    keypad(win, true);
+
     CPF u_cpf;
     Senha u_senha;
 
     bool digitou = false;
+    int highlight = 0;
+    int choice;
     // wmove(cpfForm, 1, 1);
     // wgetstr(cpfForm, cpf);
     // wmove(senhaForm, 1, 1);
@@ -69,8 +72,6 @@ void MAA::executar() {
 
         if (cont == 2) digitou = true;
 
-        int highlight = 0;
-        int choice;
 
         for (int i = 0; i < 2; i++) {
             if (i == highlight) {
@@ -78,7 +79,7 @@ void MAA::executar() {
             }
             int win_y, win_x;
             getmaxyx(win, win_y, win_x);
-            mvwprintw(win, win_y-2, i*ops[i-1].size()+6, ops[i].c_str());
+            mvwprintw(win, win_y-2, 2+ i*(ops[i-1].size()+6), ops[i].c_str());
             wattroff(win, A_REVERSE);
         }
 
@@ -127,7 +128,20 @@ void MAA::executar() {
                     }
                     break;
                 case 1:
-                    continue;
+                    wclear(win);
+                    wrefresh(win);
+                    delwin(win);
+
+                    wclear(cpfForm);
+                    wrefresh(cpfForm);
+                    delwin(cpfForm);
+
+                    wclear(senhaForm);
+                    wrefresh(senhaForm);
+                    delwin(senhaForm);
+
+                    return;
+                    break;
             }
         }
     }
@@ -149,21 +163,17 @@ void MAA::executar() {
 }
 
 void MAA::autenticar() {
-
 }
 
 // ---------------Usuarios---------------
 void MAU::executar() {
-
 }
 
 // ---------------Eventos---------------
 void MAE::executar() {
-
 }
 
 // ---------------Vendas---------------
 void MAV::executar() {
-
 }
 

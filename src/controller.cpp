@@ -42,7 +42,8 @@ void Controller::executar() {
             }
             int win_y, win_x;
             getmaxyx(win, win_y, win_x);
-            mvwprintw(win, i + 3, win_x / 2 - opcoes[i].size()/2, opcoes[i].c_str());
+            mvwprintw(win, i + 3, win_x / 2 - opcoes[i].size()/2,
+             opcoes[i].c_str());
             wattroff(win, A_REVERSE);
         }
         choice = wgetch(win);
