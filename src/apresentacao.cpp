@@ -112,7 +112,21 @@ void MAA::executar() {
                     } catch (...) {
                         wmove(win_erro, 1, 0);
                         wprintw(win_erro, "Erro no Formato");
+
+                        // wmove(cpfForm, 1, 1);
+                        // wclrtobot(cpfForm);
+
+                        // wmove(senhaForm, 1, 1);
+                        // wclrtobot(senhaForm);
+                        mvwprintw(cpfForm, 1, 1, "           ");
+                        mvwprintw(senhaForm, 1, 1, "      ");
+
                         wrefresh(win_erro);
+                        wrefresh(cpfForm);
+                        wrefresh(senhaForm);
+
+                        digitou = false;
+                        cont = 0;
                         continue;
                     }
 
@@ -120,6 +134,7 @@ void MAA::executar() {
                         wmove(win_erro, 1, 0);
                         wprintw(win_erro, "Login realizado com sucesso");
                         wrefresh(win_erro);
+                        draw_tela_autenticada();
                         break;
                     } else {
                         wmove(win_erro, 1, 0);
@@ -162,11 +177,16 @@ void MAA::executar() {
     curs_set(0);
 }
 
+void MAA::draw_tela_autenticada(){
+
+}
+
 void MAA::autenticar() {
 }
 
 // ---------------Usuarios---------------
 void MAU::executar() {
+
 }
 
 // ---------------Eventos---------------

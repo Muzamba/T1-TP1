@@ -24,6 +24,7 @@ friend class Builder;
  private:
     ISA* servico;
     void autenticar();
+    void draw_tela_autenticada();
 };
 
 // Apresentação de Usuário
