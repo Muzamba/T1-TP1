@@ -28,6 +28,7 @@ Controller* Builder::buildSistema() {
     controller->mau = mau;
     controller->mav = mav;
 
+    controller->isLogged = false;
 
     return controller;
 }
