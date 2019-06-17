@@ -1,4 +1,4 @@
-
+// Copyright
 #ifndef INCLUDE_INTERFACES_H_
 #define INCLUDE_INTERFACES_H_
 
@@ -88,8 +88,10 @@ class ISU {
 class ISE {
     friend class Builder;
  public:
-    virtual std::vector<Evento> buscar(Data inicio, Data fim, Cidade, Estado) = 0;
-    virtual bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) = 0;
+    virtual std::vector<Evento> buscar(Data inicio,
+     Data fim, Cidade, Estado) = 0;
+    virtual bool criarEvento(const CPF&, const Evento&,
+     const std::vector<Apresentacao>&) = 0;
     virtual bool alteraEvento(const Evento&) = 0;
     virtual bool descadastrarEvento(const CodigoDeEvento&) = 0;
  protected:
@@ -101,7 +103,8 @@ class ISE {
 class ISV {
     friend class Builder;
  public:
-    virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) = 0;
+    virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&,
+     const int) = 0;
  protected:
     IAV* iav;
 };
