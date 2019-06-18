@@ -91,6 +91,13 @@ void Controller::executar() {
                         continue;
                         break;
                     case 2:
+                        mae->executar();
+                        box(logged_win, 0, 0);
+                        mvwprintw(logged_win, 0, l_wx_max/2 - cpf.size()/2,
+                        cpf.c_str());
+                        wrefresh(logged_win);
+                        break;
+                    case 3:
                         continue;
                         break;
                     default:
@@ -101,6 +108,8 @@ void Controller::executar() {
                         mvwprintw(not_log_win, 0, nl_wx_max/2-nome.size()/2,
                          nome.c_str());
                         wrefresh(not_log_win);
+                        // Voltando o Highlight para o primeiro elemento
+                        highlight = 0;
                         break;
                 }
             }
@@ -148,6 +157,8 @@ void Controller::executar() {
                             mvwprintw(logged_win, 0, l_wx_max/2 - cpf.size()/2,
                             cpf.c_str());
                             wrefresh(logged_win);
+                            // Voltando o Highlight para o primeiro elemento
+                            highlight = 0;
                             break;
                         } else {
                             box(not_log_win, 0, 0);

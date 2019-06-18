@@ -72,12 +72,15 @@ void MAA::executar() {
         }
         wmove(senhaForm, 1, 1);
         if (!digitou) {
+            noecho();
             wgetstr(senhaForm, senha);
+            echo();
             cont++;
         }
 
         if (cont == 2) digitou = true;
 
+        curs_set(0);
         // highlight na opção a ser selecionada
         for (int i = 0; i < 2; i++) {
             if (i == highlight) {
@@ -85,7 +88,7 @@ void MAA::executar() {
             }
             int win_y, win_x;
             getmaxyx(win, win_y, win_x);
-            mvwprintw(win, win_y-2, 2 + i*(ops[i-1].size()+6), ops[i].c_str());
+            mvwprintw(win, win_y-2, 2 + i*(ops[i-1].size()+11), ops[i].c_str());
             wattroff(win, A_REVERSE);
         }
 
@@ -282,8 +285,9 @@ void MAE::executar() {
          opcoes[i].c_str());
     }
     wrefresh(searchWin);
+
     // Refresh nas box's dos form's
-    for (int i = 0; i < 4;i++){
+    for (int i = 0; i < 4; i++) {
         wrefresh(form[i]);
     }
 
@@ -504,7 +508,6 @@ void MAE::executar() {
             }
         }
     }
-
     wclear(win_erro);
     wrefresh(win_erro);
     delwin(win_erro);
