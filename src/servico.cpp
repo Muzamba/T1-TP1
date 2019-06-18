@@ -1,7 +1,13 @@
-#include "modulos.h"
+// Copyright
+#include "./modulos.h"
 // ---------------Apresentação---------------
 bool MSA::autenticar(const CPF& cpf, const Senha& senha) {
-    return false;
+    if (cpf.getConteudo() == "05289706151" &&
+     senha.getConteudo() == "Aas123") {
+         return true;
+     } else {
+         return false;
+     }
 }
 
 // ---------------Usuario---------------

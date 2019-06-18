@@ -5,6 +5,7 @@
 class Controller;
 
 #include <ncurses.h>
+#include <string>
 #include "./interfaces.h"
 #include "./builder.h"
 
@@ -12,6 +13,8 @@ class Controller {
   friend class Builder;
  public:
     void executar();
+    void login(bool, const char*);
+    std::string getCpf();
     Controller();
     ~Controller();
  private:
@@ -19,6 +22,8 @@ class Controller {
     IAU* mau;
     IAE* mae;
     IAV* mav;
+    bool isLogged;
+    std::string cpf;
 };
 
 

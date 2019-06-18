@@ -35,30 +35,7 @@ Controller* Builder::buildSistema() {
     controller->mau = mau;
     controller->mav = mav;
 
-    /* controller->maa->controller = controller;
-    controller->mae->controller = controller;
-    controller->mau->controller = controller;
-    controller->mav->controller = controller; */
-
-
-    /* controller->maa->servico = new MSA();
-    controller->mae->servico = new MSE();
-    controller->mau->servico = new MSU();
-    controller->mav->servico = new MSV(); */
-
-    /* controller->maa->servico->iaa = controller->maa;
-    controller->mae->servico->iae = controller->mae;
-    controller->mau->servico->iau = controller->mau;
-    controller->mav->servico->iav = controller->mav;  */
-
-    controller->mae->servico->buscar(Data(), Data(), Cidade(), Estado());
-
-    auto db = buildDB();
-
-    /* controller->maa = maa;
-    controller->mae = mae;
-    controller->mau = mau;
-    controller->mav = mav; */
+    controller->isLogged = false;
 
     return controller;
 }

@@ -19,18 +19,22 @@ void MAA::executar() {
 
 
     getmaxyx(stdscr, y_max, x_max);
-    auto win_erro = newwin(5, 30, 0, x_max - 30);
+    WINDOW* win_erro = newwin(5, 45, 0, x_max/2-20);
 
     // static WINDOW* win = newwin(y_max-5, x_max-12, y_max-40, 5);
-    WINDOW* win = newwin(12, 30, y_max/2 - 6    , x_max/2 - 15);
+    // Janela principal do menu de login
+    WINDOW* win = newwin(12, 30, y_max/2 - 6, x_max/2 - 15);
     getmaxyx(win, wy_max, wx_max);
 
     box(win, 0, 0);
+
+    // Campos que serão utilizados nos forms
     mvwprintw(win, 0, wx_max/2 - login.size()/2, login.c_str());
     mvwprintw(win, 3, 14 - cpfLabel.size(), cpfLabel.c_str());
     mvwprintw(win, 6, 14 - senhaLabel.size(), senhaLabel.c_str());
     wrefresh(win);
 
+    // Janelas referentes aos campos cpf e senha no formulário
     WINDOW *cpfForm, *senhaForm;
     cpfForm = newwin(3, 13, win->_begy + 2, win->_begx + 15);
     senhaForm = newwin(3, 8, win->_begy + 5, win->_begx + 15);
@@ -43,16 +47,15 @@ void MAA::executar() {
 
     keypad(win, true);
 
+    // Objetos CPF e Senha que serão utilizados para a validação do formato
     CPF u_cpf;
     Senha u_senha;
 
     bool digitou = false;
     int highlight = 0;
     int choice;
-    // wmove(cpfForm, 1, 1);
-    // wgetstr(cpfForm, cpf);
-    // wmove(senhaForm, 1, 1);
-    // wgetstr(senhaForm, senha);
+
+    // Lógica que desenha o menu
     while (true) {
         echo();
         curs_set(1);
@@ -60,6 +63,9 @@ void MAA::executar() {
         int16_t cont = 0;
 
         wmove(cpfForm, 1, 1);
+
+        // Previne o sistema de receber mais caracteres caso o usuário já tenha
+        // digitado
         if (!digitou) {
             wgetstr(cpfForm, cpf);
             cont++;
@@ -72,14 +78,14 @@ void MAA::executar() {
 
         if (cont == 2) digitou = true;
 
-
+        // highlight na opção a ser selecionada
         for (int i = 0; i < 2; i++) {
             if (i == highlight) {
                 wattron(win, A_REVERSE);
             }
             int win_y, win_x;
             getmaxyx(win, win_y, win_x);
-            mvwprintw(win, win_y-2, 2+ i*(ops[i-1].size()+6), ops[i].c_str());
+            mvwprintw(win, win_y-2, 2 + i*(ops[i-1].size()+6), ops[i].c_str());
             wattroff(win, A_REVERSE);
         }
 
@@ -105,19 +111,18 @@ void MAA::executar() {
         if (choice == 10) {
             switch (highlight) {
                 case 0:
+                    // Tratamento dos erros que podem ser gerados por formato
+                    // incorreto de input
                     try {
                         u_cpf.setConteudo(cpf);
 
                         u_senha.setConteudo(senha);
                     } catch (...) {
                         wmove(win_erro, 1, 0);
-                        wprintw(win_erro, "Erro no Formato");
+                        wprintw(win_erro,
+                         "Erro no Formato, insira os dados novamente");
 
-                        // wmove(cpfForm, 1, 1);
-                        // wclrtobot(cpfForm);
-
-                        // wmove(senhaForm, 1, 1);
-                        // wclrtobot(senhaForm);
+                        // Limpando os campos dos forms
                         mvwprintw(cpfForm, 1, 1, "           ");
                         mvwprintw(senhaForm, 1, 1, "      ");
 
@@ -134,8 +139,21 @@ void MAA::executar() {
                         wmove(win_erro, 1, 0);
                         wprintw(win_erro, "Login realizado com sucesso");
                         wrefresh(win_erro);
-                        draw_tela_autenticada();
-                        break;
+                        controller->login(true, cpf);
+
+                        wclear(win);
+                        wrefresh(win);
+                        delwin(win);
+
+                        wclear(cpfForm);
+                        wrefresh(cpfForm);
+                        delwin(cpfForm);
+
+                        wclear(senhaForm);
+                        wrefresh(senhaForm);
+                        delwin(senhaForm);
+
+                        return;
                     } else {
                         wmove(win_erro, 1, 0);
                         wprintw(win_erro, "Falha na autenticação");
@@ -177,8 +195,20 @@ void MAA::executar() {
     curs_set(0);
 }
 
-void MAA::draw_tela_autenticada(){
+void MAA::draw_tela_autenticada() {
+    int y_max, x_max;
+    getmaxyx(stdscr, y_max, x_max);
 
+    WINDOW* win = newwin(12, 30, y_max/2 - 6, x_max/2 - 15);
+    box(win, 0, 0);
+    wrefresh(win);
+    printw("%d %d", y_max, x_max);
+    wgetch(win);
+
+    wclear(win);
+    wrefresh(win);
+    delwin(win);
+    return;
 }
 
 void MAA::autenticar() {

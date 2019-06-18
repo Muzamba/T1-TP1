@@ -56,7 +56,7 @@ class Super_dom {
      * 
      * @return std::string Retorna o que esta contido no objeto.
      */
-    std::string getConteudo() {
+    std::string getConteudo() const{
         return conteudo;
     }
 };
