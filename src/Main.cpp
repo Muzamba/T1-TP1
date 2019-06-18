@@ -7,6 +7,7 @@
 #include "./interfaces.h"
 #include "./modulos.h"
 
+#ifndef TESTE
 int main(int argc, char const *argv[]) {
     auto controller = Builder::buildSistema();
 
@@ -16,3 +17,5 @@ int main(int argc, char const *argv[]) {
     delete controller;
     return 0;
 }
+
+#endif

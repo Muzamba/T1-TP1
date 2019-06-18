@@ -29,8 +29,8 @@ class IAA {
  public:
     virtual void executar() = 0;
  protected:
-    Controller* controller;
-    ISA* servico;
+    Controller* controller = nullptr;
+    ISA* servico = nullptr;
 };
 
 class IAU {
@@ -38,8 +38,8 @@ class IAU {
  public:
     virtual void executar() = 0;
  protected:
-    Controller* controller;
-    ISU* servico;
+    Controller* controller = nullptr;
+    ISU* servico = nullptr;
 };
 
 class IAE {
@@ -47,8 +47,8 @@ class IAE {
  public:
     virtual void executar() = 0;
  protected:
-    Controller* controller;
-    ISE* servico;
+    Controller* controller = nullptr;
+    ISE* servico = nullptr;
 };
 
 class IAV {
@@ -56,8 +56,8 @@ class IAV {
  public:
     virtual void executar() = 0;
  protected:
-    Controller* controller;
-    ISV* servico;
+    Controller* controller = nullptr;
+    ISV* servico = nullptr;
 };
 
 
@@ -69,7 +69,7 @@ class ISA {
  public:
     virtual bool autenticar(const CPF& cpf, const Senha& senha) = 0;
  protected:
-    IAA* iaa;
+    IAA* iaa = nullptr;
 };
 
 
@@ -80,7 +80,7 @@ class ISU {
     virtual bool cadastrar(const Usuario&, const CartaoDeCredito&) = 0;
     virtual bool descadastrar(const CPF&) = 0;
  protected:
-    IAU* iau;
+    IAU* iau = nullptr;
 };
 
 
@@ -93,7 +93,7 @@ class ISE {
     virtual bool alteraEvento(const Evento&) = 0;
     virtual bool descadastrarEvento(const CodigoDeEvento&) = 0;
  protected:
-    IAE* iae;
+    IAE* iae = nullptr;
 };
 
 
@@ -103,7 +103,7 @@ class ISV {
  public:
     virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) = 0;
  protected:
-    IAV* iav;
+    IAV* iav = nullptr;
 };
 
 
