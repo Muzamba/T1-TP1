@@ -9,6 +9,7 @@ Controller::Controller() {
 
 Controller::~Controller() {
     endwin();
+    
 }
 void Controller::executar() {
     // Menu principal
@@ -69,7 +70,7 @@ void Controller::executar() {
         if (choice == 10) {
             switch (highlight) {
                 case 0: // Ver eventos
-                    mav->executar();
+                    mae->executar();
                     break;
                 case 1: // Login
                     maa->executar();

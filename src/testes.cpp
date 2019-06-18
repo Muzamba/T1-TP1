@@ -1,5 +1,5 @@
 // Copyright Ariel e João Pedro
-#ifdef DEBUG
+#ifdef TESTE
 
 #define CATCH_CONFIG_MAIN
 #include <iostream>
@@ -899,6 +899,15 @@ TEST_CASE("Dominio Cidade") {
         }
         SECTION("4") {
             val = "123456789101112";
+            try {
+                uniTest.setConteudo(val);
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            } catch (const std::invalid_argument& erro) {
+                REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);
+            }
+        }
+        SECTION("5") {
+            val = "               ";
             try {
                 uniTest.setConteudo(val);
                 REQUIRE(uniTest.getConteudo().compare(val) != VALIDO);

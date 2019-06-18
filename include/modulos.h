@@ -22,7 +22,6 @@ friend class Builder;
  public:
     void executar() override;
  private:
-    ISA* servico;
     void autenticar();
 };
 
@@ -32,7 +31,6 @@ friend class Builder;
  public:
     void executar() override;
  private:
-    ISU* servico;
 
 };
 
@@ -42,7 +40,7 @@ friend class Builder;
  public:
     void executar() override;
  private:
-    ISE* servico;
+
 };
 
 // Apresentação de Vendas
@@ -57,6 +55,7 @@ friend class Builder;
 // ---------------Modulos de Serviço-------------
 // Serviço de Autenticação
 class MSA : public ISA {
+friend class Builder;
  public:
     bool autenticar(const CPF& cpf, const Senha& senha) override;
 };
@@ -64,6 +63,7 @@ class MSA : public ISA {
 
 // Serviço de Usuário
 class MSU : public ISU {
+friend class Builder;
  public:
     bool cadastrar(const Usuario&, const CartaoDeCredito&) override;
     bool descadastrar(const CPF&) override;
@@ -71,6 +71,7 @@ class MSU : public ISU {
 
 // Serviço de Eventos
 class MSE :public ISE {
+friend class Builder;
  public:
     std::vector<Evento> buscar(Data inicio, Data fim, Cidade, Estado) override;
     bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) override;
@@ -80,6 +81,7 @@ class MSE :public ISE {
 
 // Serviço de Vendas
 class MSV :public ISV {
+friend class Builder;
  public:
     bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) override;
 };
