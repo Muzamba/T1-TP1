@@ -25,7 +25,8 @@ void Controller::executar() {
     // Not Logged opções
     std::string nl_opcoes[4] = {"Ver Eventos", "Login", "Cadastrar", "sair"};
     // Logged opções
-    std::string l_opcoes[4] = {"Ver Perfil", "Pão", "Batata", "Logout"};
+    std::string l_opcoes[5] = {"Ver Perfil", "Cadastrar Eventos",
+     "Ver Eventos", "Comprar Eventos", "Logout"};
     std::string nome = "Switch Dreams";
     int y_max, x_max;
     int nl_wy_max, nl_wx_max;  // Not Logged Y e X
@@ -54,7 +55,7 @@ void Controller::executar() {
 
     while (true) {
         if (isLogged) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 5; i++) {
                 if (i == highlight) {
                     wattron(logged_win, A_REVERSE);
                 }
@@ -73,8 +74,8 @@ void Controller::executar() {
                     break;
                 case KEY_DOWN:
                     highlight++;
-                    if (highlight == 4) {
-                        highlight = 3;
+                    if (highlight == 5) {
+                        highlight = 4;
                     }
                     break;
                 default:
