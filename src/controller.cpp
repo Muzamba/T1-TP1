@@ -9,7 +9,6 @@ Controller::Controller() {
 
 Controller::~Controller() {
     endwin();
-    
 }
 
 void Controller::login(bool isLogged, const char* cpf = "") {
@@ -137,6 +136,10 @@ void Controller::executar() {
                 switch (highlight) {
                     case 0:  // Ver eventos
                         mae->executar();
+                        box(not_log_win, 0, 0);
+                        mvwprintw(not_log_win, 0, nl_wx_max/2-nome.size()/2,
+                        nome.c_str());
+                        wrefresh(not_log_win);
                         break;
                     case 1:  // Login
                         maa->executar();
