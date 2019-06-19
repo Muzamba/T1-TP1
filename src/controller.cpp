@@ -17,6 +17,15 @@ void Controller::login(bool isLogged, const char* cpf = "") {
         this->cpf = cpf;
     } else {
         this->isLogged = isLogged;
+        this->cpf = "";  // Resetando o cpf armazenado
+    }
+}
+
+std::string Controller::getCpf() {
+    if (isLogged) {
+        return cpf;
+    } else {
+        return "";
     }
 }
 

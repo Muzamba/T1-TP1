@@ -15,7 +15,7 @@ void MAA::executar() {
     std::string senhaLabel = "Senha";
 
     char cpf[15];
-    char senha[10];
+    char senha[6] = {0};
 
 
     getmaxyx(stdscr, y_max, x_max);
@@ -71,12 +71,30 @@ void MAA::executar() {
             cont++;
         }
         wmove(senhaForm, 1, 1);
+        keypad(senhaForm, true);
         if (!digitou) {
             noecho();
-            wgetstr(senhaForm, senha);
+            int p = 0;
+            p = wgetch(senhaForm);
+            if (p == 10) {  // 10 -> tecla enter apertada
+                goto enter;  // Se digitou enter n quer botar nada
+            } else {         // então pula a parte de preencher a senha
+                senha[0] = p;
+                wprintw(senhaForm, "*");
+                wmove(senhaForm, 1, 2);
+                for (int i = 1; i <= 5; i++) {
+                    senha[i] = wgetch(senhaForm);
+                    wprintw(senhaForm, "*");
+                    wmove(senhaForm, 1, 2+i);
+                }
+                wprintw(senhaForm, "*");
+            }
+            // wgetstr(senhaForm, senha);
+            enter:
             echo();
             cont++;
         }
+
 
         if (cont == 2) digitou = true;
 
@@ -219,7 +237,112 @@ void MAA::autenticar() {
 
 // ---------------Usuarios---------------
 void MAU::executar() {
+    // Inputs do usuária
+    char cpf[20];
+    char senha[20];
+    char senha_rep[20];
+    char cart_cred[20];
+    char validade[20];
+    char cvv[20];
 
+    const int NUM_FIELDS = 6;
+
+    // Buttons
+    std::string opcoes[2] = {"Menu", "Cadastrar"};
+
+    // Cleaning up
+    clear();
+    refresh();
+
+    // Screen boundaries
+    int y_max, x_max;
+    getmaxyx(stdscr, y_max, x_max);
+
+    // sign up window
+    auto cad_win = newwin(25, 44, y_max/2 - 12, x_max/2 - 20);
+    box(cad_win, 0, 0);
+    keypad(cad_win, true);
+
+    // Win name
+    std::string cadastro = "Cadastro";
+    mvwprintw(cad_win, 0, cad_win->_maxx / 2 - cadastro.size() / 2 + 1,
+     cadastro.c_str());
+
+    // Forms and labels
+    WINDOW* form[NUM_FIELDS];
+    std::string labels[NUM_FIELDS] = {"CPF", "Senha", "Senha Novamente",
+     "Cartão de Crédito", "Validade do Cartão", "CVV"};
+
+    // Form boxes
+    for (int i = 0; i < NUM_FIELDS; i++) {
+        form[i] = newwin(3, 17, cad_win->_begy + 3 + i * 3,
+         cad_win->_begx + cad_win->_maxx - 19);
+        box(form[i], 0, 0);
+    }
+
+    // Form Labels
+    for (int i = 0; i < NUM_FIELDS; i++) {
+        mvwprintw(cad_win, form[i]->_begy - cad_win->_begy + 1,
+         form[i]->_begx - cad_win->_begx - labels[i].size() - 1,
+         labels[i].c_str());
+    }
+
+    // Buttons
+    for (int i = 0; i < 2; i++) {
+        mvwprintw(cad_win,
+         cad_win->_maxy - 1, 5 + i * (30 - opcoes[i].size()),
+         opcoes[i].c_str());
+    }
+
+    wrefresh(cad_win);
+    // Refreshes
+    for (int i = 0; i < NUM_FIELDS; i++) {
+        wrefresh(form[i]);
+    }
+
+    // Form Loop
+    int highlight = 0;
+    int choice = 0;
+    CPF usr_cpf;
+    Senha usr_senha;
+    Senha usr_senha_rep;
+    CartaoDeCredito usr_cart_cred;
+    DataDeValidade usr_validade;
+    CVV usr_cvv;
+
+    while (true) {
+        echo();
+        curs_set(1);
+
+        wmove(form[0], 1, 1);
+        wgetstr(form[0], cpf);
+
+        noecho();
+        wmove(form[1], 1, 1);
+        wgetstr(form[1], senha);
+
+        wmove(form[2], 1, 1);
+        wgetstr(form[2], senha_rep);
+        echo();
+
+        wmove(form[3], 1, 1);
+        wgetstr(form[3], cart_cred);
+
+        wmove(form[4], 1, 1);
+        wgetstr(form[4], validade);
+
+        wmove(form[5], 1, 1);
+        wgetstr(form[5], cvv);
+
+        noecho();
+        curs_set(0);
+    }
+
+    // getch();
+    wclear(cad_win);
+    wrefresh(cad_win);
+    delwin(cad_win);
+    return;
 }
 
 // ---------------Eventos---------------
@@ -256,7 +379,13 @@ void MAE::executar() {
     keypad(searchWin, true);
 
     // Nome da janela
-    std::string eventos = "Eventos";
+    std::string usr_cpf = controller->getCpf();
+    std::string eventos;
+    if (usr_cpf.size() > 0) {
+        eventos = "Eventos " + usr_cpf;
+    } else {
+        eventos = "Eventos";
+    }
     mvwprintw(searchWin, 0, searchWin->_maxx / 2 - eventos.size() / 2,
      eventos.c_str());
 
@@ -429,9 +558,10 @@ void MAE::executar() {
                         refresh();
 
                         // desenhando tela para mostrar eventos e apresentaçoes
-                        mvwprintw(leftWin, 0, leftWin->_maxx/2 - 4, "Eventos");
+                        mvwprintw(leftWin, 0,
+                        leftWin->_maxx/2 - eventos.size()/2, eventos.c_str());
                         mvwprintw(leftWin, 1, 1,
-                         "Precione 'q' para voltar ao menu inicial");
+                         "Pressione 'q' para voltar ao menu inicial");
                         mvwprintw(rightWin, 0, rightWin->_maxx/2 - 7,
                          "Apresentacoes");
                         wrefresh(leftWin);
