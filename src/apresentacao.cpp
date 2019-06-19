@@ -336,6 +336,61 @@ void MAU::executar() {
 
         noecho();
         curs_set(0);
+
+        // Interaction Loop
+        while (true) {
+            // opcoes
+            for (int i = 0; i < 2; i++) {
+                if (i == highlight) {
+                    wattron(cad_win, A_REVERSE);
+                }
+                mvwprintw(cad_win,
+                 cad_win->_maxy - 1, 5 + i * (30 - opcoes[i].size()),
+                 opcoes[i].c_str());
+                wattroff(cad_win, A_REVERSE);
+            }
+            choice = wgetch(cad_win);
+
+            // Selection
+            switch (choice) {
+                case KEY_LEFT:
+                    highlight--;
+                    if (highlight == -1) {
+                        highlight = 0;
+                    }
+                    break;
+                case KEY_RIGHT:
+                    highlight++;
+                    if (highlight == 2) {
+                        highlight = 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            // Action
+
+            if (choice == 10) {
+                switch (highlight) {
+                    case 0:
+                        for (int i = 0; i < NUM_FIELDS; i++) {
+                            wclear(form[i]);
+                            wrefresh(form[i]);
+                            delwin(form[i]);
+                        }
+                        wclear(cad_win);
+                        wrefresh(cad_win);
+                        delwin(cad_win);
+                        return;
+                        break;
+                    case 1:
+                        return;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     // getch();
