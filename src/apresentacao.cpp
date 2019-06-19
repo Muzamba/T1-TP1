@@ -258,6 +258,10 @@ void MAU::executar() {
     int y_max, x_max;
     getmaxyx(stdscr, y_max, x_max);
 
+    // Error window
+    auto win_erro = newwin(5, 40, 0, x_max/2 - 20);
+
+
     // sign up window
     auto cad_win = newwin(25, 44, y_max/2 - 12, x_max/2 - 20);
     box(cad_win, 0, 0);
@@ -303,10 +307,11 @@ void MAU::executar() {
     // Form Loop
     int highlight = 0;
     int choice = 0;
+    bool deuRuim;
     CPF usr_cpf;
     Senha usr_senha;
     Senha usr_senha_rep;
-    CartaoDeCredito usr_cart_cred;
+    NumCartaoCredito usr_cart_cred;
     DataDeValidade usr_validade;
     CVV usr_cvv;
 
@@ -381,10 +386,74 @@ void MAU::executar() {
                         wclear(cad_win);
                         wrefresh(cad_win);
                         delwin(cad_win);
+
+                        wclear(win_erro);
+                        wrefresh(win_erro);
+                        delwin(win_erro);
+
                         return;
                         break;
                     case 1:
-                        return;
+                        // Trying to set the values
+                        try {
+                            usr_cpf.setConteudo(cpf);
+                            mvwprintw(win_erro, 0, 0,
+                             "                                 ");
+                        } catch (...) {
+                            mvwprintw(win_erro, 0, 0, "Erro no formato do CPF");
+                        }
+
+                        try {
+                            usr_senha.setConteudo(senha);
+                            mvwprintw(win_erro, 1, 0,
+                             "                                 ");
+                        } catch (...) {
+                            mvwprintw(win_erro, 1, 0,
+                             "Erro no formato da senha");
+                        }
+
+                        try {
+                            usr_senha_rep.setConteudo(senha_rep);
+                            mvwprintw(win_erro, 2, 0,
+                             "                                 ");
+                        } catch (...) {
+                            mvwprintw(win_erro, 2, 0,
+                             "Erro no formato da repetição da senha");
+                        }
+
+                        if (usr_senha.getConteudo() !=
+                         usr_senha_rep.getConteudo()) {
+                            mvwprintw(win_erro, 2, 0,
+                             "As duas senhas não coincidem");
+                        }
+
+                        try {
+                            usr_cart_cred.setConteudo(cart_cred);
+                            mvwprintw(win_erro, 3, 0,
+                             "                                 ");
+                        } catch (...) {
+                            mvwprintw(win_erro, 3, 0,
+                             "Erro no formato do Número do Cartão de Crédito");
+                        }
+
+                        try {
+                            usr_validade.setConteudo(validade);
+                            mvwprintw(win_erro, 4, 0,
+                             "                                 ");
+                        } catch (...) {
+                            mvwprintw(win_erro, 4, 0,
+                             "Erro no formato da Data de Validade");
+                        }
+
+                        try {
+                            usr_cvv.setConteudo(cvv);
+                            mvwprintw(win_erro, 5, 0,
+                             "                                 ");
+                        } catch (...) {
+                            mvwprintw(win_erro, 5, 0,
+                             "Erro no formato do CVV");
+                        }
+                        wrefresh(win_erro);
                         break;
                     default:
                         break;
@@ -541,6 +610,11 @@ void MAE::executar() {
             if (choice == 10) {
                 switch (highlight) {
                     case 0:  // Menu
+                        for (int i = 0; i < 4; i++) {
+                            wclear(form[i]);
+                            wrefresh(form[i]);
+                            delwin(form[i]);
+                        }
                         wclear(win_erro);
                         wrefresh(win_erro);
                         delwin(win_erro);
