@@ -15,7 +15,8 @@ void MAA::executar() {
     std::string senhaLabel = "Senha";
 
     char cpf[15];
-    char senha[6] = {0};
+    std::string senha;
+    
 
 
     getmaxyx(stdscr, y_max, x_max);
@@ -71,22 +72,24 @@ void MAA::executar() {
             cont++;
         }
         wmove(senhaForm, 1, 1);
-        keypad(senhaForm, true);
+        //keypad(senhaForm, true);
         if (!digitou) {
             noecho();
             int p = 0;
-            p = wgetch(senhaForm);
-            if (p == 10) {  // 10 -> tecla enter apertada
-                goto enter;  // Se digitou enter n quer botar nada
-            } else {         // então pula a parte de preencher a senha
-                senha[0] = p;
-                wprintw(senhaForm, "*");
-                wmove(senhaForm, 1, 2);
-                for (int i = 1; i <= 5; i++) {
-                    senha[i] = wgetch(senhaForm);
-                    wprintw(senhaForm, "*");
-                    wmove(senhaForm, 1, 2+i);
+            int x = 1;
+            
+            senha.clear();
+            while(true) {
+                wmove(senhaForm, 1, x);
+                p = wgetch(senhaForm);
+                if(p != 10 and x < 7) {
+                    wmove(senhaForm, 1, x);
+                    wprintw(senhaForm,"*");
+                    senha += p;
+                } else {
+                    break;
                 }
+                x++;
             }
             // wgetstr(senhaForm, senha);
             enter:
