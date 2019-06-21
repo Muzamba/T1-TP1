@@ -87,7 +87,6 @@ void MAA::executar() {
                     wprintw(senhaForm, "*");
                     wmove(senhaForm, 1, 2+i);
                 }
-                wprintw(senhaForm, "*");
             }
             // wgetstr(senhaForm, senha);
             enter:
@@ -157,9 +156,6 @@ void MAA::executar() {
                     }
 
                     if (servico->autenticar(u_cpf, u_senha)) {
-                        wmove(win_erro, 1, 0);
-                        wprintw(win_erro, "Login realizado com sucesso");
-                        wrefresh(win_erro);
                         controller->login(true, cpf);
 
                         wclear(win);
@@ -173,6 +169,10 @@ void MAA::executar() {
                         wclear(senhaForm);
                         wrefresh(senhaForm);
                         delwin(senhaForm);
+
+                        wclear(win_erro);
+                        wrefresh(win_erro);
+                        delwin(win_erro);
 
                         return;
                     } else {
@@ -212,24 +212,12 @@ void MAA::executar() {
     wrefresh(senhaForm);
     delwin(senhaForm);
 
+    wclear(win_erro);
+    wrefresh(win_erro);
+    delwin(win_erro);
+
     noecho();
     curs_set(0);
-}
-
-void MAA::draw_tela_autenticada() {
-    int y_max, x_max;
-    getmaxyx(stdscr, y_max, x_max);
-
-    WINDOW* win = newwin(12, 30, y_max/2 - 6, x_max/2 - 15);
-    box(win, 0, 0);
-    wrefresh(win);
-    printw("%d %d", y_max, x_max);
-    wgetch(win);
-
-    wclear(win);
-    wrefresh(win);
-    delwin(win);
-    return;
 }
 
 void MAA::autenticar() {
@@ -259,7 +247,7 @@ void MAU::executar() {
     getmaxyx(stdscr, y_max, x_max);
 
     // Error window
-    auto win_erro = newwin(5, 40, 0, x_max/2 - 20);
+    auto win_erro = newwin(5, 50, 0, x_max/2 - 20);
 
 
     // sign up window
@@ -279,7 +267,7 @@ void MAU::executar() {
 
     // Form boxes
     for (int i = 0; i < NUM_FIELDS; i++) {
-        form[i] = newwin(3, 17, cad_win->_begy + 3 + i * 3,
+        form[i] = newwin(3, 18, cad_win->_begy + 3 + i * 3,
          cad_win->_begx + cad_win->_maxx - 19);
         box(form[i], 0, 0);
     }
@@ -307,7 +295,9 @@ void MAU::executar() {
     // Form Loop
     int highlight = 0;
     int choice = 0;
-    bool deuRuim;
+    int cont = 0;
+    bool deuRuim = false;
+    bool manterCadWin = true;
     CPF usr_cpf;
     Senha usr_senha;
     Senha usr_senha_rep;
@@ -342,8 +332,12 @@ void MAU::executar() {
         noecho();
         curs_set(0);
 
+        if (deuRuim) {
+            manterCadWin = true;
+        }
+
         // Interaction Loop
-        while (true) {
+        while (manterCadWin) {
             // opcoes
             for (int i = 0; i < 2; i++) {
                 if (i == highlight) {
@@ -377,7 +371,7 @@ void MAU::executar() {
 
             if (choice == 10) {
                 switch (highlight) {
-                    case 0:
+                    case 0:  // sair
                         for (int i = 0; i < NUM_FIELDS; i++) {
                             wclear(form[i]);
                             wrefresh(form[i]);
@@ -393,32 +387,37 @@ void MAU::executar() {
 
                         return;
                         break;
-                    case 1:
+                    case 1: {  // cadastrar
                         // Trying to set the values
+                        deuRuim = false;
+
                         try {
                             usr_cpf.setConteudo(cpf);
                             mvwprintw(win_erro, 0, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch (...) {
                             mvwprintw(win_erro, 0, 0, "Erro no formato do CPF");
+                            deuRuim = true;
                         }
 
                         try {
                             usr_senha.setConteudo(senha);
                             mvwprintw(win_erro, 1, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch (...) {
                             mvwprintw(win_erro, 1, 0,
                              "Erro no formato da senha");
+                            deuRuim = true;
                         }
 
                         try {
                             usr_senha_rep.setConteudo(senha_rep);
                             mvwprintw(win_erro, 2, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch (...) {
                             mvwprintw(win_erro, 2, 0,
                              "Erro no formato da repetição da senha");
+                            deuRuim = true;
                         }
 
                         if (usr_senha.getConteudo() !=
@@ -430,39 +429,78 @@ void MAU::executar() {
                         try {
                             usr_cart_cred.setConteudo(cart_cred);
                             mvwprintw(win_erro, 3, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch (...) {
                             mvwprintw(win_erro, 3, 0,
                              "Erro no formato do Número do Cartão de Crédito");
+                            deuRuim = true;
                         }
 
                         try {
                             usr_validade.setConteudo(validade);
                             mvwprintw(win_erro, 4, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch (...) {
                             mvwprintw(win_erro, 4, 0,
                              "Erro no formato da Data de Validade");
+                            deuRuim = true;
                         }
 
                         try {
                             usr_cvv.setConteudo(cvv);
                             mvwprintw(win_erro, 5, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch (...) {
                             mvwprintw(win_erro, 5, 0,
                              "Erro no formato do CVV");
+                            deuRuim = true;
                         }
                         wrefresh(win_erro);
+
+                        manterCadWin = false;
+                        if (deuRuim) {
+                            for (int i = 0; i < NUM_FIELDS; i++) {
+                                mvwprintw(form[i], 1, 1,
+                                "                ");
+                                wrefresh(form[i]);
+                            }
+                            break;
+                        }
+
+                        Usuario usuario;
+                        CartaoDeCredito cartao_cred;
+
+                        usuario.SetCPF(usr_cpf);
+                        usuario.SetSenha(usr_senha);
+
+                        cartao_cred.SetCVV(usr_cvv);
+                        cartao_cred.SetDataDeValidade(usr_validade);
+                        cartao_cred.SetNumCartaoCredito(usr_cart_cred);
+
+                        servico->cadastrar(usuario, cartao_cred);
+                        mvwprintw(win_erro, 1, 1, "FUCK");
+                        wrefresh(win_erro);
                         break;
+                    }
                     default:
                         break;
                 }
             }
         }
+        if (!deuRuim) {  // Retornando ao menu principal caso tudo esteja bem
+            break;
+        }
+    }
+    for (int i = 0; i < NUM_FIELDS; i++) {
+        wclear(form[i]);
+        wrefresh(form[i]);
+        delwin(form[i]);
     }
 
-    // getch();
+    wclear(win_erro);
+    wrefresh(win_erro);
+    delwin(win_erro);
+
     wclear(cad_win);
     wrefresh(cad_win);
     delwin(cad_win);
@@ -606,7 +644,7 @@ void MAE::executar() {
                 default:
                     break;
             }
-                // acao do menu de busca
+            // acao do menu de busca
             if (choice == 10) {
                 switch (highlight) {
                     case 0:  // Menu
@@ -639,7 +677,7 @@ void MAE::executar() {
                         try {
                             dateI.setConteudo(dataI);
                             mvwprintw(win_erro, 0, 0,
-                             "                                 ");
+                             "                                              ");
                         } catch(...) {
                             mvwprintw(win_erro, 0, 0,
                              "Erro no formato da data de inicio");
@@ -677,8 +715,14 @@ void MAE::executar() {
                         }
 
                         wrefresh(win_erro);
+                        // Limpando os campos
                         manterBuscaWin = false;
                         if (deuRuim) {  // saindo caso tenha dado erro
+                            for (int i = 0; i < 4; i++) {
+                                mvwprintw(form[i], 1, 1,
+                                "              ");
+                                wrefresh(form[i]);
+                            }
                             break;
                         }
                         // aquisição do vetor de eventos

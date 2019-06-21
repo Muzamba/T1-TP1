@@ -23,7 +23,6 @@ friend class Builder;
     void executar() override;
  private:
     void autenticar();
-    void draw_tela_autenticada();
 };
 
 // Apresentação de Usuário
