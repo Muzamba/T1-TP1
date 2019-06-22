@@ -1,18 +1,41 @@
 // Copyright
 #include "./modulos.h"
+#include <vector>
+#include <unordered_map>
+
+std::unordered_map<std::string, Usuario> userTable;
+std::unordered_map<std::string, Evento> eventTable;
+std::unordered_map<std::string, Apresentacao> apreTable;
+std::unordered_map<std::string, Ingresso> ticketTable;
+
+
 // ---------------Apresentação---------------
 bool MSA::autenticar(const CPF& cpf, const Senha& senha) {
-    if (cpf.getConteudo() == "05289706151" &&
-     senha.getConteudo() == "Aas123") {
-         return true;
-     } else {
-         return false;
-     }
+    // if (cpf.getConteudo() == "05289706151" &&
+    //  senha.getConteudo() == "Aas123") {
+    //      return true;
+    //  } else {
+    //      return false;
+    //  }
+
+    auto aux = userTable.find(cpf.getConteudo());
+
+    if(aux == userTable.end()){
+        return false; //nao existe esse cpf cadastrado
+    }
+
+    if((*aux).second.GetSenha().getConteudo() == senha.getConteudo()) {
+        return true; // senha correta
+    }
+    return false; // senha incorreta
 }
 
 // ---------------Usuario---------------
 bool MSU::cadastrar(const Usuario& usuario, const CartaoDeCredito& cartao) {
-    return false;
+    auto user = usuario;
+    user.cartao = cartao;
+    userTable[user.GetCPF().getConteudo()] = user;
+    return true;
 }
 
 bool MSU::descadastrar(const CPF& cpf) {

@@ -315,7 +315,7 @@ void MAU::executar() {
         wmove(form[0], 1, 1);
         wgetstr(form[0], cpf);
 
-        noecho();
+        //noecho();
         wmove(form[1], 1, 1);
         wgetstr(form[1], senha);
 

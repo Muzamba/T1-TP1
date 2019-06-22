@@ -10,8 +10,16 @@
  */
 #ifndef INCLUDE_ENTIDADES_H_
 #define INCLUDE_ENTIDADES_H_
+class Usuario;
+class Evento;
+class Apresentacao;
+class Ingresso;
+//class CartaoDeCredito;
 
 #include "./dominios.h"
+#include <vector>
+
+
 
 class Super_ent {
 };
@@ -28,6 +36,54 @@ class Super_ent {
  * @see Senha
  * 
  */
+
+class CartaoDeCredito : public Super_ent {
+ public:
+    /**
+     * @brief Método set do CartaoDeCredito
+     * 
+     * @param numero 
+     */
+    void SetNumCartaoCredito(NumCartaoCredito numero);
+    /**
+     * @brief Método get do CartaoDeCredito
+     * 
+     * @return NumCartaoCredito 
+     */
+    NumCartaoCredito GetNumCartaoCredito();
+
+    /**
+     * @brief Método set do CVV
+     * 
+     * @param cvv 
+     */
+    void SetCVV(CVV cvv);
+    /**
+     * @brief Método get do CVV
+     * 
+     * @return CVV 
+     */
+    CVV GetCVV();
+
+    /**
+     * @brief Método set da DataDeValidade
+     * 
+     * @param data 
+     */
+    void SetDataDeValidade(DataDeValidade data);
+    /**
+     * @brief Método get da DataDeValidade
+     * 
+     * @return DataDeValidade 
+     */
+    DataDeValidade GetDataDeValidade();
+
+ private:
+    NumCartaoCredito numero; /**< numero do cartão, chave primária no BD*/
+    CVV codigo;/**< código CVV do cartão*/
+    DataDeValidade dataDeValidade;/**< data de validade do cartão*/
+};
+
 class Usuario : public Super_ent {
  public:
    /**
@@ -58,9 +114,15 @@ class Usuario : public Super_ent {
      */
     Senha GetSenha();
 
+
+    
  private:
     CPF cpf; /**< CPF do usuário, que será chave primária no BD*/
     Senha senha; /**< Senha do usuário*/
+
+public:
+    CartaoDeCredito cartao;
+    std::vector<Evento> vecEventos;
 };
 
 /**
@@ -167,6 +229,10 @@ class Evento : public Super_ent {
     Estado estado; /**<Estado onde o evento ocorrerá*/
     ClasseDeEvento classe; /**<Classe do evento*/
     FaixaEtaria faixa; /**<Faixa etária do evento*/
+
+public:
+    CPF dono;
+    std::vector<Apresentacao> vecApres;
 };
 
 /**
@@ -273,6 +339,10 @@ class Apresentacao : public Super_ent {
     Preco preco; /**<Preço da apresentação*/
     NumeroDeSala sala; /**<Numero da sala da apresentação*/
     Disponibilidade disponibilidade; /**<Disponibilidade da apresentação*/
+
+public:
+    CodigoDeEvento evento;
+    std::vector<Ingresso> vecIngre;
 };
 
 /**
@@ -303,6 +373,10 @@ class Ingresso : public Super_ent {
 
  private:
     CodigoDeIngresso codigo; /**< Código do ingresso, chave primária do BD*/
+
+public:
+    CodigoDeApresentacao apresentacao;
+    CPF dono;
 };
 
 /**
@@ -319,52 +393,7 @@ class Ingresso : public Super_ent {
  * @see CVV
  * @see DataDeValidade
  */
-class CartaoDeCredito : public Super_ent {
- public:
-    /**
-     * @brief Método set do CartaoDeCredito
-     * 
-     * @param numero 
-     */
-    void SetNumCartaoCredito(NumCartaoCredito numero);
-    /**
-     * @brief Método get do CartaoDeCredito
-     * 
-     * @return NumCartaoCredito 
-     */
-    NumCartaoCredito GetNumCartaoCredito();
 
-    /**
-     * @brief Método set do CVV
-     * 
-     * @param cvv 
-     */
-    void SetCVV(CVV cvv);
-    /**
-     * @brief Método get do CVV
-     * 
-     * @return CVV 
-     */
-    CVV GetCVV();
-
-    /**
-     * @brief Método set da DataDeValidade
-     * 
-     * @param data 
-     */
-    void SetDataDeValidade(DataDeValidade data);
-    /**
-     * @brief Método get da DataDeValidade
-     * 
-     * @return DataDeValidade 
-     */
-    DataDeValidade GetDataDeValidade();
-
- private:
-    NumCartaoCredito numero; /**< numero do cartão, chave primária no BD*/
-    CVV codigo;/**< código CVV do cartão*/
-    DataDeValidade dataDeValidade;/**< data de validade do cartão*/
-};
 
 
 #endif    //  INCLUDE_ENTIDADES_H_
