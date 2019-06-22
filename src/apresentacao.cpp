@@ -315,13 +315,13 @@ void MAU::executar() {
         wmove(form[0], 1, 1);
         wgetstr(form[0], cpf);
 
-        //noecho();
+        // noecho();
         wmove(form[1], 1, 1);
         wgetstr(form[1], senha);
 
         wmove(form[2], 1, 1);
         wgetstr(form[2], senha_rep);
-        echo();
+        // echo();
 
         wmove(form[3], 1, 1);
         wgetstr(form[3], cart_cred);
@@ -480,9 +480,20 @@ void MAU::executar() {
                         cartao_cred.SetDataDeValidade(usr_validade);
                         cartao_cred.SetNumCartaoCredito(usr_cart_cred);
 
-                        servico->cadastrar(usuario, cartao_cred);
-                        mvwprintw(win_erro, 1, 1, "FUCK");
-                        wrefresh(win_erro);
+                        if (servico->cadastrar(usuario, cartao_cred)) {
+                            continue;
+                        } else {
+                            mvwprintw(win_erro, 1, 1,
+                             "Erro ao cadastrar! Usuário já existe!");
+                            wrefresh(win_erro);
+                            deuRuim = true;
+                            // Limpando os campos dos forms
+                            for (int i = 0; i < NUM_FIELDS; i++) {
+                                mvwprintw(form[i], 1, 1,
+                                "                ");
+                                wrefresh(form[i]);
+                            }
+                        }
                         break;
                     }
                     default:
@@ -757,16 +768,19 @@ void MAE::executar() {
 
                                 // Fazer metodo ja retorna formatado
                                 mvwprintw(leftWin, 2 + i, 3,
-                                vetor[i].GetNomeDeEvento().getConteudo().c_str());
+                                vetor[i].GetNomeDeEvento().
+                                getConteudo().c_str());
                                 wattroff(searchWin, A_REVERSE);
                             }
                             // adiquirindo vetor de apresentação
                             vetor[highlight];  // vetorA=buscaApre(vetor[highlight]) //fazer funcao ou metodo que retona todas as apresentações de um evento passado como parametro
                             // printando as apresentaçoes na janela direita
                             for (int i = 0; i < vetorA.size(); i++) {
-                                // fazer metodo que retorna o q ira aparecer em cada apresentação
+                                // fazer metodo que retorna
+                                //  o q ira aparecer em cada apresentação
                                 mvwprintw(rightWin, 2 + i, 3,
-                                vetorA[i].GetCodigoDeApresentacao().getConteudo().c_str()); 
+                                vetorA[i].GetCodigoDeApresentacao().
+                                getConteudo().c_str());
                             }
 
                             a = getch();

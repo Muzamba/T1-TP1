@@ -14,10 +14,10 @@ class Usuario;
 class Evento;
 class Apresentacao;
 class Ingresso;
-//class CartaoDeCredito;
+// class CartaoDeCredito;
 
-#include "./dominios.h"
 #include <vector>
+#include "./dominios.h"
 
 
 
@@ -114,13 +114,11 @@ class Usuario : public Super_ent {
      */
     Senha GetSenha();
 
-
-    
  private:
     CPF cpf; /**< CPF do usuário, que será chave primária no BD*/
     Senha senha; /**< Senha do usuário*/
 
-public:
+ public:
     CartaoDeCredito cartao;
     std::vector<Evento> vecEventos;
 };
@@ -230,7 +228,7 @@ class Evento : public Super_ent {
     ClasseDeEvento classe; /**<Classe do evento*/
     FaixaEtaria faixa; /**<Faixa etária do evento*/
 
-public:
+ public:
     CPF dono;
     std::vector<Apresentacao> vecApres;
 };
@@ -340,7 +338,7 @@ class Apresentacao : public Super_ent {
     NumeroDeSala sala; /**<Numero da sala da apresentação*/
     Disponibilidade disponibilidade; /**<Disponibilidade da apresentação*/
 
-public:
+ public:
     CodigoDeEvento evento;
     std::vector<Ingresso> vecIngre;
 };
@@ -374,7 +372,7 @@ class Ingresso : public Super_ent {
  private:
     CodigoDeIngresso codigo; /**< Código do ingresso, chave primária do BD*/
 
-public:
+ public:
     CodigoDeApresentacao apresentacao;
     CPF dono;
 };
