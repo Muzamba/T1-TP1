@@ -53,27 +53,3 @@ void Builder::destroySistema(Controller* controller) {
     delete controller->mau;
     delete controller->mav;
 }
-
-
-
-DataBase*  Builder::buildDB() {
-    auto db = new DataBase();
-
-    db->usuarios = new Usuarios();
-    db->eventos = new Eventos();
-    db->apresentacoes = new Apresentacoes();
-    db->cartoes = new CartoesDeCredito();
-    db->ingressos = new Ingressos();
-
-    return db;
-}
-
-void Builder::destroyDB(DataBase* db) {
-    // Liberando o espaço alocado durante o build do 'banco de dados'
-
-    delete db->usuarios;
-    delete db->eventos;
-    delete db->apresentacoes;
-    delete db->cartoes;
-    delete db->ingressos;
-}
