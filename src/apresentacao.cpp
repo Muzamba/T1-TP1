@@ -9,15 +9,13 @@ void MAA::executar() {
     int wy_max, wx_max;
 
 
-    std::string ops[] = {"Confirmar", "Voltar"};
+    std::string ops[] = { "Menu", "Confirmar"};
     std::string login = "Login";
     std::string cpfLabel = "Cpf";
     std::string senhaLabel = "Senha";
 
     char cpf[15];
     std::string senha;
-    
-
 
     getmaxyx(stdscr, y_max, x_max);
     WINDOW* win_erro = newwin(5, 45, 0, x_max/2-20);
@@ -46,6 +44,13 @@ void MAA::executar() {
     box(senhaForm, 0, 0);
     wrefresh(senhaForm);
 
+    for (int i = 0; i < 2; i++) {
+        int win_y, win_x;
+        getmaxyx(win, win_y, win_x);
+        mvwprintw(win, win_y-2, 2 + i*(ops[i-1].size()+11), ops[i].c_str());
+    }
+    wrefresh(win);
+
     keypad(win, true);
 
     // Objetos CPF e Senha que serão utilizados para a validação do formato
@@ -72,26 +77,24 @@ void MAA::executar() {
             cont++;
         }
         wmove(senhaForm, 1, 1);
-        //keypad(senhaForm, true);
         if (!digitou) {
             noecho();
             int p = 0;
             int x = 1;
-            
+
             senha.clear();
-            while(true) {
+            while (true) {
                 wmove(senhaForm, 1, x);
                 p = wgetch(senhaForm);
-                if(p != 10 and x < 7) {
+                if (p != 10 && x < 7) {
                     wmove(senhaForm, 1, x);
-                    wprintw(senhaForm,"*");
+                    wprintw(senhaForm, "*");
                     senha += p;
                 } else {
                     break;
                 }
                 x++;
             }
-            // wgetstr(senhaForm, senha);
             enter:
             echo();
             cont++;
@@ -133,7 +136,7 @@ void MAA::executar() {
 
         if (choice == 10) {
             switch (highlight) {
-                case 0:
+                case 1:
                     // Tratamento dos erros que podem ser gerados por formato
                     // incorreto de input
                     try {
@@ -155,7 +158,6 @@ void MAA::executar() {
 
                         digitou = false;
                         cont = 0;
-                        continue;
                     }
 
                     if (servico->autenticar(u_cpf, u_senha)) {
@@ -182,9 +184,20 @@ void MAA::executar() {
                         wmove(win_erro, 1, 0);
                         wprintw(win_erro, "Falha na autenticação");
                         wrefresh(win_erro);
+
+                        // Limpando os campos dos forms
+                        mvwprintw(cpfForm, 1, 1, "           ");
+                        mvwprintw(senhaForm, 1, 1, "      ");
+
+                        wrefresh(win_erro);
+                        wrefresh(cpfForm);
+                        wrefresh(senhaForm);
+
+                        digitou = false;
+                        cont = 0;
                     }
                     break;
-                case 1:
+                case 0:
                     wclear(win);
                     wrefresh(win);
                     delwin(win);
@@ -196,6 +209,10 @@ void MAA::executar() {
                     wclear(senhaForm);
                     wrefresh(senhaForm);
                     delwin(senhaForm);
+
+                    wclear(win_erro);
+                    wrefresh(win_erro);
+                    delwin(win_erro);
 
                     return;
                     break;
