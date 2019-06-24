@@ -23,20 +23,21 @@ class Ingresso;
 
 class Super_ent {
 };
-/**
- * @class Usuario
- * 
- * @brief Classe que deve armazenar dados de um usuário
- * 
- * Esta classe é a representação de um usuário no programa e possui como
- * atributos um CPF e uma Senha. A classe não possui métodos de validação
- * pois assume-se que os domínios já estarão criados (e portato validados)
- * 
- * @see CPF
- * @see Senha
- * 
- */
 
+/**
+ * @class CartaoDeCredito
+ * 
+ * @brief Classe que armazena dados de um cartão de crédito
+ * 
+ * Esta classe representa um CartaoDeCredito no decorrer no programa. Tem como
+ * atributos o numero do cartão, um CVV e uma data de validade. A classe não possui
+ * métodos de validação pois assume-se que os domínios já estarão criados
+ * (e portato validados)
+ * 
+ * @see NumCartaoCredito
+ * @see CVV
+ * @see DataDeValidade
+ */
 class CartaoDeCredito : public Super_ent {
  public:
     /**
@@ -84,6 +85,19 @@ class CartaoDeCredito : public Super_ent {
     DataDeValidade dataDeValidade;/**< data de validade do cartão*/
 };
 
+/**
+ * @class Usuario
+ * 
+ * @brief Classe que deve armazenar dados de um usuário
+ * 
+ * Esta classe é a representação de um usuário no programa e possui como
+ * atributos um CPF e uma Senha. A classe não possui métodos de validação
+ * pois assume-se que os domínios já estarão criados (e portato validados)
+ * 
+ * @see CPF
+ * @see Senha
+ * 
+ */
 class Usuario : public Super_ent {
  public:
    /**
@@ -377,20 +391,6 @@ class Ingresso : public Super_ent {
     CPF dono;
 };
 
-/**
- * @class CartaoDeCredito
- * 
- * @brief Classe que armazena dados de um cartão de crédito
- * 
- * Esta classe representa um CartaoDeCredito no decorrer no programa. Tem como
- * atributos o numero do cartão, um CVV e uma data de validade. A classe não possui
- * métodos de validação pois assume-se que os domínios já estarão criados
- * (e portato validados)
- * 
- * @see NumCartaoCredito
- * @see CVV
- * @see DataDeValidade
- */
 
 
 

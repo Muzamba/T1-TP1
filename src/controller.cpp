@@ -93,23 +93,23 @@ void Controller::executar() {
 
             if (choice == 10) {
                 switch (highlight) {
-                    case 0:
+                    case 0: // Ver Perfil
                         continue;
                         break;
-                    case 1:
-                        continue;
+                    case 1: // Cadastrar evento
+                        mae->criarEvento();
                         break;
-                    case 2:
+                    case 2: // Ver eventos
                         mae->executar();
                         box(logged_win, 0, 0);
                         mvwprintw(logged_win, 0, l_wx_max/2 - cpf.size()/2,
                         cpf.c_str());
                         wrefresh(logged_win);
                         break;
-                    case 3:
+                    case 3: // Comprar Eventos
                         continue;
                         break;
-                    default:
+                    default: // logout
                         login(false);
                         wclear(logged_win);
                         wrefresh(logged_win);

@@ -39,6 +39,7 @@ class MAE : public IAE {
 friend class Builder;
  public:
     void executar() override;
+    void criarEvento() override;
  private:
 
 };

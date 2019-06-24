@@ -46,6 +46,7 @@ class IAE {
     friend class Builder;
  public:
     virtual void executar() = 0;
+    virtual void criarEvento() = 0;
  protected:
     Controller* controller = nullptr;
     ISE* servico = nullptr;

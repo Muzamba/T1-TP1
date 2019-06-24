@@ -862,6 +862,280 @@ void MAE::executar() {
     delwin(searchWin);
 }
 
+void MAE::criarEvento() {
+    int y_max, x_max;
+    getmaxyx(stdscr, y_max, x_max);
+    wrefresh(stdscr);
+    
+    // Janela onde ficara o formulario
+    auto janelaEvento = newwin(23, 40, y_max/2 - 10, x_max/2 - 20);
+    box(janelaEvento, 0, 0);
+    mvwprintw(janelaEvento, 0, janelaEvento->_maxx/2 - 8,"Cadastrar Evento");
+    // printando as labels
+    std::string labels[6] = {"Nome", "Cidade", "Estado", "Classe", "Faixa", "N de apresentacoes"};
+    for(int i = 0;i < 6;i++) {
+        mvwprintw(janelaEvento, 5 + 3 * i, 20 - labels[i].size()- 1, labels[i].c_str());
+    }
+    //desenhando na tela
+    wrefresh(janelaEvento);
+    // janela de erro
+    WINDOW* win_erro = newwin(6, 45, 0, x_max/2-20);
+
+
+    //array de windows para as caixas de texto
+    WINDOW* forms[6] = {nullptr};
+    for(int i = 0; i < 6; i++) {
+        forms[i] = newwin(3, 19, janelaEvento->_begy + 4 + 3 * i, janelaEvento->_begx + 20);
+        box(forms[i], 0, 0);
+        wrefresh(forms[i]);
+    }
+    //variaveis para a verificação
+    NomeDeEvento nome;
+    Cidade cidade;
+    Estado estado;
+    ClasseDeEvento classe;
+    FaixaEtaria faixa;
+    int nmrDeApresentacoes = 0;
+
+
+    //loop de incersão
+    bool manterTelaCriarEvento = true;
+    char respForm[6][18] = {{' '}};
+    curs_set(1);
+    while(manterTelaCriarEvento){
+        //limpando form
+        for(int i = 0;i < 6;i++) {
+            mvwprintw(forms[i],1,1,"                 ");
+            wrefresh(forms[i]);
+            wmove(forms[i],1,1);
+        }
+        //pegando info
+        for(int i = 0;i < 6;i++) {
+            wgetstr(forms[i],respForm[i]);
+        }
+        //verificando infos
+        {
+            manterTelaCriarEvento = false;
+            try{
+                nome.setConteudo(respForm[0]);
+                mvwprintw(win_erro, 0, 0, "                    ");
+            }catch(...) {
+                manterTelaCriarEvento = true;
+                mvwprintw(win_erro, 0, 0, "Erro no nome");
+            }
+
+            try{
+                cidade.setConteudo(respForm[1]);
+                mvwprintw(win_erro, 1, 0, "                    ");
+            }catch(...) {
+                manterTelaCriarEvento = true;
+                mvwprintw(win_erro, 1, 0, "Erro na cidade");
+                
+            }
+
+            try{
+                estado.setConteudo(respForm[2]);
+                mvwprintw(win_erro, 2, 0, "                    ");
+            }catch(...) {
+                manterTelaCriarEvento = true;
+                mvwprintw(win_erro, 2, 0, "Erro no estado");
+                
+            }
+
+            try{
+                classe.setConteudo(respForm[3]);
+                mvwprintw(win_erro, 3, 0, "                    ");
+            }catch(...) {
+                manterTelaCriarEvento = true;
+                mvwprintw(win_erro, 3, 0, "Erro na classe");
+                
+            }
+
+            try{
+                faixa.setConteudo(respForm[4]);
+                mvwprintw(win_erro, 4, 0, "                    ");
+            }catch(...) {
+                manterTelaCriarEvento = true;
+                mvwprintw(win_erro, 4, 0, "Erro na faixa");
+                
+            }
+
+            try{
+                nmrDeApresentacoes = std::stoi(respForm[5]);
+                if(nmrDeApresentacoes > 10){
+                    manterTelaCriarEvento = true;
+                    mvwprintw(win_erro, 5, 0, "Erro no numero");  
+                      
+                } else {
+                    mvwprintw(win_erro, 5, 0, "                    ");
+                }
+            }catch(...){
+                manterTelaCriarEvento = true;
+                mvwprintw(win_erro, 5, 0, "Erro no numero");
+                
+            }
+            wrefresh(win_erro);
+        }
+
+    }
+
+    wclear(janelaEvento);
+    wrefresh(janelaEvento);
+    delwin(janelaEvento);
+
+    for(int i = 0;i < 6;i++) {
+        wclear(forms[i]);
+        wrefresh(forms[i]);
+        delwin(forms[i]);
+    }
+
+    
+    //Construindo o objeto evento
+    Evento evento;
+    evento.SetNomeDeEvento(nome);
+    evento.SetCidade(cidade);
+    evento.SetEstado(estado);
+    evento.SetClasseDeEvento(classe);
+    evento.SetFaixaEtaria(faixa);
+    evento.dono.setConteudo(controller->getCpf());
+    //vetor de apresentações
+    std::vector<Apresentacao> vecApre(nmrDeApresentacoes);
+
+    // janela onde sera criado as apresentações 
+    auto janelaCriarApre = newwin(23, 40, y_max/2 - 10, x_max/2 - 20);
+    box(janelaCriarApre, 0, 0);
+    mvwprintw(janelaCriarApre, 0, janelaCriarApre->_maxx/2 - 10,"Criar Apresentacao ");
+    //printando as labels
+    std::string labels2[5] = {"Data", "Hoarario", "Preco", "Sala", "Disponibilidade"};
+    for(int i = 0;i < 5;i++) {
+        mvwprintw(janelaCriarApre, 5 + 3 * i, 20 - labels2[i].size() - 1, labels2[i].c_str());
+    }
+
+    //desenhando a tela
+    wclear(win_erro);
+    wrefresh(win_erro);
+    wrefresh(janelaCriarApre);
+    
+
+    for(int i = 0; i < 5; i++) {
+        forms[i] = newwin(3, 19, janelaCriarApre->_begy + 4 + 3 * i, janelaCriarApre->_begx + 20);
+        box(forms[i], 0, 0);
+        wrefresh(forms[i]);
+    }
+
+    //Variaveis para verificação
+    Data data;
+    Horario horario;
+    Preco preco;
+    NumeroDeSala nSala;
+    Disponibilidade dispo;
+
+    //loop para cração de apresentações
+    bool manterCriaApres = true;
+    Apresentacao apresen;
+    for(int i = 0;i < nmrDeApresentacoes;i++) {
+        //printando o numero da apresentação no top da tela
+        mvwprintw(janelaCriarApre, 0, janelaCriarApre->_maxx/2 + 9,"%d", i + 1);
+        wrefresh(janelaCriarApre);
+        //loop de uma janela
+        while(manterCriaApres) {
+            //limpando forms
+            for(int i = 0;i < 5;i++) {
+                mvwprintw(forms[i],1,1,"                 ");
+                wrefresh(forms[i]);
+                wmove(forms[i],1,1);
+            }
+
+            //pegando info
+            for(int i = 0;i < 5;i++) {
+                wgetstr(forms[i],respForm[i]);
+            }
+
+            //verificando as infos
+            {
+                manterCriaApres = false;
+                try{
+                    data.setConteudo(respForm[0]);
+                    mvwprintw(win_erro, 0, 0, "                       ");
+                }catch(...){
+                    manterCriaApres = true;
+                    mvwprintw(win_erro, 0, 0, "Erro na data");
+                }
+
+                try{
+                    horario.setConteudo(respForm[1]);
+                    mvwprintw(win_erro, 1, 0, "                       ");
+                }catch(...){
+                    manterCriaApres = true;
+                    mvwprintw(win_erro, 1, 0, "Erro no horario");
+                }
+
+                try{
+                    preco.setConteudo(respForm[2]);
+                    mvwprintw(win_erro, 2, 0, "                       ");
+                }catch(...){
+                    manterCriaApres = true;
+                    mvwprintw(win_erro, 2, 0, "Erro no preco");
+                }
+
+                try{
+                    nSala.setConteudo(respForm[3]);
+                    mvwprintw(win_erro, 3, 0, "                       ");
+                }catch(...){
+                    manterCriaApres = true;
+                    mvwprintw(win_erro, 3, 0, "Erro na Sala");
+                }
+
+                try{
+                    dispo.setConteudo(respForm[4]);
+                    mvwprintw(win_erro, 4, 0, "                       ");
+                }catch(...){
+                    manterCriaApres = true;
+                    mvwprintw(win_erro, 4, 0, "Erro na disponibilidade");
+                }
+                wrefresh(win_erro);
+
+            }
+        }
+        wclear(win_erro);
+        wrefresh(win_erro);
+
+        apresen.SetData(data);
+        apresen.SetHorario(horario);
+        apresen.SetPreco(preco);
+        apresen.SetNumeroDeSala(nSala);
+        apresen.SetDisponibilidade(dispo);
+
+        manterCriaApres = true;
+        vecApre[i] = apresen;
+    }
+    CPF cpf;
+    cpf.setConteudo(controller->getCpf());
+    servico->criarEvento(cpf, evento, vecApre);
+
+
+
+
+
+
+    wclear(janelaCriarApre);
+    wrefresh(janelaCriarApre);
+    delwin(janelaCriarApre);
+
+
+    for(int i = 0;i < 5;i++) {
+        wclear(forms[i]);
+        wrefresh(forms[i]);
+        delwin(forms[i]);
+    }
+
+    wclear(win_erro);
+    wrefresh(win_erro);
+    delwin(win_erro);
+
+    wrefresh(stdscr);
+}
+
 // ---------------Vendas---------------
 void MAV::executar() {
 }
