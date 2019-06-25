@@ -38,7 +38,12 @@ bool MSU::cadastrar(const Usuario& usuario, const CartaoDeCredito& cartao) {
 }
 
 bool MSU::descadastrar(const CPF& cpf) {
-    return false;
+    if(userTable[cpf.getConteudo()].vecEventos.size() == 0) {
+        userTable.erase(cpf.getConteudo());
+        return true;
+    } else {
+        return false;
+    }
 }
 
 Usuario MSU::infoLoggedUser(const char* cpf) {

@@ -550,6 +550,7 @@ void MAU::verPerfil() {
     auto perfWin = newwin(10, 30, y_max/2 - 5, x_max/2 - 15);
     auto infoWin = newwin(12, 40, y_max/2 - 6, x_max/2 - 20);
     keypad(perfWin, true);
+    auto win_erro = newwin(5, 45, 0, x_max/2 - 20);
 
     clear();
     refresh();
@@ -563,7 +564,7 @@ void MAU::verPerfil() {
     box(perfWin, 0, 0);
     mvwprintw(perfWin, 0, wx_max/2 - cpf.size()/2, cpf.c_str());
     wrefresh(perfWin);
-
+    CPF usuario;
     while (true) {
         for (int i = 0; i < 4; i++) {
             if (i == highlight) {
@@ -622,8 +623,30 @@ void MAU::verPerfil() {
                     wrefresh(perfWin);
                     break;
                 case 2:  // Descadastrar
+                    
+                    usuario.setConteudo(controller->getCpf());
+                    if(servico->descadastrar(usuario)) {
+                        wclear(perfWin);
+                        wrefresh(perfWin);
+                        delwin(perfWin);
+
+                        wclear(infoWin);
+                        wrefresh(infoWin);
+                        delwin(infoWin);
+                        controller->login(false, "");
+                        
+
+                        return;
+                    } else {
+                        mvwprintw(win_erro, 0, 0, "Erro ao descadastrar");
+                        wrefresh(win_erro);
+                    }
                     break;
                 default:  // Sair
+                    wclear(infoWin);
+                    wrefresh(infoWin);
+                    delwin(infoWin);
+
                     wclear(perfWin);
                     wrefresh(perfWin);
                     delwin(perfWin);
