@@ -605,7 +605,7 @@ void MAU::verPerfil() {
                     box(infoWin, 0, 0);
                     mvwprintw(infoWin, 0, i_wx_max/2 - info.size()/2, info.c_str());
                     wrefresh(infoWin);
-                    
+
                     mvwprintw(infoWin, 2, 2, "CPF: %s", tmp.GetCPF().getConteudo().c_str());
                     mvwprintw(infoWin, 3, 2, "Cartão de Credito: %s", tmp.cartao.GetNumCartaoCredito().getConteudo().c_str());
                     mvwprintw(infoWin, 4, 2, "Validade do Cartão: %s", tmp.cartao.GetDataDeValidade().getConteudo().c_str());
@@ -890,7 +890,29 @@ void MAE::executar() {
                                 }
 
                                 // Fazer metodo ja retorna formatado
-                                mvwprintw(leftWin, 2 + i, 3,vetor[i].GetNomeDeEvento().getConteudo().c_str());
+                                std::string classeS;
+                                auto classe = std::stoi(vetor[i].GetClasseDeEvento().getConteudo());
+
+                                switch (classe) {
+                                    case 1:
+                                        classeS = "TEATRO";
+                                        break;
+                                    case 2:
+                                        classeS = "ESPORTE";
+                                        break;
+                                    case 3:
+                                        classeS = "SHOW NACIONAL";
+                                        break;
+                                    case 4:
+                                        classeS = "SHOW INTERNACIONAL";
+                                        break;
+
+                                }
+
+                                mvwprintw(leftWin, 2 + i, 3, " Nome: %s - Classe: %s - Faixa: %s",
+                                vetor[i].GetNomeDeEvento().getConteudo().c_str(),
+                                classeS.c_str(),
+                                vetor[i].GetFaixaEtaria().getConteudo().c_str());
                                 wattroff(leftWin, A_REVERSE);
                             }
                             wrefresh(leftWin);
