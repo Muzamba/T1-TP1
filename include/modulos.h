@@ -32,6 +32,7 @@ class MAU : public IAU {
 friend class Builder;
  public:
     void executar() override;
+    void verPerfil() override;
  private:
 
 };

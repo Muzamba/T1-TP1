@@ -37,6 +37,7 @@ class IAU {
     friend class Builder;
  public:
     virtual void executar() = 0;
+    virtual void verPerfil() = 0;
  protected:
     Controller* controller = nullptr;
     ISU* servico = nullptr;

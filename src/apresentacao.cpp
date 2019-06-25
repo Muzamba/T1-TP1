@@ -538,6 +538,74 @@ void MAU::executar() {
     return;
 }
 
+void MAU::verPerfil() {
+    std::string firstOps[4] = {"Eventos Cadastrados", "Dados de Usuário", "Descadastrar", "Voltar"};
+    int y_max, x_max;
+    int choice, highlight = 0;
+    std::string cpf = controller->getCpf();
+
+    auto perfWin = newwin(10, 30, y_max/2 - 5, x_max/2 - 15);
+
+    getmaxyx(perfWin, y_max, x_max);
+    keypad(perfWin, true);
+    box(perfWin, 0, 0);
+    mvwprintw(perfWin, 0, x_max/2 - cpf.size()/2, cpf.c_str());
+    wrefresh(perfWin);
+
+    while (true) {
+        for (int i = 0; i < 4; i++) {
+            if (i == highlight) {
+                wattron(perfWin, A_REVERSE);
+            }
+            mvwprintw(perfWin, i + 3,
+             x_max/2 - firstOps[i].size()/2, firstOps[i].c_str());
+            wattroff(perfWin, A_REVERSE); 
+        }
+        choice = wgetch(perfWin);
+
+        switch (choice) {
+            case KEY_UP:
+                highlight--;
+                if (highlight == -1) {
+                    highlight = 0;
+                }
+                break;
+            case KEY_DOWN:
+                highlight++;
+                if (highlight == 4) {
+                    highlight = 3;
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (choice == 10) {
+            switch (highlight) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    wclear(perfWin);
+                    wrefresh(perfWin);
+                    delwin(perfWin);
+                    return;
+                    break;
+            }
+        }
+    }
+
+    
+
+    wclear(perfWin);
+    wrefresh(perfWin);
+    delwin(perfWin);
+    return;
+}
+
 // ---------------Eventos---------------
 void MAE::executar() {
     // variaveis para guardar a info que entrar no form

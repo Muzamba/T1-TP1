@@ -94,7 +94,11 @@ void Controller::executar() {
             if (choice == 10) {
                 switch (highlight) {
                     case 0: // Ver Perfil
-                        continue;
+                        mau->verPerfil();
+                        box(logged_win, 0, 0);
+                        mvwprintw(logged_win, 0, l_wx_max/2 - cpf.size()/2,
+                        cpf.c_str());
+                        wrefresh(logged_win);
                         break;
                     case 1: // Cadastrar evento
                         mae->criarEvento();
