@@ -158,6 +158,26 @@ int MSE::dateToInt(std::string date) {
     return dia + 100 * mes + 10000 * ano;
 }
 
+std::string MSE::infoApresentacao(Apresentacao apre) {
+    std::string codigo = apre.GetCodigoDeApresentacao().getConteudo();
+    std::string data = apre.GetData().getConteudo();
+    std::string disp = apre.GetDisponibilidade().getConteudo();
+    std::string hora = apre.GetHorario().getConteudo();
+    std::string numSala = apre.GetNumeroDeSala().getConteudo();
+    std::string preco = apre.GetPreco().getConteudo();
+    std::string info;
+
+    info += "Codigo do Evento: " + codigo + "\n";
+    info += "Data: " + data + "\n";
+    info += "Disponibilidade: " + disp + "\n";
+    info += "Horário: " + hora + "\n";
+    info += "Sala: " + numSala + "\n";
+    info += "Preco: " + preco + "\n";
+    info += "------------------------------------\n";
+
+    return info;
+}
+
 // ---------------Vendas---------------
 bool MSV::compraIngresso(const CPF& cpf, const CodigoDeApresentacao& codigo,
  const int) {

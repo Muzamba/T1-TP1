@@ -11,6 +11,8 @@ class MSU;
 class MSE;
 class MSV;
 
+#include <string>
+#include <vector>
 #include "./interfaces.h"
 
 
@@ -78,6 +80,7 @@ friend class Builder;
     bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) override;
     bool alteraEvento(const Evento&) override;
     bool descadastrarEvento(const CodigoDeEvento&) override;
+    static std::string infoApresentacao(Apresentacao);
  private:
     int dateToInt(std::string date);
 };

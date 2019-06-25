@@ -792,18 +792,28 @@ void MAE::executar() {
                             // adiquirindo vetor de apresentação
                             vetor[highlight];  // vetorA=buscaApre(vetor[highlight]) //fazer funcao ou metodo que retona todas as apresentações de um evento passado como parametro
                             // printando as apresentaçoes na janela direita
+                            std::string apreInfo;  // info das apresentações
                             if(vetor.size()!=0) {
                                 for (int i = 0; i < vetor[highlight].vecApres.size(); i++) {
                                     // fazer metodo que retorna
                                     //  o q ira aparecer em cada apresentação
-                                    mvwprintw(rightWin, 2 + i, 3,
-                                    vetor[highlight].vecApres[i].GetCodigoDeApresentacao().
-                                    getConteudo().c_str());
+                                    //apreInfo = MSE::infoApresentacao(vetor[highlight].vecApres[i]);
+                                    //mvwprintw(rightWin, 7*i + 3, 3, apreInfo.c_str());
+
+                                    mvwprintw(rightWin, 2+i + 7*i, 3, "Código da Apresentação: %s", vetor[highlight].vecApres[i].GetCodigoDeApresentacao().getConteudo().c_str());
+                                    mvwprintw(rightWin, 3+i + 7*i, 3, "Data: %s", vetor[highlight].vecApres[i].GetData().getConteudo().c_str());
+                                    mvwprintw(rightWin, 4+i + 7*i, 3, "Disponibilidade: %s", vetor[highlight].vecApres[i].GetDisponibilidade().getConteudo().c_str());
+                                    mvwprintw(rightWin, 5+i + 7*i, 3, "Horário: %s", vetor[highlight].vecApres[i].GetHorario().getConteudo().c_str());
+                                    mvwprintw(rightWin, 6+i + 7*i, 3, "Sala: %s", vetor[highlight].vecApres[i].GetNumeroDeSala().getConteudo().c_str());
+                                    mvwprintw(rightWin, 7+i + 7*i, 3, "Preço: %s", vetor[highlight].vecApres[i].GetPreco().getConteudo().c_str());
                                 }
                             }
                             wrefresh(rightWin);
 
                             a = wgetch(leftWin);
+                            wclear(rightWin);
+                            box(rightWin, 0, 0);
+                            wrefresh(rightWin);
                             // selecionando evento ou saindo
                             switch (a) {
                                 case KEY_UP:
@@ -1010,7 +1020,7 @@ void MAE::criarEvento() {
     box(janelaCriarApre, 0, 0);
     mvwprintw(janelaCriarApre, 0, janelaCriarApre->_maxx/2 - 10,"Criar Apresentacao ");
     //printando as labels
-    std::string labels2[5] = {"Data", "Hoarario", "Preco", "Sala", "Disponibilidade"};
+    std::string labels2[5] = {"Data", "Horario", "Preco", "Sala", "Disponibilidade"};
     for(int i = 0;i < 5;i++) {
         mvwprintw(janelaCriarApre, 5 + 3 * i, 20 - labels2[i].size() - 1, labels2[i].c_str());
     }
