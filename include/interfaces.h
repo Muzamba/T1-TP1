@@ -81,6 +81,7 @@ class ISU {
  public:
     virtual bool cadastrar(const Usuario&, const CartaoDeCredito&) = 0;
     virtual bool descadastrar(const CPF&) = 0;
+    virtual Usuario infoLoggedUser(const char*) = 0;
  protected:
     IAU* iau = nullptr;
 };

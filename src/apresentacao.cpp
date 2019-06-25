@@ -540,16 +540,28 @@ void MAU::executar() {
 
 void MAU::verPerfil() {
     std::string firstOps[4] = {"Eventos Cadastrados", "Dados de Usuário", "Descadastrar", "Voltar"};
-    int y_max, x_max;
+    std::string info = "Info Perfil";
+    int y_max, x_max, wy_max, wx_max, i_wy_max, i_wx_max;
     int choice, highlight = 0;
+    Usuario tmp;
     std::string cpf = controller->getCpf();
+    getmaxyx(stdscr, y_max, x_max);
 
     auto perfWin = newwin(10, 30, y_max/2 - 5, x_max/2 - 15);
-
-    getmaxyx(perfWin, y_max, x_max);
+    auto infoWin = newwin(12, 40, y_max/2 - 6, x_max/2 - 20);
     keypad(perfWin, true);
+
+    clear();
+    refresh();
+    cbreak();
+    noecho();
+    curs_set(0);
+
+    getmaxyx(perfWin, wy_max, wx_max);
+    getmaxyx(infoWin, i_wy_max, i_wx_max);
+
     box(perfWin, 0, 0);
-    mvwprintw(perfWin, 0, x_max/2 - cpf.size()/2, cpf.c_str());
+    mvwprintw(perfWin, 0, wx_max/2 - cpf.size()/2, cpf.c_str());
     wrefresh(perfWin);
 
     while (true) {
@@ -558,7 +570,7 @@ void MAU::verPerfil() {
                 wattron(perfWin, A_REVERSE);
             }
             mvwprintw(perfWin, i + 3,
-             x_max/2 - firstOps[i].size()/2, firstOps[i].c_str());
+             wx_max/2 - firstOps[i].size()/2, firstOps[i].c_str());
             wattroff(perfWin, A_REVERSE); 
         }
         choice = wgetch(perfWin);
@@ -582,13 +594,36 @@ void MAU::verPerfil() {
 
         if (choice == 10) {
             switch (highlight) {
-                case 0:
+                case 0:  // Eventos cadastrados
                     break;
-                case 1:
+                case 1:  // Dados do usuário
+                    wclear(perfWin);
+                    wrefresh(perfWin);
+
+                    tmp = servico->infoLoggedUser(controller->getCpf().c_str());
+
+                    box(infoWin, 0, 0);
+                    mvwprintw(infoWin, 0, i_wx_max/2 - info.size()/2, info.c_str());
+                    wrefresh(infoWin);
+                    
+                    mvwprintw(infoWin, 2, 2, "CPF: %s", tmp.GetCPF().getConteudo().c_str());
+                    mvwprintw(infoWin, 3, 2, "Cartão de Credito: %s", tmp.cartao.GetNumCartaoCredito().getConteudo().c_str());
+                    mvwprintw(infoWin, 4, 2, "Validade do Cartão: %s", tmp.cartao.GetDataDeValidade().getConteudo().c_str());
+                    mvwprintw(infoWin, 5, 2, "CVV: %s", tmp.cartao.GetCVV().getConteudo().c_str());
+                    mvwprintw(infoWin, 6, 2, "Eventos Cadastrados: %d", tmp.vecEventos.size());
+                    mvwprintw(infoWin, 10,2, "Pressione qualquer tecla para voltar");
+                    wrefresh(infoWin);
+
+                    getch();
+                    wclear(infoWin);
+                    wrefresh(infoWin);
+                    box(perfWin, 0, 0);
+                    mvwprintw(perfWin, 0, wx_max/2 - cpf.size()/2, cpf.c_str());
+                    wrefresh(perfWin);
                     break;
-                case 2:
+                case 2:  // Descadastrar
                     break;
-                default:
+                default:  // Sair
                     wclear(perfWin);
                     wrefresh(perfWin);
                     delwin(perfWin);
@@ -596,7 +631,9 @@ void MAU::verPerfil() {
                     break;
             }
         }
+        wrefresh(perfWin);
     }
+    // getch();
 
     
 

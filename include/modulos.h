@@ -71,6 +71,7 @@ friend class Builder;
  public:
     bool cadastrar(const Usuario&, const CartaoDeCredito&) override;
     bool descadastrar(const CPF&) override;
+    Usuario infoLoggedUser(const char*) override;
 };
 
 // Serviço de Eventos

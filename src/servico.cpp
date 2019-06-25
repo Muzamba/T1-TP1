@@ -41,6 +41,13 @@ bool MSU::descadastrar(const CPF& cpf) {
     return false;
 }
 
+Usuario MSU::infoLoggedUser(const char* cpf) {
+    Usuario tmp;
+    auto aux = userTable.find(cpf);
+
+    return tmp = aux->second;
+}
+
 // ---------------Evento---------------
 std::vector<Evento> MSE::buscar(Data inicio, Data fim,
  Cidade cidade, Estado estado) {
@@ -88,6 +95,8 @@ std::vector<Evento> MSE::buscar(Data inicio, Data fim,
 bool MSE::criarEvento(const CPF& cpf, const Evento& evento,
  const std::vector<Apresentacao>& vectorApresenta) {
     auto event = evento;
+    auto aux_usr = userTable.find(cpf.getConteudo());
+    Usuario &tmp = aux_usr->second;
     event.vecApres = vectorApresenta;
     static std::string codEvento = "000";
     CodigoDeEvento codEvent;
@@ -135,6 +144,7 @@ bool MSE::criarEvento(const CPF& cpf, const Evento& evento,
         }
         codEvento.insert(0,"0");
     }
+    tmp.vecEventos.push_back(event);
     return true;
 }
 
