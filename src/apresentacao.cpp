@@ -1302,5 +1302,136 @@ void MAE::criarEvento() {
 
 // ---------------Vendas---------------
 void MAV::executar() {
+    char CodApres[10];
+    char qtd[10];
+
+    std::string opcoes[2] = {"Menu", "Comprar"};
+    std::string compra = "Compra";
+
+    clear();
+    refresh();
+
+    int y_max, x_max, wy_max, wx_max;
+    getmaxyx(stdscr, y_max, x_max);
+
+    auto compraWin = newwin(14, 50, y_max/2 - 7, x_max/2 - 25);
+    box(compraWin, 0, 0);
+    keypad(compraWin, true);
+    getmaxyx(compraWin, wy_max, wx_max);
+    mvwprintw(compraWin, 0, compraWin->_maxx / 2 - compra.size() / 2,
+     compra.c_str());
+    
+    WINDOW* form[2];
+    std::string labels[2] = {"Codigo da Apresentacao", "Quantidade"};
+
+    for (int i = 0; i < 2; i++) {
+        form[i] = newwin(3, 17, compraWin->_begy + 3 + i * 3,
+         compraWin->_begx + compraWin->_maxx - 19);
+        box(form[i], 0, 0); 
+    }
+
+    for (int i = 0; i < 2; i++) {
+        mvwprintw(compraWin, form[i]->_begy - compraWin->_begy + 1,
+         form[i]->_begx - compraWin->_begx - labels[i].size() - 1,
+         labels[i].c_str());
+    }
+
+    for (int i = 0; i < 2; i++) {
+        mvwprintw(compraWin,
+         compraWin->_maxy - 1, 5 + i * (30 - opcoes[i].size()),
+         opcoes[i].c_str());
+    }
+    wrefresh(compraWin);
+
+    for (int i = 0; i < 2; i++) {
+        wrefresh(form[i]);
+    }
+
+    int highlight = 0;
+    int choice = 0;
+    bool deuRuim = false;
+    bool manterCompraWin = true;
+    CodigoDeApresentacao codApres;
+    Ingresso ingresso;
+
+    while (true) {
+        echo();
+        curs_set(1);
+        wmove(form[0], 1, 1);
+        wgetstr(form[0], CodApres);
+        wmove(form[1], 1, 1);
+        wgetstr(form[1], qtd);
+        noecho();
+        curs_set(0);
+
+        if (deuRuim) {
+            manterCompraWin = true;
+        }
+
+        while (manterCompraWin) {
+            for (int i = 0; i < 2; i++) {
+                if (i == highlight) {
+                    wattron(compraWin, A_REVERSE);
+                }
+                mvwprintw(compraWin,
+                 compraWin->_maxy - 1, 5 + i * (30 - opcoes[i].size()),
+                 opcoes[i].c_str());
+                wattroff(compraWin, A_REVERSE);
+            }
+            choice = wgetch(compraWin);
+
+            switch (choice) {
+                case KEY_LEFT:
+                    highlight--;
+                    if (highlight == -1) {
+                        highlight = 0;
+                    }
+                    break;
+                case KEY_RIGHT:
+                    highlight++;
+                    if (highlight == 2) {
+                        highlight = 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (choice == 10) {
+                switch (highlight) {
+                    case 0: // Menu
+                        for (int i = 0; i < 2; i++) {
+                        wclear(form[i]);
+                        wrefresh(form[i]);
+                        delwin(form[i]);
+                        }
+                        wclear(compraWin);
+                        wrefresh(compraWin);
+                        delwin(compraWin);
+
+                        return;
+                        break;
+                    case 1: // Confirmar
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        if (!deuRuim) {
+            break;
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        wclear(form[i]);
+        wrefresh(form[i]);
+        delwin(form[i]);
+    }
+    wclear(compraWin);
+    wrefresh(compraWin);
+    delwin(compraWin);
+
+    return;
 }
 
