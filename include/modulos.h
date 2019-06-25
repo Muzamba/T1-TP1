@@ -78,6 +78,8 @@ friend class Builder;
     bool criarEvento(const CPF&, const Evento&, const std::vector<Apresentacao>&) override;
     bool alteraEvento(const Evento&) override;
     bool descadastrarEvento(const CodigoDeEvento&) override;
+ private:
+    int dateToInt(std::string date);
 };
 
 // Serviço de Vendas

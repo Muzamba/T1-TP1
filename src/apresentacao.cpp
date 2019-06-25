@@ -560,6 +560,7 @@ void MAE::executar() {
     // aba para a seleção do evento desejado
     auto leftWin = newwin(y_max - 2, x_max / 2 - 2, 1, 1);
     box(leftWin, 0, 0);
+    keypad(leftWin, true);
 
     // aba que mostra as apresentações da do evento selecionado na aba esquerda
     auto rightWin = newwin(y_max - 2, x_max / 2 - 2, 1,  x_max / 2 + 2);
@@ -776,7 +777,7 @@ void MAE::executar() {
 
                         // escolha de evento
                         while (true) {
-                            std::vector<Apresentacao> vetorA;
+                            
                             // printando a lista de todos os eventos
                             for (int i = 0; i < vetor.size(); i++) {
                                 if (i == highlight) {
@@ -784,23 +785,25 @@ void MAE::executar() {
                                 }
 
                                 // Fazer metodo ja retorna formatado
-                                mvwprintw(leftWin, 2 + i, 3,
-                                vetor[i].GetNomeDeEvento().
-                                getConteudo().c_str());
-                                wattroff(searchWin, A_REVERSE);
+                                mvwprintw(leftWin, 2 + i, 3,vetor[i].GetNomeDeEvento().getConteudo().c_str());
+                                wattroff(leftWin, A_REVERSE);
                             }
+                            wrefresh(leftWin);
                             // adiquirindo vetor de apresentação
                             vetor[highlight];  // vetorA=buscaApre(vetor[highlight]) //fazer funcao ou metodo que retona todas as apresentações de um evento passado como parametro
                             // printando as apresentaçoes na janela direita
-                            for (int i = 0; i < vetorA.size(); i++) {
-                                // fazer metodo que retorna
-                                //  o q ira aparecer em cada apresentação
-                                mvwprintw(rightWin, 2 + i, 3,
-                                vetorA[i].GetCodigoDeApresentacao().
-                                getConteudo().c_str());
+                            if(vetor.size()!=0) {
+                                for (int i = 0; i < vetor[highlight].vecApres.size(); i++) {
+                                    // fazer metodo que retorna
+                                    //  o q ira aparecer em cada apresentação
+                                    mvwprintw(rightWin, 2 + i, 3,
+                                    vetor[highlight].vecApres[i].GetCodigoDeApresentacao().
+                                    getConteudo().c_str());
+                                }
                             }
+                            wrefresh(rightWin);
 
-                            a = getch();
+                            a = wgetch(leftWin);
                             // selecionando evento ou saindo
                             switch (a) {
                                 case KEY_UP:
@@ -811,8 +814,8 @@ void MAE::executar() {
                                     break;
                                 case KEY_DOWN:
                                     highlight++;
-                                    if (highlight == vetor.size() + 1) {
-                                        highlight = vetor.size();
+                                    if (highlight == vetor.size()) {
+                                        highlight = vetor.size() - 1;
                                     }
                                     break;
 
@@ -863,6 +866,7 @@ void MAE::executar() {
 }
 
 void MAE::criarEvento() {
+    echo();
     int y_max, x_max;
     getmaxyx(stdscr, y_max, x_max);
     wrefresh(stdscr);
