@@ -6,6 +6,7 @@
 - O programa foi desenvolvido para ser executado em terminais que estejam em modo tela cheia, que deve ser mantida assim do início ao término da execução.
 - Redimensionar o terminal uma vez que o programa esteja rodando danifica o seu bom funcionamento.
 - Recomenda-se que o programa seja compilado e executado via linha de comando, usando a diretiva Makefile.
+- **O projeto desse repositório foi feito para ser executado em ambiente Linux**
   
 ## Desenvolvedores
 - João Pedro Assis dos Santos - 17/0146367
