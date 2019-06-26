@@ -1,6 +1,7 @@
 *.o
 *.d
-teste
+SwitchDreams
+*.pdf
 .idea
 .vscode
 *.json
