@@ -194,9 +194,55 @@ std::string MSE::infoApresentacao(Apresentacao apre) {
 }
 
 // ---------------Vendas---------------
-bool MSV::compraIngresso(const CPF& cpf, const CodigoDeApresentacao& codigo,
- const int) {
-    return false;
+bool MSV::compraIngresso(const CPF& cpf, const CodigoDeApresentacao& codigo, const int qtd) {
+
+    auto aux_apre = apreTable.find(codigo.getConteudo());
+    Apresentacao& apresentacao = aux_apre->second;
+    int disp = std::stoi(apresentacao.GetDisponibilidade().getConteudo());
+    int aux;
+    Ingresso ingresso;
+    Disponibilidade new_disp;
+
+    static std::string Icodigo = "00000";
+    CodigoDeIngresso ICodigo;
+    ICodigo.setConteudo(Icodigo);
+
+    ingresso.dono = cpf;
+    ingresso.apresentacao = codigo;
+
+    disp -= qtd;
+    mvwprintw(stdscr, 1, 1, "%d", disp);
+    wrefresh(stdscr);
+    new_disp.setConteudo(std::to_string(disp));
+    apresentacao.SetDisponibilidade(new_disp);
+    mvwprintw(stdscr, 2, 1, "%s", apresentacao.GetDisponibilidade().getConteudo().c_str());
+    wrefresh(stdscr);
+
+    for (auto i : apresentacao.vecIngre) {
+        i.SetCodigoDeIngresso(ICodigo);
+        ticketTable[Icodigo] = i;
+
+        aux = std::stoi(Icodigo);
+        aux++;
+        Icodigo = std::to_string(aux);
+        if (Icodigo.size() < 5) {
+            if(Icodigo.size() < 4) {
+                if(Icodigo.size() < 3) {
+                    if(Icodigo.size() < 2) {
+                        Icodigo.insert(0, "0");
+                    }
+                    Icodigo.insert(0, "0");
+                }
+                Icodigo.insert(0, "0");
+            }
+        }
+        ICodigo.setConteudo(Icodigo);
+    }
+
+    ingresso.SetCodigoDeIngresso(ICodigo);
+    apresentacao.vecIngre.push_back(ingresso);
+    apreTable[codigo.getConteudo()] = apresentacao;
+    return true;
 }
 
 Apresentacao MSV::getApresbycodigo(const char* codigo) {

@@ -1445,8 +1445,7 @@ void MAV::executar() {
 
                         dono.setConteudo(controller->getCpf());
                         codApres.setConteudo(CodApres);
-                        if (servico->compraIngresso(dono, codApres, std::stoi(qtd))){
-                        }
+                        servico->compraIngresso(dono, codApres,std::stoi(qtd));                      
                         
 
 
