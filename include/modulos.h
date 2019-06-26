@@ -92,6 +92,7 @@ class MSV :public ISV {
 friend class Builder;
  public:
     bool compraIngresso(const CPF&, const CodigoDeApresentacao&, const int) override;
+    Apresentacao getApresbycodigo(const char*) override;   
 };
 
 

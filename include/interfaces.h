@@ -108,6 +108,7 @@ class ISV {
  public:
     virtual bool compraIngresso(const CPF&, const CodigoDeApresentacao&,
      const int) = 0;
+    virtual Apresentacao getApresbycodigo(const char*) = 0; 
  protected:
     IAV* iav = nullptr;
 };

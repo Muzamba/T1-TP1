@@ -1315,6 +1315,7 @@ void MAV::executar() {
     getmaxyx(stdscr, y_max, x_max);
 
     auto compraWin = newwin(14, 50, y_max/2 - 7, x_max/2 - 25);
+    auto win_erro = newwin(5, 50, 0, x_max/2 - 20);
     box(compraWin, 0, 0);
     keypad(compraWin, true);
     getmaxyx(compraWin, wy_max, wx_max);
@@ -1353,6 +1354,8 @@ void MAV::executar() {
     bool manterCompraWin = true;
     CodigoDeApresentacao codApres;
     Ingresso ingresso;
+    Apresentacao apresentacao;
+    CPF dono;
 
     while (true) {
         echo();
@@ -1409,9 +1412,44 @@ void MAV::executar() {
                         wrefresh(compraWin);
                         delwin(compraWin);
 
+                        wclear(win_erro);
+                        wrefresh(win_erro);
+                        delwin(win_erro);
+
                         return;
                         break;
                     case 1: // Confirmar
+                        apresentacao = servico->getApresbycodigo(CodApres);
+                        if (apresentacao.GetData().getConteudo().empty()) {
+                            mvwprintw(win_erro, 0, 0, "Apresentação não Encontrada");
+                            deuRuim = true;
+                            //break;
+                        } else if (std::stoi(apresentacao.GetDisponibilidade().getConteudo()) == 0) {
+                           mvwprintw(win_erro, 1, 0, "Sem ingressos disponíveis");
+                            deuRuim = true;
+                            //break; 
+                        } else if (std::stoi(qtd) > std::stoi(apresentacao.GetDisponibilidade().getConteudo())) {
+                            mvwprintw(win_erro, 2, 0, "Ingressos insuficientes na apresentação");
+                            deuRuim = true;
+                            //break; 
+                        }
+                        wrefresh(win_erro);
+                        manterCompraWin = false;
+                        if (deuRuim) {
+                            for (int i = 0; i < 2; i++) {
+                                mvwprintw(form[i], 1, 1, "          ");
+                                wrefresh(form[i]);
+                            }
+                            break;
+                        }
+
+                        dono.setConteudo(controller->getCpf());
+                        codApres.setConteudo(CodApres);
+                        if (servico->compraIngresso(dono, codApres, std::stoi(qtd))){
+                        }
+                        
+
+
                         break;
                     default:
                         break;
@@ -1431,6 +1469,10 @@ void MAV::executar() {
     wclear(compraWin);
     wrefresh(compraWin);
     delwin(compraWin);
+
+    wclear(win_erro);
+    wrefresh(win_erro);
+    delwin(win_erro);
 
     return;
 }

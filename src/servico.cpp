@@ -198,3 +198,13 @@ bool MSV::compraIngresso(const CPF& cpf, const CodigoDeApresentacao& codigo,
  const int) {
     return false;
 }
+
+Apresentacao MSV::getApresbycodigo(const char* codigo) {
+    auto aux = apreTable.find(codigo);
+    Apresentacao vazio;
+    if (aux == apreTable.end()) {
+        return vazio;
+    } else {
+        return aux->second;
+    }
+}
