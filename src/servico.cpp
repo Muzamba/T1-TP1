@@ -38,6 +38,7 @@ bool MSU::cadastrar(const Usuario& usuario, const CartaoDeCredito& cartao) {
 }
 
 bool MSU::descadastrar(const CPF& cpf) {
+    //verificação se possui eventos cadastrados
     if(userTable[cpf.getConteudo()].vecEventos.size() == 0) {
         userTable.erase(cpf.getConteudo());
         return true;

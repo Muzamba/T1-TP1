@@ -3,7 +3,7 @@
 #include <string.h>
 #include "./modulos.h"
 
-// ---------Apresentação---------
+// ---------Autenticação---------
 void MAA::executar() {
     int y_max, x_max;
     int wy_max, wx_max;
@@ -596,6 +596,10 @@ void MAU::verPerfil() {
         if (choice == 10) {
             switch (highlight) {
                 case 0:  // Eventos cadastrados
+                    verEventos();
+                    box(perfWin, 0, 0);
+                    mvwprintw(perfWin, 0, wx_max/2 - cpf.size()/2, cpf.c_str());
+                    wrefresh(perfWin);
                     break;
                 case 1:  // Dados do usuário
                     wclear(perfWin);
@@ -664,6 +668,130 @@ void MAU::verPerfil() {
     wrefresh(perfWin);
     delwin(perfWin);
     return;
+}
+
+void MAU::verEventos() {
+    clear();
+    refresh();
+    int x_max, y_max;
+    getmaxyx(stdscr, y_max, x_max);
+
+    WINDOW* winEvento = newwin(y_max - 2, 40, 1, x_max/2 - 20);
+    box(winEvento, 0, 0);
+    mvwprintw(winEvento, 0, winEvento->_maxx/2 - 3, "Eventos");
+    wrefresh(winEvento);
+    keypad(winEvento, true);
+
+
+
+    auto eventos = servico->infoLoggedUser(controller->getCpf().c_str()).vecEventos;
+
+    bool manterTela = true;
+    int highlight = 0, choice;
+    while(manterTela) {
+        for (int i = 0; i < eventos.size(); i++) {
+            if (i == highlight) {
+                wattron(winEvento, A_REVERSE);
+            }
+            int win_y, win_x;
+            getmaxyx(winEvento, win_y, win_x);
+            mvwprintw(winEvento, 2 + 1 * i , 2, eventos[i].GetNomeDeEvento().getConteudo().c_str());
+            wattroff(winEvento, A_REVERSE);
+        }
+
+        choice = wgetch(winEvento);
+
+        switch (choice) {
+            case KEY_UP:
+                highlight--;
+                if (highlight == -1) {
+                    highlight = 0;
+                }
+                break;
+            case KEY_DOWN:
+                highlight++;
+                if (highlight == eventos.size()) {
+                    highlight = eventos.size() - 1;
+                }
+                break;
+
+            case 'q':
+                return;
+            default:
+                break;
+        }
+
+        if(choice == 10) {
+            manterTela = false;
+        }
+    }
+    std::string opcoes[4] = {"Apresenta", "Editar", "Remover", "Voltar"};
+    int highlight2 = 0;
+    while(true) {
+        for (int i = 0; i < 4; i++) {
+            if (i == highlight2) {
+                wattron(winEvento, A_REVERSE);
+            }
+            int win_y, win_x;
+            getmaxyx(winEvento, win_y, win_x);
+            mvwprintw(winEvento, win_y - 2 , 2 + i * 10, opcoes[i].c_str());
+            wattroff(winEvento, A_REVERSE);
+        }
+
+        choice = wgetch(winEvento);
+
+        switch (choice) {
+            case KEY_LEFT:
+                highlight2--;
+                if (highlight2 == -1) {
+                    highlight2 = 0;
+                }
+                break;
+            case KEY_RIGHT:
+                highlight2++;
+                if (highlight2 == 4) {
+                    highlight2 = 3;
+                }
+                break;
+
+            case 'q':
+                clear();
+                refresh();
+                    
+                wclear(winEvento);
+                wrefresh(winEvento);
+                delwin(winEvento);
+                return;
+            
+            default:
+                break;
+        }
+
+        if(choice == 10) {
+            switch(highlight2) {
+                case 0: //Apresenta
+                    break;
+
+                case 1: //Editar
+                    break;
+
+                case 2: //Remover
+                    break;
+
+                case 3: //Voltar
+                    clear();
+                    refresh();
+                    
+                    wclear(winEvento);
+                    wrefresh(winEvento);
+                    delwin(winEvento);
+                    return;
+                    break;
+            }
+        }
+
+        
+    }
 }
 
 // ---------------Eventos---------------

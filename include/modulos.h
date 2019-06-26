@@ -33,6 +33,7 @@ friend class Builder;
  public:
     void executar() override;
     void verPerfil() override;
+    void verEventos() override;
  private:
 
 };

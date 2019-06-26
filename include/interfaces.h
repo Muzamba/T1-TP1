@@ -38,6 +38,7 @@ class IAU {
  public:
     virtual void executar() = 0;
     virtual void verPerfil() = 0;
+    virtual void verEventos() = 0;
  protected:
     Controller* controller = nullptr;
     ISU* servico = nullptr;
