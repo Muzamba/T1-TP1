@@ -197,6 +197,8 @@ std::string MSE::infoApresentacao(Apresentacao apre) {
 bool MSV::compraIngresso(const CPF& cpf, const CodigoDeApresentacao& codigo, const int qtd) {
 
     auto aux_apre = apreTable.find(codigo.getConteudo());
+    auto aux_usr = userTable.find(cpf.getConteudo());
+    Usuario usuario = aux_usr->second;
     Apresentacao& apresentacao = aux_apre->second;
     int disp = std::stoi(apresentacao.GetDisponibilidade().getConteudo());
     int aux;
@@ -242,6 +244,25 @@ bool MSV::compraIngresso(const CPF& cpf, const CodigoDeApresentacao& codigo, con
     ingresso.SetCodigoDeIngresso(ICodigo);
     apresentacao.vecIngre.push_back(ingresso);
     apreTable[codigo.getConteudo()] = apresentacao;
+
+    for (auto e : usuario.vecEventos) {
+        for (auto a: e.vecApres) {
+            if (a.GetCodigoDeApresentacao().getConteudo() == codigo.getConteudo()) {
+                a.SetDisponibilidade(new_disp);
+            }
+        }
+    }
+    userTable[cpf.getConteudo()] = usuario;
+
+    auto aux_eve = eventTable.find(apresentacao.evento.getConteudo());
+    Evento event = aux_eve->second;
+    
+    for (int i = 0; i < event.vecApres.size(); i++) {
+        if (event.vecApres[i].GetCodigoDeApresentacao().getConteudo() == codigo.getConteudo()) {
+            event.vecApres[i] = apresentacao;
+        }
+    }
+    eventTable[event.GetCodigoDeEvento().getConteudo()] = event;
     return true;
 }
 
